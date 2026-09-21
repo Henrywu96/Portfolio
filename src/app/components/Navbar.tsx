@@ -5,7 +5,7 @@ const NAV: { label: string; target: string }[] = [
   { label: "Home", target: "home" },
   { label: "Work", target: "work" },
   { label: "About", target: "about" },
-  { label: "Resume", target: "resume" },
+  // { label: "Resume", target: "resume" },
   { label: "Contact", target: "contact" },
 ];
 
@@ -88,14 +88,14 @@ export function Navbar({
           >
             <Mail className="size-4" />
           </button>
-          <button
+          {/*<button
             onClick={downloadResume}
             aria-label="Download resume"
             title="Download resume"
             className="grid size-9 place-items-center rounded-lg border border-[var(--hw-border)] bg-white text-[var(--hw-slate)] transition hover:text-[var(--hw-coral)]"
           >
             <Download className="size-4" />
-          </button>
+          </button>*/}
           <button
             aria-label="Open menu"
             className="grid size-9 place-items-center rounded-lg border border-[var(--hw-border)] bg-white text-[var(--hw-slate)] md:hidden"

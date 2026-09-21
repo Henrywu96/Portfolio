@@ -380,7 +380,7 @@ export function HomePage({
                 <img
                   src={ART.henry}
                   alt="Henry Wu character"
-                  className="absolute bottom-[8%] left-[42%] h-[82%] -translate-x-1/2 object-contain drop-shadow-2xl"
+                  className="absolute bottom-[8%] left-[35%] h-[82%] -translate-x-1/2 object-contain drop-shadow-2xl"
                 />
                 {/* Hamster companion — larger */}
                 <img

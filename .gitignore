@@ -1,0 +1,8 @@
+# ignore build folders and packages
+node_modules/
+dist/
+dist-ssr/
+
+# ignore environment variable files
+*.local
+.env
