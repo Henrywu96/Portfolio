@@ -572,7 +572,7 @@ export function HomePage({
               UI/UX Designer. Hamster Lover. Problem Solver.
             </h3>
             <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-[var(--hw-slate)]">
-              I'm Henry Wu, a UI/UX designer who crafts meaningful digital experiences with empathy and curiosity. When I'm not designing, you'll probably find me hanging out with my hamster.
+              I'm Henry Wu, a UI/UX designer who crafts meaningful digital experiences with empathy and curiosity. When I'm not designing, you'll find me hanging out with my hamster, gaming, or working out.
             </p>
             <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Fact icon={Target} label="Focus" value="UI/UX Design, Web Design" />
