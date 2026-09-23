@@ -45,7 +45,7 @@ export function CaseStudyPage({
   const chapter = CASE_TABS.indexOf(tab) + 1;
 
   return (
-    <div className="min-h-screen bg-[var(--hw-cream)] text-[var(--hw-navy)]">
+    <div className="min-h-screen overflow-x-hidden bg-[var(--hw-cream)] text-[var(--hw-navy)]">
       <div className="border-b border-[var(--hw-border)] bg-[var(--hw-cream)]/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
           <button
@@ -58,8 +58,8 @@ export function CaseStudyPage({
       </div>
 
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-5 pt-10">
-        <div className="grid items-center gap-8 md:grid-cols-2">
+      <section className="mx-auto max-w-6xl px-5 pt-12 sm:pt-16">
+        <div className="grid items-center gap-6 md:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ export function CaseStudyPage({
                 <Sword className="size-3" /> LV.{rarity.level}
               </span>
             </div>
-            <h1 className="mt-2 text-[52px] leading-none text-[var(--hw-navy)]">
+            <h1 className="mt-2 text-[36px] leading-none text-[var(--hw-navy)] sm:text-[48px] md:text-[52px]">
               {project.name}
             </h1>
             <p className="mt-3 max-w-md text-[17px] leading-relaxed text-[var(--hw-slate)]">
@@ -118,7 +118,7 @@ export function CaseStudyPage({
             <ImageWithFallback
               src={cs.heroImage}
               alt={`${project.name} hero`}
-              className={`relative h-[360px] w-full ${
+              className={`relative h-[220px] w-full sm:h-[300px] md:h-[360px] ${
                 project.iconImage ? "object-contain p-4" : "object-cover"
               }`}
             />
@@ -154,7 +154,7 @@ export function CaseStudyPage({
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-5 py-12">
+      <div className="mx-auto max-w-6xl px-5 pt-12 pb-28">
         <motion.div
           key={tab}
           initial={{ opacity: 0, y: 12 }}
@@ -265,10 +265,12 @@ function PhoneFrame({ children, tall }: { children: React.ReactNode; tall?: bool
 
 function PhoneTriple({ a, b, c }: { a: React.ReactNode; b: React.ReactNode; c: React.ReactNode }) {
   return (
-    <div className="flex items-end justify-center gap-3">
-      <PhoneFrame>{a}</PhoneFrame>
-      <PhoneFrame tall>{b}</PhoneFrame>
-      <PhoneFrame>{c}</PhoneFrame>
+    <div className="flex w-full items-center justify-center overflow-hidden py-4">
+      <div className="flex shrink-0 origin-center items-end gap-3 [transform:scale(0.58)] sm:[transform:scale(0.82)] md:[transform:scale(1)]">
+        <PhoneFrame>{a}</PhoneFrame>
+        <PhoneFrame tall>{b}</PhoneFrame>
+        <PhoneFrame>{c}</PhoneFrame>
+      </div>
     </div>
   );
 }
@@ -565,16 +567,17 @@ function Overview({ cs, projectId }: { cs: CaseStudy; projectId: string }) {
   const o = cs.overview;
   return (
     <div className="space-y-12">
-      <div className="grid items-center gap-8 md:grid-cols-2">
-        <div>
+      <div className="grid items-center gap-6 md:grid-cols-2">
+        <div className="min-w-0">
           <Kicker>OVERVIEW</Kicker>
-          <h2 className="mt-2 text-[34px] leading-tight text-[var(--hw-navy)]">
+          <h2 className="mt-2 break-words text-[26px] leading-tight text-[var(--hw-navy)] sm:text-[34px]">
             {o.title}
           </h2>
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[var(--hw-slate)]">
+          <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
             {o.body}
           </p>
         </div>
+        <div className="min-w-0">
         {projectId === "bridgly" ? (
           <PhoneTriple
             a={<BridglyScreen1 />}
@@ -604,6 +607,7 @@ function Overview({ cs, projectId }: { cs: CaseStudy; projectId: string }) {
             ))}
           </div>
         )}
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
@@ -622,7 +626,7 @@ function Overview({ cs, projectId }: { cs: CaseStudy; projectId: string }) {
         })}
       </div>
 
-      <div className="grid items-center gap-8 rounded-3xl border border-[var(--hw-border)] bg-white p-6 md:grid-cols-[1fr_240px]">
+      <div className="grid items-center gap-8 rounded-3xl border border-[var(--hw-border)] bg-white p-6 md:grid-cols-[1fr_200px]">
         <div>
           <h3 className="text-[22px] text-[var(--hw-navy)]">The Problem</h3>
           <p className="mt-1 text-[14px] text-[var(--hw-slate)]">{o.problemSub}</p>
@@ -665,28 +669,28 @@ function Research({ cs }: { cs: CaseStudy }) {
   const r = cs.research;
   return (
     <div className="space-y-12">
-      <div className="grid items-center gap-8 md:grid-cols-2">
-        <div>
+      <div className="grid items-center gap-6 md:grid-cols-2">
+        <div className="min-w-0">
           <Kicker>RESEARCH</Kicker>
-          <h2 className="mt-2 text-[32px] leading-tight text-[var(--hw-navy)]">
+          <h2 className="mt-2 break-words text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
             {r.title}
           </h2>
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[var(--hw-slate)]">
+          <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
             {r.body}
           </p>
         </div>
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--hw-rose-from)] to-[var(--hw-rose-to)]">
+        <div className="relative flex items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--hw-rose-from)] to-[var(--hw-rose-to)]" style={{ minHeight: 200 }}>
           {r.illustration ? (
             <img
               src={r.image}
               alt="Research"
-              className="h-56 w-full object-contain p-3"
+              className="h-52 w-full object-contain p-3"
             />
           ) : (
             <ImageWithFallback
               src={r.image}
               alt="Research"
-              className="h-56 w-full object-cover"
+              className="h-52 w-full object-cover"
             />
           )}
         </div>
@@ -740,22 +744,22 @@ function DesignProcess({ cs }: { cs: CaseStudy }) {
   const p = cs.process;
   return (
     <div className="space-y-12">
-      <div className="grid items-center gap-8 md:grid-cols-2">
-        <div>
+      <div className="grid items-center gap-6 md:grid-cols-2">
+        <div className="min-w-0">
           <Kicker>DESIGN PROCESS</Kicker>
-          <h2 className="mt-2 text-[32px] leading-tight text-[var(--hw-navy)]">
+          <h2 className="mt-2 break-words text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
             {p.title}
           </h2>
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[var(--hw-slate)]">
+          <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
             {p.body}
           </p>
         </div>
-        <div className="relative overflow-hidden rounded-3xl">
+        <div className="relative flex items-center justify-center overflow-hidden rounded-3xl" style={{ minHeight: 200 }}>
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--hw-rose-from)]/60 to-[var(--hw-rose-to)]/60 mix-blend-multiply" />
           <ImageWithFallback
             src={p.image}
             alt="Design process"
-            className="h-56 w-full object-cover"
+            className="h-52 w-full object-cover"
           />
         </div>
       </div>
@@ -792,7 +796,7 @@ function Results({ cs }: { cs: CaseStudy }) {
     <div className="space-y-12">
       <div className="max-w-2xl">
         <Kicker>RESULTS</Kicker>
-        <h2 className="mt-2 text-[32px] leading-tight text-[var(--hw-navy)]">
+        <h2 className="mt-2 text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
           {r.title}
         </h2>
         <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
@@ -842,7 +846,7 @@ function Reflection({ cs }: { cs: CaseStudy }) {
     <div className="max-w-2xl space-y-6">
       <div>
         <Kicker>REFLECTION</Kicker>
-        <h2 className="mt-2 text-[32px] leading-tight text-[var(--hw-navy)]">
+        <h2 className="mt-2 text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
           {r.title}
         </h2>
         <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
