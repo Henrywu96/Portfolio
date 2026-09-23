@@ -11,7 +11,6 @@ import {
   LayoutGrid,
   MousePointerClick,
   ClipboardCheck,
-  MapPin,
   Target,
   Wrench,
   Sparkles,
@@ -354,12 +353,8 @@ export function HomePage({
           >
             <div className="absolute left-1/2 top-1/2 h-full w-full max-w-[480px] -translate-x-1/2 -translate-y-1/2">
 
-              {/* Floating figures — rendered first so badges paint above */}
-              <motion.div
-                animate={{ y: [0, -12, 0] }}
-                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
+              {/* Figures — static, no float */}
+              <div className="absolute inset-0">
                 {/* Paintbrush wand held by Henry */}
                 <motion.div
                   className="absolute"
@@ -388,7 +383,7 @@ export function HomePage({
                   alt="Hamster companion"
                   className="absolute bottom-[6%] right-[4%] h-[36%] object-contain drop-shadow-xl"
                 />
-              </motion.div>
+              </div>
 
               {/* Spell sparkle particles — above figures */}
               {BRUSH_SPARKS.map((sp) => (
@@ -574,14 +569,12 @@ export function HomePage({
           </div>
           <div>
             <h3 className="text-[22px] text-[var(--hw-navy)]">
-              Designer. Problem Solver. Adventurer.
+              UI/UX Designer. Hamster Lover. Problem Solver.
             </h3>
             <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-[var(--hw-slate)]">
-              I'm Henry Wu, a UI/UX designer based in Toronto, Canada. I design
-              meaningful experiences with empathy and curiosity.
+              I'm Henry Wu, a UI/UX designer who crafts meaningful digital experiences with empathy and curiosity. When I'm not designing, you'll probably find me hanging out with my hamster.
             </p>
-            <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <Fact icon={MapPin} label="Location" value="Toronto, Canada" />
+            <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Fact icon={Target} label="Focus" value="UI/UX Design, Web Design" />
               <Fact
                 icon={Wrench}

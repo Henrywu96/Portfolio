@@ -169,7 +169,7 @@ const greenpathCase: CaseStudy = {
     title: "Making sustainable living feel easy.",
     body: "People want to live more sustainably but feel overwhelmed by conflicting advice. GreenPath breaks it down into simple daily actions with gentle guidance and visible progress.",
     meta: [
-      { icon: "Users", label: "Role", value: "Product Designer" },
+      { icon: "Users", label: "Role", value: "UI/UX Designer" },
       { icon: "CalendarDays", label: "Timeline", value: "Feb – Apr 2024 (8 Weeks)" },
       { icon: "Wrench", label: "Tools", value: "Figma" },
     ],
