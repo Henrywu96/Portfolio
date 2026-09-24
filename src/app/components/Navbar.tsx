@@ -1,5 +1,4 @@
-import { Mail, Download, Menu } from "lucide-react";
-import { ART, CONTACT_EMAIL } from "../assets";
+import { ART } from "../assets";
 
 const NAV: { label: string; target: string }[] = [
   { label: "Home", target: "home" },
@@ -11,21 +10,19 @@ const NAV: { label: string; target: string }[] = [
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (el)
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function downloadResume() {
   const a = document.createElement("a");
   a.href = ART.resumePdf;
-  a.download = "Henry-Wu-Resume.pdf";
+  a.download = "Resume.pdf";
   document.body.appendChild(a);
   a.click();
   a.remove();
 }
 
-function getInTouch() {
-  window.location.href = `mailto:${CONTACT_EMAIL}`;
-}
 
 export function Navbar({
   onLogoClick,
@@ -34,11 +31,12 @@ export function Navbar({
   onLogoClick?: () => void;
   active?: string;
 }) {
-  const handleNav = (item: { label: string; target: string }) => {
+  const handleNav = (item: {
+    label: string;
+    target: string;
+  }) => {
     if (item.label === "Resume") {
       downloadResume();
-    } else if (item.label === "Contact") {
-      getInTouch();
     } else {
       scrollToSection(item.target);
     }
@@ -79,30 +77,7 @@ export function Navbar({
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={getInTouch}
-            aria-label="Get in touch"
-            title="Get in touch"
-            className="grid size-9 place-items-center rounded-lg border border-[var(--hw-border)] bg-white text-[var(--hw-slate)] transition hover:text-[var(--hw-coral)]"
-          >
-            <Mail className="size-4" />
-          </button>
-          {/*<button
-            onClick={downloadResume}
-            aria-label="Download resume"
-            title="Download resume"
-            className="grid size-9 place-items-center rounded-lg border border-[var(--hw-border)] bg-white text-[var(--hw-slate)] transition hover:text-[var(--hw-coral)]"
-          >
-            <Download className="size-4" />
-          </button>*/}
-          <button
-            aria-label="Open menu"
-            className="grid size-9 place-items-center rounded-lg border border-[var(--hw-border)] bg-white text-[var(--hw-slate)] md:hidden"
-          >
-            <Menu className="size-4" />
-          </button>
-        </div>
+        <div className="flex items-center gap-2" />
       </div>
     </header>
   );
