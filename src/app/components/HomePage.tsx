@@ -290,7 +290,7 @@ export function HomePage({
         <Navbar onLogoClick={onLogo} active="Home" />
 
       {/* Hero */}
-      <section id="home" className="mx-auto max-w-6xl px-5 pt-10 md:pt-16">
+      <section id="home" className="mx-auto max-w-6xl px-5 pt-14 md:pt-20">
         <div className="grid items-center gap-8 md:grid-cols-2">
           <motion.div style={{ y: heroTextY }}>
           <motion.div
@@ -355,22 +355,6 @@ export function HomePage({
 
               {/* Figures — static, no float */}
               <div className="absolute inset-0">
-                {/* Paintbrush wand held by Henry */}
-                <motion.div
-                  className="absolute"
-                  style={{ left: "57%", top: "22%" }}
-                  animate={{ rotate: [-6, 2, -6] }}
-                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                >
-                  <svg viewBox="0 0 28 90" className="w-7 drop-shadow-lg" fill="none">
-                    <rect x="10" y="22" width="8" height="58" rx="4" fill="var(--hw-cream-2)" stroke="var(--hw-border-btn)" strokeWidth="1"/>
-                    <rect x="8" y="20" width="12" height="5" rx="2.5" fill="var(--hw-slate)"/>
-                    <ellipse cx="14" cy="12" rx="7" ry="10" fill="var(--hw-coral)"/>
-                    <ellipse cx="14" cy="10" rx="5" ry="7" fill="var(--hw-coral-soft)"/>
-                    <circle cx="14" cy="4" r="4" fill="white" opacity="0.9"/>
-                    <circle cx="14" cy="4" r="6" fill="var(--hw-rarity-legendary)" opacity="0.4"/>
-                  </svg>
-                </motion.div>
                 {/* Henry — larger, no island base */}
                 <img
                   src={ART.henry}
@@ -547,7 +531,7 @@ export function HomePage({
       </section>
 
       {/* About */}
-      <section id="about" className="mx-auto mt-14 max-w-6xl px-5 pb-20 scroll-mt-20">
+      <section id="about" className="mx-auto mt-14 max-w-6xl px-5 pb-32 scroll-mt-20">
         <GameHeading
           eyebrow="PLAYER PROFILE"
           title="Character Sheet"
@@ -579,7 +563,7 @@ export function HomePage({
               <Fact
                 icon={Wrench}
                 label="Tools"
-                value="Figma, Framer, FigJam, Maze, Notion"
+                value="Figma, Framer, FigJam, Maze, Notion, Spline, Lottie"
               />
             </div>
           </div>
@@ -590,22 +574,27 @@ export function HomePage({
   );
 }
 
+/* Tool spell badges arc around Henry's head (center ≈ 35% x, 13% y) */
 const TOOL_SPELLS = [
-  { label: "Figma",   emoji: "🎨", color: "#a259ff", x: "66%", y: "8%",  duration: 3.4, delay: 0,    rot: 3 },
-  { label: "Framer",  emoji: "⚡", color: "#0055ff", x: "78%", y: "22%", duration: 3.9, delay: 0.6,  rot: 2 },
-  { label: "Notion",  emoji: "📝", color: "#374151", x: "70%", y: "38%", duration: 4.2, delay: 1.1,  rot: 4 },
-  { label: "FigJam",  emoji: "✏️", color: "#ec6a4e", x: "55%", y: "4%",  duration: 3.7, delay: 0.3,  rot: 2 },
-  { label: "Maze",    emoji: "🧩", color: "#ff4f00", x: "82%", y: "44%", duration: 3.6, delay: 1.7,  rot: 3 },
-  { label: "Lottie",  emoji: "✨", color: "#00c8c8", x: "76%", y: "58%", duration: 4.0, delay: 0.9,  rot: 2 },
+  { label: "Figma",   emoji: "🎨", color: "#a259ff", x: "-2%", y: "30%", duration: 3.4, delay: 0,   rot: 3 },
+  { label: "Framer",  emoji: "⚡", color: "#0055ff", x: "0%",  y: "14%", duration: 3.9, delay: 0.6, rot: 2 },
+  { label: "FigJam",  emoji: "✏️", color: "#ec6a4e", x: "10%", y: "3%",  duration: 3.7, delay: 0.3, rot: 2 },
+  { label: "Notion",  emoji: "📝", color: "#374151", x: "28%", y: "-2%", duration: 4.2, delay: 1.1, rot: 4 },
+  { label: "Maze",    emoji: "🧩", color: "#ff4f00", x: "48%", y: "3%",  duration: 3.6, delay: 1.7, rot: 3 },
+  { label: "Lottie",  emoji: "✨", color: "#00c8c8", x: "58%", y: "16%", duration: 4.0, delay: 0.9, rot: 2 },
+  { label: "Spline",  emoji: "🧊", color: "#0f4c8a", x: "66%", y: "30%", duration: 3.8, delay: 1.4, rot: 3 },
 ];
 
+/* Brush sparks burst from Henry's left-hand paintbrush (≈ 14% x, 44–56% y) */
 const BRUSH_SPARKS = [
-  { id: 1, x: "58%", y: "19%", size: "6px", color: "var(--hw-rarity-legendary)", duration: 1.2, delay: 0 },
-  { id: 2, x: "61%", y: "16%", size: "4px", color: "var(--hw-coral-soft)",        duration: 1.5, delay: 0.3 },
-  { id: 3, x: "55%", y: "18%", size: "5px", color: "var(--hw-rarity-epic)",       duration: 1.3, delay: 0.6 },
-  { id: 4, x: "63%", y: "21%", size: "4px", color: "var(--hw-sun-light)",         duration: 1.6, delay: 0.9 },
-  { id: 5, x: "57%", y: "14%", size: "5px", color: "var(--hw-rarity-rare)",       duration: 1.4, delay: 0.2 },
-  { id: 6, x: "60%", y: "12%", size: "6px", color: "var(--hw-coral)",             duration: 1.7, delay: 0.5 },
+  { id: 1, x: "14%", y: "36%", size: "7px", color: "var(--hw-rarity-legendary)", duration: 1.2, delay: 0   },
+  { id: 2, x: "18%", y: "32%", size: "5px", color: "var(--hw-coral-soft)",        duration: 1.5, delay: 0.3 },
+  { id: 3, x: "10%", y: "40%", size: "6px", color: "var(--hw-rarity-epic)",       duration: 1.3, delay: 0.6 },
+  { id: 4, x: "20%", y: "42%", size: "4px", color: "var(--hw-sun-light)",         duration: 1.6, delay: 0.9 },
+  { id: 5, x: "16%", y: "29%", size: "5px", color: "var(--hw-rarity-rare)",       duration: 1.4, delay: 0.2 },
+  { id: 6, x: "12%", y: "45%", size: "6px", color: "var(--hw-coral)",             duration: 1.7, delay: 0.5 },
+  { id: 7, x: "19%", y: "26%", size: "4px", color: "var(--hw-sun-light)",         duration: 1.3, delay: 0.7 },
+  { id: 8, x: "8%",  y: "34%", size: "5px", color: "var(--hw-rarity-legendary)", duration: 1.5, delay: 1.0 },
 ];
 
 const SPARKLES = [
