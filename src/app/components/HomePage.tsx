@@ -306,7 +306,9 @@ export function HomePage({
             </h1>
             <h2 className="mt-1 flex flex-wrap items-center gap-2 text-[28px] text-[var(--hw-coral-soft)] md:text-[34px]">UI/UX DESIGNER<span className="inline-flex items-center gap-1 rounded-md bg-[var(--hw-navy)] px-2 py-1 text-[12px] font-bold tracking-wider text-white"> LV. 4<Sword className="size-3.5" /></span></h2>
             <p className="mt-5 max-w-md text-[16px] leading-relaxed text-[var(--hw-slate)]">
-              I turn complex problems into simple, delightful experiences.
+              UI/UX Design · Web Design · Web Development
+              <br />
+              Crafting simple, engaging, and code-ready digital experiences.
             </p>
 
             {/* Character stat HUD */}
@@ -328,7 +330,7 @@ export function HomePage({
             <div className="mt-7 flex flex-wrap gap-3">
               <button
                 onClick={() => onOpenProject(bridgly)}
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105 sm:flex-none"
               >
                 View My Work <ArrowRight className="size-4" />
               </button>
@@ -336,7 +338,7 @@ export function HomePage({
                 onClick={() => {
                   window.location.href = `mailto:${CONTACT_EMAIL}`;
                 }}
-                className="inline-flex items-center gap-2 rounded-xl border border-[var(--hw-border-btn)] bg-white px-5 py-3 text-[14px] font-semibold text-[var(--hw-navy)] transition hover:bg-[var(--hw-cream-2)]"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-[var(--hw-border-btn)] bg-white px-5 py-3 text-[14px] font-semibold text-[var(--hw-navy)] transition hover:bg-[var(--hw-cream-2)] sm:flex-none"
               >
                 Get in Touch <Mail className="size-4" />
               </button>
@@ -569,6 +571,13 @@ export function HomePage({
           </div>
         </motion.div>
       </section>
+
+      {/* Trademark footer */}
+      <footer className="pb-8 pt-4 text-center">
+        <p className="text-[11px] tracking-[0.15em] text-[var(--hw-slate)] opacity-60">
+          © {new Date().getFullYear()} Henry Wu™. All rights reserved.
+        </p>
+      </footer>
       </div>
     </div>
   );
