@@ -1,4 +1,4 @@
-import { ART } from "../assets";
+import { ART, CONTACT_EMAIL, LINKEDIN_URL } from "../assets";
 
 const NAV: { label: string; target: string }[] = [
   { label: "Home", target: "home" },
@@ -37,6 +37,8 @@ export function Navbar({
   }) => {
     if (item.label === "Resume") {
       downloadResume();
+    } else if (item.label === "Contact") {
+      window.location.href = `mailto:${CONTACT_EMAIL}`;
     } else {
       scrollToSection(item.target);
     }
@@ -77,7 +79,21 @@ export function Navbar({
           ))}
         </nav>
 
-        <div className="flex items-center gap-2" />
+        <div className="flex items-center gap-2 mr-2 md:mr-0">
+          <a
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+            className="grid size-9 place-items-center rounded-lg overflow-hidden transition hover:opacity-80"
+          >
+            <svg viewBox="0 0 36 36" className="size-9" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36" height="36" rx="6" fill="#0A66C2" />
+              <path fill="#fff" d="M13.2 14.4h-3.6V26h3.6V14.4zm-1.8-5.4a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2zm12.9 5.1c-1.8 0-3 .9-3.6 1.8v-1.5H16.5V26h3.6v-6.3c0-1.5.3-3 1.95-3 1.65 0 1.65 1.8 1.65 3.15V26H27.5v-6.75c0-3.15-.6-5.1-3.2-5.1z" />
+            </svg>
+          </a>
+        </div>
       </div>
     </header>
   );

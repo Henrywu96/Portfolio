@@ -64,3 +64,4 @@ export const ART = {
 
 // Contact email used across the site
 export const CONTACT_EMAIL = "henry.wu@example.com";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/min-tzu-wu-7910851b4/";
