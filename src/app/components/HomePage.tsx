@@ -311,20 +311,16 @@ export function HomePage({
               Crafting simple, engaging, and code-ready digital experiences.
             </p>
 
-            {/* Character stat HUD */}
-            <div className="mt-6 max-w-md rounded-2xl border border-white/70 bg-white/60 p-4 shadow-[0_18px_40px_-30px_rgba(32,43,69,0.7)] backdrop-blur-md">
-              <div className="mb-3 flex items-center justify-between">
-                <span className="flex items-center gap-1.5 text-[11px] font-bold tracking-[0.2em] text-[var(--hw-navy)]">
-                  <Shield className="size-3.5 text-[var(--hw-coral)]" /> CHARACTER STATS
-                </span>
-                <span className="text-[10px] font-semibold tracking-wider text-[var(--hw-slate)]">
-                  CLASS · DESIGNER
-                </span>
+            {/* Character stat HUD — de-emphasised easter egg */}
+            <div className="mt-5 max-w-md rounded-xl border border-white/50 bg-white/40 px-3 py-2.5 backdrop-blur-md">
+              <div className="mb-2 flex items-center gap-1.5">
+                <Shield className="size-3 text-[var(--hw-coral)] opacity-70" />
+                <span className="text-[9px] font-bold tracking-[0.2em] text-[var(--hw-slate)] opacity-60">CHARACTER STATS</span>
               </div>
-              <div className="space-y-2">
-                <StatBar label="HP" value={95} color="var(--hw-coral)" glow="var(--hw-coral-glow)" />
-                <StatBar label="MP" value={88} color="var(--hw-rarity-rare)" glow="var(--hw-rare-glow)" />
-                <StatBar label="XP" value={72} color="var(--hw-rarity-legendary)" glow="var(--hw-legendary-glow)" />
+              <div className="space-y-1.5">
+                <StatBar label="HP" value={95} color="var(--hw-coral)" glow="var(--hw-coral-glow)" compact />
+                <StatBar label="MP" value={88} color="var(--hw-rarity-rare)" glow="var(--hw-rare-glow)" compact />
+                <StatBar label="XP" value={72} color="var(--hw-rarity-legendary)" glow="var(--hw-legendary-glow)" compact />
               </div>
             </div>
             <div className="mt-7 flex flex-wrap gap-3">
@@ -714,27 +710,29 @@ function StatBar({
   value,
   color,
   glow,
+  compact = false,
 }: {
   label: string;
   value: number;
   color: string;
   glow: string;
+  compact?: boolean;
 }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="w-8 text-[10px] font-bold tracking-wider text-[var(--hw-slate)]">
+      <span className={`w-6 font-bold tracking-wider text-[var(--hw-slate)] ${compact ? "text-[9px] opacity-60" : "w-8 text-[10px]"}`}>
         {label}
       </span>
-      <div className="relative h-3 flex-1 overflow-hidden rounded-full bg-black/10 ring-1 ring-white/60">
+      <div className={`relative flex-1 overflow-hidden rounded-full bg-black/10 ${compact ? "h-1.5" : "h-3 ring-1 ring-white/60"}`}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${value}%` }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="h-full rounded-full"
-          style={{ background: color, boxShadow: `0 0 10px ${glow}` }}
+          style={{ background: color, boxShadow: compact ? "none" : `0 0 10px ${glow}` }}
         />
       </div>
-      <span className="w-9 text-right text-[10px] font-semibold tabular-nums text-[var(--hw-navy)]">
+      <span className={`text-right tabular-nums text-[var(--hw-navy)] ${compact ? "w-6 text-[9px] opacity-60" : "w-9 text-[10px] font-semibold"}`}>
         {value}
       </span>
     </div>

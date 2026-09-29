@@ -19,7 +19,7 @@ export default function App() {
     if (p.hasCaseStudy) {
       setSelected(p);
       setCaseTab("Overview");
-      setRoute("preview");
+      setRoute("case-study");
       window.scrollTo(0, 0);
     }
   };

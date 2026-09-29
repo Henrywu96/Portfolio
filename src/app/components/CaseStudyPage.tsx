@@ -11,12 +11,32 @@ import {
 import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { icon } from "./icons";
-import { CASE_TABS, type CaseTab, type Project, type CaseStudy } from "../data";
+import {
+  CASE_TABS,
+  type CaseTab,
+  type Project,
+  type CaseStudy,
+} from "../data";
 
-const RARITY: Record<string, { label: string; color: string; level: number }> = {
-  bridgly: { label: "LEGENDARY", color: "var(--hw-rarity-legendary)", level: 50 },
-  greenpath: { label: "EPIC", color: "var(--hw-rarity-epic)", level: 38 },
-  studyflow: { label: "RARE", color: "var(--hw-rarity-rare)", level: 27 },
+const RARITY: Record<
+  string,
+  { label: string; color: string; level: number }
+> = {
+  bridgly: {
+    label: "LEGENDARY",
+    color: "var(--hw-rarity-legendary)",
+    level: 50,
+  },
+  greenpath: {
+    label: "EPIC",
+    color: "var(--hw-rarity-epic)",
+    level: 38,
+  },
+  studyflow: {
+    label: "RARE",
+    color: "var(--hw-rarity-rare)",
+    level: 27,
+  },
 };
 
 function Chip({ children }: { children: React.ReactNode }) {
@@ -41,7 +61,11 @@ export function CaseStudyPage({
   const [tab, setTab] = useState<CaseTab>(initialTab);
   const [showProtoModal, setShowProtoModal] = useState(false);
   const cs = project.caseStudy!;
-  const rarity = RARITY[project.id] ?? { label: "COMMON", color: "var(--hw-rarity-common)", level: 10 };
+  const rarity = RARITY[project.id] ?? {
+    label: "COMMON",
+    color: "var(--hw-rarity-common)",
+    level: 10,
+  };
   const chapter = CASE_TABS.indexOf(tab) + 1;
 
   return (
@@ -119,7 +143,9 @@ export function CaseStudyPage({
               src={cs.heroImage}
               alt={`${project.name} hero`}
               className={`relative h-[220px] w-full sm:h-[300px] md:h-[360px] ${
-                project.iconImage ? "object-contain p-4" : "object-cover"
+                project.iconImage
+                  ? "object-contain p-4"
+                  : "object-cover"
               }`}
             />
             <Heart className="absolute right-6 top-6 z-10 size-8 fill-[var(--hw-coral)] text-[var(--hw-coral)] drop-shadow" />
@@ -154,16 +180,20 @@ export function CaseStudyPage({
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-5 pt-12 pb-28">
+      <div className="px-5 pt-12 pb-28">
         <motion.div
           key={tab}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          {tab === "Overview" && <Overview cs={cs} projectId={project.id} />}
+          {tab === "Overview" && (
+            <Overview cs={cs} projectId={project.id} />
+          )}
           {tab === "Research" && <Research cs={cs} />}
-          {tab === "Design Process" && <DesignProcess cs={cs} />}
+          {tab === "Design Process" && (
+            <DesignProcess cs={cs} />
+          )}
           {tab === "Results" && <Results cs={cs} />}
           {tab === "Reflection" && <Reflection cs={cs} />}
         </motion.div>
@@ -178,25 +208,51 @@ export function CaseStudyPage({
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.28,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             onClick={(e) => e.stopPropagation()}
             className="relative mx-4 w-full max-w-sm rounded-2xl bg-white p-8 shadow-2xl"
             style={{ border: "1.5px solid var(--hw-border)" }}
           >
             {/* Icon */}
-            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "var(--hw-peach)" }}>
-              <Heart className="size-7" style={{ color: "var(--hw-coral)" }} />
+            <div
+              className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
+              style={{ background: "var(--hw-peach)" }}
+            >
+              <Heart
+                className="size-7"
+                style={{ color: "var(--hw-coral)" }}
+              />
             </div>
-            <h3 className="text-center text-[20px] font-bold leading-snug" style={{ color: "var(--hw-navy)", fontFamily: "var(--font-display)" }}>
+            <h3
+              className="text-center text-[20px] font-bold leading-snug"
+              style={{
+                color: "var(--hw-navy)",
+                fontFamily: "var(--font-display)",
+              }}
+            >
               Prototype Coming Soon
             </h3>
-            <p className="mt-3 text-center text-[14px] leading-relaxed" style={{ color: "var(--hw-slate)", fontFamily: "var(--font-body)" }}>
-              Full interactive prototype and end-to-end user flows are available for walkthrough during the interview stage.
+            <p
+              className="mt-3 text-center text-[14px] leading-relaxed"
+              style={{
+                color: "var(--hw-slate)",
+                fontFamily: "var(--font-body)",
+              }}
+            >
+              Full interactive prototype and end-to-end user
+              flows are available for walkthrough during the
+              interview stage.
             </p>
             <button
               onClick={() => setShowProtoModal(false)}
               className="mt-6 w-full rounded-xl py-3 text-[14px] font-semibold text-white transition hover:brightness-105"
-              style={{ background: "var(--hw-coral)", fontFamily: "var(--font-body)" }}
+              style={{
+                background: "var(--hw-coral)",
+                fontFamily: "var(--font-body)",
+              }}
             >
               Got it
             </button>
@@ -216,17 +272,29 @@ function Kicker({ children }: { children: React.ReactNode }) {
 }
 
 /* ---------- Phone frame + screen helpers ---------- */
-function PhoneFrame({ children, tall }: { children: React.ReactNode; tall?: boolean }) {
+function PhoneFrame({
+  children,
+  tall,
+}: {
+  children: React.ReactNode;
+  tall?: boolean;
+}) {
   const px = 8; /* right inset */
   const pxLeft = 12; /* left inset — slightly more breathing room for time */
   const pillW = tall ? 42 : 36;
   const pillH = tall ? 12 : 10;
   return (
-    <div className={`relative flex flex-col overflow-hidden rounded-[24px] border-[3px] border-[var(--hw-navy)] bg-white shadow-xl ${tall ? "h-72 w-40" : "h-60 w-[136px] opacity-90"}`}>
+    <div
+      className={`relative flex flex-col overflow-hidden rounded-[24px] border-[3px] border-[var(--hw-navy)] bg-white shadow-xl ${tall ? "h-72 w-40" : "h-60 w-[136px] opacity-90"}`}
+    >
       {/* Status bar */}
       <div
         className="relative flex shrink-0 items-center justify-between bg-white"
-        style={{ height: tall ? 24 : 20, paddingLeft: pxLeft, paddingRight: px }}
+        style={{
+          height: tall ? 24 : 20,
+          paddingLeft: pxLeft,
+          paddingRight: px,
+        }}
       >
         {/* Dynamic Island pill — absolute center */}
         <div
@@ -234,27 +302,108 @@ function PhoneFrame({ children, tall }: { children: React.ReactNode; tall?: bool
           style={{ width: pillW, height: pillH }}
         />
         {/* Time */}
-        <span className="text-[6.5px] font-semibold leading-none text-black">9:41</span>
+        <span className="text-[6.5px] font-semibold leading-none text-black">
+          9:41
+        </span>
         {/* Status icons */}
         <div className="flex items-center gap-[2px]">
           {/* Signal bars */}
-          <svg width="9" height="6" viewBox="0 0 9 6" fill="none">
-            <rect x="0"   y="3.5" width="1.8" height="2.5" rx="0.3" fill="black"/>
-            <rect x="2.4" y="2"   width="1.8" height="4"   rx="0.3" fill="black"/>
-            <rect x="4.8" y="0.8" width="1.8" height="5.2" rx="0.3" fill="black"/>
-            <rect x="7.2" y="0"   width="1.8" height="6"   rx="0.3" fill="black" opacity="0.25"/>
+          <svg
+            width="9"
+            height="6"
+            viewBox="0 0 9 6"
+            fill="none"
+          >
+            <rect
+              x="0"
+              y="3.5"
+              width="1.8"
+              height="2.5"
+              rx="0.3"
+              fill="black"
+            />
+            <rect
+              x="2.4"
+              y="2"
+              width="1.8"
+              height="4"
+              rx="0.3"
+              fill="black"
+            />
+            <rect
+              x="4.8"
+              y="0.8"
+              width="1.8"
+              height="5.2"
+              rx="0.3"
+              fill="black"
+            />
+            <rect
+              x="7.2"
+              y="0"
+              width="1.8"
+              height="6"
+              rx="0.3"
+              fill="black"
+              opacity="0.25"
+            />
           </svg>
           {/* WiFi */}
-          <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
-            <path d="M0.4 2.8 C1.5 0.9 2.6 0.5 4 0.5 C5.4 0.5 6.5 0.9 7.6 2.8" stroke="black" strokeWidth="0.85" fill="none" strokeLinecap="round"/>
-            <path d="M1.7 4.2 C2.4 3 3.1 2.6 4 2.6 C4.9 2.6 5.6 3 6.3 4.2" stroke="black" strokeWidth="0.85" fill="none" strokeLinecap="round"/>
-            <circle cx="4" cy="5.5" r="0.7" fill="black"/>
+          <svg
+            width="8"
+            height="6"
+            viewBox="0 0 8 6"
+            fill="none"
+          >
+            <path
+              d="M0.4 2.8 C1.5 0.9 2.6 0.5 4 0.5 C5.4 0.5 6.5 0.9 7.6 2.8"
+              stroke="black"
+              strokeWidth="0.85"
+              fill="none"
+              strokeLinecap="round"
+            />
+            <path
+              d="M1.7 4.2 C2.4 3 3.1 2.6 4 2.6 C4.9 2.6 5.6 3 6.3 4.2"
+              stroke="black"
+              strokeWidth="0.85"
+              fill="none"
+              strokeLinecap="round"
+            />
+            <circle cx="4" cy="5.5" r="0.7" fill="black" />
           </svg>
           {/* Battery */}
-          <svg width="15" height="7" viewBox="0 0 15 7" fill="none">
-            <rect x="0.4" y="0.4" width="11.5" height="6.2" rx="1.6" stroke="black" strokeWidth="0.75"/>
-            <rect x="12.4" y="2.2" width="1.8"  height="2.6" rx="0.9" fill="black" opacity="0.4"/>
-            <rect x="1.3"  y="1.3" width="8.8"  height="4.4" rx="1"   fill="black"/>
+          <svg
+            width="15"
+            height="7"
+            viewBox="0 0 15 7"
+            fill="none"
+          >
+            <rect
+              x="0.4"
+              y="0.4"
+              width="11.5"
+              height="6.2"
+              rx="1.6"
+              stroke="black"
+              strokeWidth="0.75"
+            />
+            <rect
+              x="12.4"
+              y="2.2"
+              width="1.8"
+              height="2.6"
+              rx="0.9"
+              fill="black"
+              opacity="0.4"
+            />
+            <rect
+              x="1.3"
+              y="1.3"
+              width="8.8"
+              height="4.4"
+              rx="1"
+              fill="black"
+            />
           </svg>
         </div>
       </div>
@@ -263,7 +412,15 @@ function PhoneFrame({ children, tall }: { children: React.ReactNode; tall?: bool
   );
 }
 
-function PhoneTriple({ a, b, c }: { a: React.ReactNode; b: React.ReactNode; c: React.ReactNode }) {
+function PhoneTriple({
+  a,
+  b,
+  c,
+}: {
+  a: React.ReactNode;
+  b: React.ReactNode;
+  c: React.ReactNode;
+}) {
   return (
     <div className="flex w-full items-center justify-center overflow-hidden py-4">
       <div className="flex shrink-0 origin-center items-end gap-3 [transform:scale(0.58)] sm:[transform:scale(0.82)] md:[transform:scale(1)]">
@@ -280,35 +437,103 @@ function BridglyScreen1() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-coral)" }}>Bridgly</span>
-        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>Skip</span>
+        <span
+          className="text-[8px] font-bold"
+          style={{ color: "var(--hw-coral)" }}
+        >
+          Bridgly
+        </span>
+        <span
+          className="text-[7px]"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          Skip
+        </span>
       </div>
-      <div className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center rounded-full" style={{ background: "var(--hw-peach)" }}>
+      <div
+        className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center rounded-full"
+        style={{ background: "var(--hw-peach)" }}
+      >
         <div className="flex gap-1">
-          <div className="flex h-10 w-6 flex-col overflow-hidden rounded-[6px] shadow" style={{ background: "#fff8e1" }}>
-            <div className="h-1" style={{ background: "#fbbf24" }} />
-            <div className="flex-1" style={{ background: "linear-gradient(to bottom, #bae6fd, #fef9c3)" }} />
-            <div className="py-0.5 text-center text-[5px] font-bold" style={{ color: "#92400e" }}>14:00</div>
+          <div
+            className="flex h-10 w-6 flex-col overflow-hidden rounded-[6px] shadow"
+            style={{ background: "#fff8e1" }}
+          >
+            <div
+              className="h-1"
+              style={{ background: "#fbbf24" }}
+            />
+            <div
+              className="flex-1"
+              style={{
+                background:
+                  "linear-gradient(to bottom, #bae6fd, #fef9c3)",
+              }}
+            />
+            <div
+              className="py-0.5 text-center text-[5px] font-bold"
+              style={{ color: "#92400e" }}
+            >
+              14:00
+            </div>
           </div>
-          <div className="flex h-10 w-6 flex-col overflow-hidden rounded-[6px] shadow" style={{ background: "var(--hw-navy)" }}>
-            <div className="h-1" style={{ background: "var(--hw-navy)" }} />
-            <div className="flex flex-1 items-center justify-center" style={{ background: "#1e1b4b" }}>
+          <div
+            className="flex h-10 w-6 flex-col overflow-hidden rounded-[6px] shadow"
+            style={{ background: "var(--hw-navy)" }}
+          >
+            <div
+              className="h-1"
+              style={{ background: "var(--hw-navy)" }}
+            />
+            <div
+              className="flex flex-1 items-center justify-center"
+              style={{ background: "#1e1b4b" }}
+            >
               <span className="text-[9px]">🌙</span>
             </div>
-            <div className="py-0.5 text-center text-[5px] font-bold text-white">07:00</div>
+            <div className="py-0.5 text-center text-[5px] font-bold text-white">
+              07:00
+            </div>
           </div>
         </div>
       </div>
       <div className="mt-2 flex-1 text-center">
-        <p className="text-[8px] font-bold leading-tight" style={{ color: "var(--hw-navy)" }}>See Their World<br/>in Real Time</p>
-        <p className="mt-1 text-[6px] leading-tight" style={{ color: "var(--hw-slate)" }}>Know your partner's local time, weather, and daily rhythm</p>
+        <p
+          className="text-[8px] font-bold leading-tight"
+          style={{ color: "var(--hw-navy)" }}
+        >
+          See Their World
+          <br />
+          in Real Time
+        </p>
+        <p
+          className="mt-1 text-[6px] leading-tight"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          Know your partner's local time, weather, and daily
+          rhythm
+        </p>
       </div>
       <div className="mb-1.5 flex justify-center gap-1">
-        <div className="h-1 w-3 rounded-full" style={{ background: "var(--hw-coral)" }} />
-        {[0,1,2].map(i => <div key={i} className="h-1 w-1 rounded-full" style={{ background: "var(--hw-border)" }} />)}
+        <div
+          className="h-1 w-3 rounded-full"
+          style={{ background: "var(--hw-coral)" }}
+        />
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="h-1 w-1 rounded-full"
+            style={{ background: "var(--hw-border)" }}
+          />
+        ))}
       </div>
-      <div className="rounded-lg py-1.5 text-center" style={{ background: "var(--hw-coral)" }}>
-        <span className="text-[8px] font-bold text-white">Next</span>
+      <div
+        className="rounded-lg py-1.5 text-center"
+        style={{ background: "var(--hw-coral)" }}
+      >
+        <span className="text-[8px] font-bold text-white">
+          Next
+        </span>
       </div>
     </div>
   );
@@ -318,28 +543,85 @@ function BridglyScreen2() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-coral)" }}>Bridgly</span>
-        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>Skip</span>
+        <span
+          className="text-[8px] font-bold"
+          style={{ color: "var(--hw-coral)" }}
+        >
+          Bridgly
+        </span>
+        <span
+          className="text-[7px]"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          Skip
+        </span>
       </div>
-      <div className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center rounded-full" style={{ background: "var(--hw-peach)" }}>
-        <div className="relative flex h-12 w-14 items-center justify-center rounded-xl shadow-lg" style={{ background: "var(--hw-coral)" }}>
+      <div
+        className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center rounded-full"
+        style={{ background: "var(--hw-peach)" }}
+      >
+        <div
+          className="relative flex h-12 w-14 items-center justify-center rounded-xl shadow-lg"
+          style={{ background: "var(--hw-coral)" }}
+        >
           <span className="text-[22px]">❤️</span>
-          <svg className="absolute -bottom-2 left-1/2 -translate-x-1/2" width="28" height="10" viewBox="0 0 28 10">
-            <path d="M0 5 L4 5 L7 1 L10 9 L13 5 L17 5 L20 2 L23 8 L26 5 L28 5" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+          <svg
+            className="absolute -bottom-2 left-1/2 -translate-x-1/2"
+            width="28"
+            height="10"
+            viewBox="0 0 28 10"
+          >
+            <path
+              d="M0 5 L4 5 L7 1 L10 9 L13 5 L17 5 L20 2 L23 8 L26 5 L28 5"
+              stroke="white"
+              strokeWidth="1.5"
+              fill="none"
+              strokeLinecap="round"
+            />
           </svg>
         </div>
       </div>
       <div className="mt-3 flex-1 text-center">
-        <p className="text-[8px] font-bold leading-tight" style={{ color: "var(--hw-navy)" }}>Chat with Emotion,<br/>Not Just Words</p>
-        <p className="mt-1 text-[6px] leading-tight" style={{ color: "var(--hw-slate)" }}>Send haptic hugs, emotional context tags, and voice capsules</p>
+        <p
+          className="text-[8px] font-bold leading-tight"
+          style={{ color: "var(--hw-navy)" }}
+        >
+          Chat with Emotion,
+          <br />
+          Not Just Words
+        </p>
+        <p
+          className="mt-1 text-[6px] leading-tight"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          Send haptic hugs, emotional context tags, and voice
+          capsules
+        </p>
       </div>
       <div className="mb-1.5 flex justify-center gap-1">
-        <div className="h-1 w-1 rounded-full" style={{ background: "var(--hw-border)" }} />
-        <div className="h-1 w-3 rounded-full" style={{ background: "var(--hw-coral)" }} />
-        {[0,1].map(i => <div key={i} className="h-1 w-1 rounded-full" style={{ background: "var(--hw-border)" }} />)}
+        <div
+          className="h-1 w-1 rounded-full"
+          style={{ background: "var(--hw-border)" }}
+        />
+        <div
+          className="h-1 w-3 rounded-full"
+          style={{ background: "var(--hw-coral)" }}
+        />
+        {[0, 1].map((i) => (
+          <div
+            key={i}
+            className="h-1 w-1 rounded-full"
+            style={{ background: "var(--hw-border)" }}
+          />
+        ))}
       </div>
-      <div className="rounded-lg py-1.5 text-center" style={{ background: "var(--hw-coral)" }}>
-        <span className="text-[8px] font-bold text-white">Next</span>
+      <div
+        className="rounded-lg py-1.5 text-center"
+        style={{ background: "var(--hw-coral)" }}
+      >
+        <span className="text-[8px] font-bold text-white">
+          Next
+        </span>
       </div>
     </div>
   );
@@ -349,29 +631,79 @@ function BridglyScreen3() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-coral)" }}>Bridgly</span>
-        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>Skip</span>
+        <span
+          className="text-[8px] font-bold"
+          style={{ color: "var(--hw-coral)" }}
+        >
+          Bridgly
+        </span>
+        <span
+          className="text-[7px]"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          Skip
+        </span>
       </div>
-      <div className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center rounded-full" style={{ background: "var(--hw-peach)" }}>
+      <div
+        className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center rounded-full"
+        style={{ background: "var(--hw-peach)" }}
+      >
         <div className="text-center">
-          <div className="rounded-xl px-2.5 py-1.5 shadow-lg" style={{ background: "var(--hw-navy)" }}>
-            <div className="text-[5px] font-semibold text-white/60">TOGETHER</div>
-            <div className="text-[18px] font-bold leading-none text-white">23</div>
+          <div
+            className="rounded-xl px-2.5 py-1.5 shadow-lg"
+            style={{ background: "var(--hw-navy)" }}
+          >
+            <div className="text-[5px] font-semibold text-white/60">
+              TOGETHER
+            </div>
+            <div className="text-[18px] font-bold leading-none text-white">
+              23
+            </div>
             <div className="text-[5px] text-white/60">DAYS</div>
           </div>
         </div>
       </div>
       <div className="mt-3 flex-1 text-center">
-        <p className="text-[8px] font-bold leading-tight" style={{ color: "var(--hw-navy)" }}>Build Your Future<br/>Together</p>
-        <p className="mt-1 text-[6px] leading-tight" style={{ color: "var(--hw-slate)" }}>Set reunion countdowns, milestone goals, and track your shared journey</p>
+        <p
+          className="text-[8px] font-bold leading-tight"
+          style={{ color: "var(--hw-navy)" }}
+        >
+          Build Your Future
+          <br />
+          Together
+        </p>
+        <p
+          className="mt-1 text-[6px] leading-tight"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          Set reunion countdowns, milestone goals, and track
+          your shared journey
+        </p>
       </div>
       <div className="mb-1.5 flex justify-center gap-1">
-        {[0,1].map(i => <div key={i} className="h-1 w-1 rounded-full" style={{ background: "var(--hw-border)" }} />)}
-        <div className="h-1 w-3 rounded-full" style={{ background: "var(--hw-coral)" }} />
-        <div className="h-1 w-1 rounded-full" style={{ background: "var(--hw-border)" }} />
+        {[0, 1].map((i) => (
+          <div
+            key={i}
+            className="h-1 w-1 rounded-full"
+            style={{ background: "var(--hw-border)" }}
+          />
+        ))}
+        <div
+          className="h-1 w-3 rounded-full"
+          style={{ background: "var(--hw-coral)" }}
+        />
+        <div
+          className="h-1 w-1 rounded-full"
+          style={{ background: "var(--hw-border)" }}
+        />
       </div>
-      <div className="rounded-lg py-1.5 text-center" style={{ background: "var(--hw-coral)" }}>
-        <span className="text-[8px] font-bold text-white">Next</span>
+      <div
+        className="rounded-lg py-1.5 text-center"
+        style={{ background: "var(--hw-coral)" }}
+      >
+        <span className="text-[8px] font-bold text-white">
+          Next
+        </span>
       </div>
     </div>
   );
@@ -388,25 +720,67 @@ function GreenScreen1() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-greenpath)" }}>GreenPath</span>
+        <span
+          className="text-[8px] font-bold"
+          style={{ color: "var(--hw-accent-greenpath)" }}
+        >
+          GreenPath
+        </span>
         <div className="flex items-center gap-0.5 rounded-full bg-green-100 px-1.5 py-0.5">
           <span className="text-[7px]">🔥</span>
-          <span className="text-[7px] font-bold text-green-700">12</span>
+          <span className="text-[7px] font-bold text-green-700">
+            12
+          </span>
         </div>
       </div>
-      <p className="mt-1.5 text-[6.5px] font-bold tracking-wide" style={{ color: "var(--hw-slate)" }}>TODAY'S ACTIONS</p>
+      <p
+        className="mt-1.5 text-[6.5px] font-bold tracking-wide"
+        style={{ color: "var(--hw-slate)" }}
+      >
+        TODAY'S ACTIONS
+      </p>
       <div className="mt-1 flex-1 space-y-1.5">
         {actions.map((a) => (
-          <div key={a.label} className="flex items-center gap-1.5 rounded-lg bg-green-50 px-2 py-1.5">
-            <div className="flex size-4 shrink-0 items-center justify-center rounded-full" style={{ background: a.done ? "var(--hw-accent-greenpath)" : "white", border: a.done ? "none" : "1.5px solid #d1fae5" }}>
-              {a.done && <span className="text-[7px] text-white">✓</span>}
+          <div
+            key={a.label}
+            className="flex items-center gap-1.5 rounded-lg bg-green-50 px-2 py-1.5"
+          >
+            <div
+              className="flex size-4 shrink-0 items-center justify-center rounded-full"
+              style={{
+                background: a.done
+                  ? "var(--hw-accent-greenpath)"
+                  : "white",
+                border: a.done ? "none" : "1.5px solid #d1fae5",
+              }}
+            >
+              {a.done && (
+                <span className="text-[7px] text-white">✓</span>
+              )}
             </div>
-            <span className="text-[7px]" style={{ color: a.done ? "var(--hw-slate)" : "var(--hw-navy)", textDecoration: a.done ? "line-through" : "none" }}>{a.label}</span>
+            <span
+              className="text-[7px]"
+              style={{
+                color: a.done
+                  ? "var(--hw-slate)"
+                  : "var(--hw-navy)",
+                textDecoration: a.done
+                  ? "line-through"
+                  : "none",
+              }}
+            >
+              {a.label}
+            </span>
           </div>
         ))}
       </div>
-      <div className="mt-1.5 rounded-lg py-1.5 text-center" style={{ background: "var(--hw-accent-greenpath)" }}>
-        <span className="text-[7.5px] font-bold text-white">Log Action</span>
+      <div
+        className="mt-1.5 rounded-lg py-1.5 text-center"
+        style={{ background: "var(--hw-accent-greenpath)" }}
+      >
+        <span className="text-[7.5px] font-bold text-white">
+          Log Action
+        </span>
       </div>
     </div>
   );
@@ -416,23 +790,64 @@ function GreenScreen2() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-greenpath)" }}>GreenPath</span>
-        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>May 2024</span>
+        <span
+          className="text-[8px] font-bold"
+          style={{ color: "var(--hw-accent-greenpath)" }}
+        >
+          GreenPath
+        </span>
+        <span
+          className="text-[7px]"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          May 2024
+        </span>
       </div>
-      <div className="mx-auto mt-2 flex h-[72px] w-[72px] flex-col items-center justify-center rounded-full border-[4px] bg-green-50" style={{ borderColor: "var(--hw-accent-greenpath)" }}>
-        <span className="text-[18px] font-bold" style={{ color: "var(--hw-accent-greenpath)" }}>12</span>
-        <span className="text-[6px] text-green-600">day streak</span>
+      <div
+        className="mx-auto mt-2 flex h-[72px] w-[72px] flex-col items-center justify-center rounded-full border-[4px] bg-green-50"
+        style={{ borderColor: "var(--hw-accent-greenpath)" }}
+      >
+        <span
+          className="text-[18px] font-bold"
+          style={{ color: "var(--hw-accent-greenpath)" }}
+        >
+          12
+        </span>
+        <span className="text-[6px] text-green-600">
+          day streak
+        </span>
       </div>
       <div className="mt-2 grid grid-cols-2 gap-1">
-        {[["3.2 kg", "CO₂ saved"], ["24 L", "Water saved"]].map(([v, l]) => (
-          <div key={l} className="rounded-lg bg-green-50 p-1.5 text-center">
-            <p className="text-[10px] font-bold" style={{ color: "var(--hw-accent-greenpath)" }}>{v}</p>
-            <p className="text-[6px]" style={{ color: "var(--hw-slate)" }}>{l}</p>
+        {[
+          ["3.2 kg", "CO₂ saved"],
+          ["24 L", "Water saved"],
+        ].map(([v, l]) => (
+          <div
+            key={l}
+            className="rounded-lg bg-green-50 p-1.5 text-center"
+          >
+            <p
+              className="text-[10px] font-bold"
+              style={{ color: "var(--hw-accent-greenpath)" }}
+            >
+              {v}
+            </p>
+            <p
+              className="text-[6px]"
+              style={{ color: "var(--hw-slate)" }}
+            >
+              {l}
+            </p>
           </div>
         ))}
       </div>
-      <div className="mt-auto rounded-lg py-1.5 text-center" style={{ background: "var(--hw-accent-greenpath)" }}>
-        <span className="text-[7.5px] font-bold text-white">View Full Impact</span>
+      <div
+        className="mt-auto rounded-lg py-1.5 text-center"
+        style={{ background: "var(--hw-accent-greenpath)" }}
+      >
+        <span className="text-[7.5px] font-bold text-white">
+          View Full Impact
+        </span>
       </div>
     </div>
   );
@@ -442,25 +857,65 @@ function GreenScreen3() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-greenpath)" }}>GreenPath</span>
-        <div className="rounded-full bg-green-100 px-1.5 py-0.5 text-[6px] font-bold text-green-700">LEVEL 3</div>
+        <span
+          className="text-[8px] font-bold"
+          style={{ color: "var(--hw-accent-greenpath)" }}
+        >
+          GreenPath
+        </span>
+        <div className="rounded-full bg-green-100 px-1.5 py-0.5 text-[6px] font-bold text-green-700">
+          LEVEL 3
+        </div>
       </div>
-      <p className="mt-1.5 text-[6.5px] font-bold tracking-wide" style={{ color: "var(--hw-slate)" }}>WEEKLY CHALLENGE</p>
-      <div className="mt-1 rounded-xl p-2.5 text-white" style={{ background: "linear-gradient(135deg, #4c9a63, #22c55e)" }}>
+      <p
+        className="mt-1.5 text-[6.5px] font-bold tracking-wide"
+        style={{ color: "var(--hw-slate)" }}
+      >
+        WEEKLY CHALLENGE
+      </p>
+      <div
+        className="mt-1 rounded-xl p-2.5 text-white"
+        style={{
+          background:
+            "linear-gradient(135deg, #4c9a63, #22c55e)",
+        }}
+      >
         <span className="text-[13px]">🌱</span>
-        <p className="mt-0.5 text-[8px] font-bold leading-tight">Zero Waste Week</p>
-        <p className="mt-0.5 text-[6px] text-white/80">Avoid single-use plastics for 7 days</p>
+        <p className="mt-0.5 text-[8px] font-bold leading-tight">
+          Zero Waste Week
+        </p>
+        <p className="mt-0.5 text-[6px] text-white/80">
+          Avoid single-use plastics for 7 days
+        </p>
         <div className="mt-1.5 h-1 w-full rounded-full bg-white/30">
           <div className="h-full w-3/5 rounded-full bg-white" />
         </div>
-        <p className="mt-0.5 text-[5.5px] text-white/70">4 of 7 days completed</p>
+        <p className="mt-0.5 text-[5.5px] text-white/70">
+          4 of 7 days completed
+        </p>
       </div>
       <div className="mt-1.5 space-y-1">
-        {[["🚴", "Bike to work", "+50 pts"], ["🥗", "Plant-based meal", "+30 pts"]].map(([e, l, p]) => (
-          <div key={l} className="flex items-center gap-1.5 rounded-lg bg-green-50 px-2 py-1.5">
+        {[
+          ["🚴", "Bike to work", "+50 pts"],
+          ["🥗", "Plant-based meal", "+30 pts"],
+        ].map(([e, l, p]) => (
+          <div
+            key={l}
+            className="flex items-center gap-1.5 rounded-lg bg-green-50 px-2 py-1.5"
+          >
             <span className="text-[8px]">{e}</span>
-            <span className="text-[7px]" style={{ color: "var(--hw-navy)" }}>{l}</span>
-            <span className="ml-auto text-[6px]" style={{ color: "var(--hw-slate)" }}>{p}</span>
+            <span
+              className="text-[7px]"
+              style={{ color: "var(--hw-navy)" }}
+            >
+              {l}
+            </span>
+            <span
+              className="ml-auto text-[6px]"
+              style={{ color: "var(--hw-slate)" }}
+            >
+              {p}
+            </span>
           </div>
         ))}
       </div>
@@ -473,26 +928,77 @@ function StudyScreen1() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>StudyFlow</span>
-        <div className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[6px] font-bold text-amber-700">FOCUS</div>
+        <span
+          className="text-[8px] font-bold"
+          style={{ color: "var(--hw-accent-studyflow)" }}
+        >
+          StudyFlow
+        </span>
+        <div className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[6px] font-bold text-amber-700">
+          FOCUS
+        </div>
       </div>
-      <p className="mt-0.5 text-center text-[6px]" style={{ color: "var(--hw-slate)" }}>Chapter 4 · Research Methods</p>
+      <p
+        className="mt-0.5 text-center text-[6px]"
+        style={{ color: "var(--hw-slate)" }}
+      >
+        Chapter 4 · Research Methods
+      </p>
       <div className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center">
-        <svg className="absolute inset-0 -rotate-90" viewBox="0 0 72 72">
-          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--hw-border)" strokeWidth="5"/>
-          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--hw-accent-studyflow)" strokeWidth="5" strokeDasharray="188" strokeDashoffset="47" strokeLinecap="round"/>
+        <svg
+          className="absolute inset-0 -rotate-90"
+          viewBox="0 0 72 72"
+        >
+          <circle
+            cx="36"
+            cy="36"
+            r="30"
+            fill="none"
+            stroke="var(--hw-border)"
+            strokeWidth="5"
+          />
+          <circle
+            cx="36"
+            cy="36"
+            r="30"
+            fill="none"
+            stroke="var(--hw-accent-studyflow)"
+            strokeWidth="5"
+            strokeDasharray="188"
+            strokeDashoffset="47"
+            strokeLinecap="round"
+          />
         </svg>
         <div className="text-center">
-          <p className="text-[15px] font-bold" style={{ color: "var(--hw-navy)" }}>18:42</p>
-          <p className="text-[5.5px]" style={{ color: "var(--hw-slate)" }}>remaining</p>
+          <p
+            className="text-[15px] font-bold"
+            style={{ color: "var(--hw-navy)" }}
+          >
+            18:42
+          </p>
+          <p
+            className="text-[5.5px]"
+            style={{ color: "var(--hw-slate)" }}
+          >
+            remaining
+          </p>
         </div>
       </div>
       <div className="mt-1 flex justify-center gap-1.5">
-        <div className="rounded bg-amber-50 px-1.5 py-0.5 text-[5.5px] text-amber-700">Pomodoro 3/4</div>
-        <div className="rounded bg-blue-50 px-1.5 py-0.5 text-[5.5px] text-blue-700">Break in 18m</div>
+        <div className="rounded bg-amber-50 px-1.5 py-0.5 text-[5.5px] text-amber-700">
+          Pomodoro 3/4
+        </div>
+        <div className="rounded bg-blue-50 px-1.5 py-0.5 text-[5.5px] text-blue-700">
+          Break in 18m
+        </div>
       </div>
-      <div className="mt-auto rounded-lg py-1.5 text-center" style={{ background: "var(--hw-accent-studyflow)" }}>
-        <span className="text-[7.5px] font-bold text-white">Pause Session</span>
+      <div
+        className="mt-auto rounded-lg py-1.5 text-center"
+        style={{ background: "var(--hw-accent-studyflow)" }}
+      >
+        <span className="text-[7.5px] font-bold text-white">
+          Pause Session
+        </span>
       </div>
     </div>
   );
@@ -502,29 +1008,86 @@ function StudyScreen2() {
   const tasks = [
     { done: true, e: "📚", label: "Read Ch.3" },
     { done: true, e: "✏️", label: "Take notes" },
-    { done: false, e: "🧮", label: "Practice problems", hi: true },
+    {
+      done: false,
+      e: "🧮",
+      label: "Practice problems",
+      hi: true,
+    },
     { done: false, e: "🃏", label: "Review flashcards" },
   ];
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>StudyFlow</span>
-        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>Mon, Oct 14</span>
+        <span
+          className="text-[8px] font-bold"
+          style={{ color: "var(--hw-accent-studyflow)" }}
+        >
+          StudyFlow
+        </span>
+        <span
+          className="text-[7px]"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          Mon, Oct 14
+        </span>
       </div>
       <div className="mt-1 flex items-center gap-1">
-        <div className="h-1 flex-1 rounded-full" style={{ background: "var(--hw-border)" }}>
-          <div className="h-full w-1/2 rounded-full" style={{ background: "var(--hw-accent-studyflow)" }} />
+        <div
+          className="h-1 flex-1 rounded-full"
+          style={{ background: "var(--hw-border)" }}
+        >
+          <div
+            className="h-full w-1/2 rounded-full"
+            style={{ background: "var(--hw-accent-studyflow)" }}
+          />
         </div>
-        <span className="text-[6px]" style={{ color: "var(--hw-slate)" }}>2/4</span>
+        <span
+          className="text-[6px]"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          2/4
+        </span>
       </div>
       <div className="mt-1.5 flex-1 space-y-1.5">
         {tasks.map((t) => (
-          <div key={t.label} className="flex items-center gap-1.5 rounded-lg px-2 py-1.5" style={{ background: t.hi ? "#fffbeb" : "var(--hw-cream)", outline: t.hi ? "1px solid #fde68a" : "none" }}>
-            <div className="flex size-4 shrink-0 items-center justify-center rounded" style={{ background: t.done ? "var(--hw-accent-studyflow)" : "white", border: t.done ? "none" : "1.5px solid var(--hw-border)" }}>
-              {t.done && <span className="text-[7px] text-white">✓</span>}
+          <div
+            key={t.label}
+            className="flex items-center gap-1.5 rounded-lg px-2 py-1.5"
+            style={{
+              background: t.hi ? "#fffbeb" : "var(--hw-cream)",
+              outline: t.hi ? "1px solid #fde68a" : "none",
+            }}
+          >
+            <div
+              className="flex size-4 shrink-0 items-center justify-center rounded"
+              style={{
+                background: t.done
+                  ? "var(--hw-accent-studyflow)"
+                  : "white",
+                border: t.done
+                  ? "none"
+                  : "1.5px solid var(--hw-border)",
+              }}
+            >
+              {t.done && (
+                <span className="text-[7px] text-white">✓</span>
+              )}
             </div>
             <span className="text-[7px]">{t.e}</span>
-            <span className="text-[7px]" style={{ color: t.done ? "var(--hw-slate)" : "var(--hw-navy)", textDecoration: t.done ? "line-through" : "none" }}>{t.label}</span>
+            <span
+              className="text-[7px]"
+              style={{
+                color: t.done
+                  ? "var(--hw-slate)"
+                  : "var(--hw-navy)",
+                textDecoration: t.done
+                  ? "line-through"
+                  : "none",
+              }}
+            >
+              {t.label}
+            </span>
           </div>
         ))}
       </div>
@@ -533,28 +1096,77 @@ function StudyScreen2() {
 }
 
 function StudyScreen3() {
-  const days = ["M","T","W","T","F","S","S"];
-  const hrs =  [2.5, 3, 1.5, 4, 3.5, 1, 0];
+  const days = ["M", "T", "W", "T", "F", "S", "S"];
+  const hrs = [2.5, 3, 1.5, 4, 3.5, 1, 0];
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>StudyFlow</span>
-        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>This week</span>
+        <span
+          className="text-[8px] font-bold"
+          style={{ color: "var(--hw-accent-studyflow)" }}
+        >
+          StudyFlow
+        </span>
+        <span
+          className="text-[7px]"
+          style={{ color: "var(--hw-slate)" }}
+        >
+          This week
+        </span>
       </div>
       <div className="mt-1 grid grid-cols-3 gap-1">
-        {[["15.5h","studied"],["24","sessions"],["6🔥","streak"]].map(([v,l]) => (
-          <div key={l} className="rounded-lg bg-amber-50 p-1 text-center">
-            <p className="text-[9px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>{v}</p>
-            <p className="text-[5.5px]" style={{ color: "var(--hw-slate)" }}>{l}</p>
+        {[
+          ["15.5h", "studied"],
+          ["24", "sessions"],
+          ["6🔥", "streak"],
+        ].map(([v, l]) => (
+          <div
+            key={l}
+            className="rounded-lg bg-amber-50 p-1 text-center"
+          >
+            <p
+              className="text-[9px] font-bold"
+              style={{ color: "var(--hw-accent-studyflow)" }}
+            >
+              {v}
+            </p>
+            <p
+              className="text-[5.5px]"
+              style={{ color: "var(--hw-slate)" }}
+            >
+              {l}
+            </p>
           </div>
         ))}
       </div>
-      <p className="mt-1.5 text-[6px] font-semibold tracking-wide" style={{ color: "var(--hw-slate)" }}>DAILY HOURS</p>
+      <p
+        className="mt-1.5 text-[6px] font-semibold tracking-wide"
+        style={{ color: "var(--hw-slate)" }}
+      >
+        DAILY HOURS
+      </p>
       <div className="mt-1 flex flex-1 items-end justify-between gap-0.5">
         {days.map((d, i) => (
-          <div key={i} className="flex flex-1 flex-col items-center gap-0.5">
-            <div className="w-full rounded-t" style={{ height: `${(hrs[i] / 4) * 36}px`, background: i === 3 ? "var(--hw-accent-studyflow)" : "var(--hw-border)" }} />
-            <span className="text-[5.5px]" style={{ color: "var(--hw-slate)" }}>{d}</span>
+          <div
+            key={i}
+            className="flex flex-1 flex-col items-center gap-0.5"
+          >
+            <div
+              className="w-full rounded-t"
+              style={{
+                height: `${(hrs[i] / 4) * 36}px`,
+                background:
+                  i === 3
+                    ? "var(--hw-accent-studyflow)"
+                    : "var(--hw-border)",
+              }}
+            />
+            <span
+              className="text-[5.5px]"
+              style={{ color: "var(--hw-slate)" }}
+            >
+              {d}
+            </span>
           </div>
         ))}
       </div>
@@ -563,10 +1175,16 @@ function StudyScreen3() {
 }
 
 /* ---------- Overview ---------- */
-function Overview({ cs, projectId }: { cs: CaseStudy; projectId: string }) {
+function Overview({
+  cs,
+  projectId,
+}: {
+  cs: CaseStudy;
+  projectId: string;
+}) {
   const o = cs.overview;
   return (
-    <div className="space-y-12">
+    <div className="mx-auto max-w-6xl space-y-12">
       <div className="grid items-center gap-6 md:grid-cols-2">
         <div className="min-w-0">
           <Kicker>OVERVIEW</Kicker>
@@ -578,43 +1196,57 @@ function Overview({ cs, projectId }: { cs: CaseStudy; projectId: string }) {
           </p>
         </div>
         <div className="min-w-0">
-        {projectId === "bridgly" ? (
-          <PhoneTriple
-            a={<BridglyScreen1 />}
-            b={<BridglyScreen2 />}
-            c={<BridglyScreen3 />}
-          />
-        ) : projectId === "greenpath" ? (
-          <PhoneTriple
-            a={<GreenScreen1 />}
-            b={<GreenScreen2 />}
-            c={<GreenScreen3 />}
-          />
-        ) : projectId === "studyflow" ? (
-          <PhoneTriple
-            a={<StudyScreen1 />}
-            b={<StudyScreen2 />}
-            c={<StudyScreen3 />}
-          />
-        ) : o.phoneMockup ? (
-          <img src={o.phoneMockup} alt="App screens" className="mx-auto h-72 w-full object-contain md:h-80" />
-        ) : (
-          <div className="flex items-end justify-center gap-3">
-            {[0, 1, 2].map((i) => (
-              <div key={i} className={`overflow-hidden rounded-[26px] border-4 border-[var(--hw-navy)] bg-black shadow-xl ${i === 1 ? "h-72 w-40" : "h-60 w-36 opacity-90"}`}>
-                <ImageWithFallback src={o.phoneImage} alt="App screen" className="h-full w-full object-cover" />
-              </div>
-            ))}
-          </div>
-        )}
+          {projectId === "bridgly" ? (
+            <PhoneTriple
+              a={<BridglyScreen1 />}
+              b={<BridglyScreen2 />}
+              c={<BridglyScreen3 />}
+            />
+          ) : projectId === "greenpath" ? (
+            <PhoneTriple
+              a={<GreenScreen1 />}
+              b={<GreenScreen2 />}
+              c={<GreenScreen3 />}
+            />
+          ) : projectId === "studyflow" ? (
+            <PhoneTriple
+              a={<StudyScreen1 />}
+              b={<StudyScreen2 />}
+              c={<StudyScreen3 />}
+            />
+          ) : o.phoneMockup ? (
+            <img
+              src={o.phoneMockup}
+              alt="App screens"
+              className="mx-auto h-72 w-full object-contain md:h-80"
+            />
+          ) : (
+            <div className="flex items-end justify-center gap-3">
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className={`overflow-hidden rounded-[26px] border-4 border-[var(--hw-navy)] bg-black shadow-xl ${i === 1 ? "h-72 w-40" : "h-60 w-36 opacity-90"}`}
+                >
+                  <ImageWithFallback
+                    src={o.phoneImage}
+                    alt="App screen"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
         {o.meta.map((m) => {
           const Icon = icon(m.icon);
           return (
-            <div key={m.label} className="rounded-2xl border border-[var(--hw-border)] bg-white p-4">
+            <div
+              key={m.label}
+              className="rounded-2xl border border-[var(--hw-border)] bg-white p-4"
+            >
               <p className="flex items-center gap-2 text-[12px] font-semibold tracking-wide text-[var(--hw-coral)]">
                 <Icon className="size-4" /> {m.label}
               </p>
@@ -628,8 +1260,12 @@ function Overview({ cs, projectId }: { cs: CaseStudy; projectId: string }) {
 
       <div className="grid items-center gap-8 rounded-3xl border border-[var(--hw-border)] bg-white p-6 md:grid-cols-[1fr_200px]">
         <div>
-          <h3 className="text-[22px] text-[var(--hw-navy)]">The Problem</h3>
-          <p className="mt-1 text-[14px] text-[var(--hw-slate)]">{o.problemSub}</p>
+          <h3 className="text-[22px] text-[var(--hw-navy)]">
+            The Problem
+          </h3>
+          <p className="mt-1 text-[14px] text-[var(--hw-slate)]">
+            {o.problemSub}
+          </p>
           <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {o.problems.map((p) => {
               const Icon = icon(p.icon);
@@ -668,7 +1304,7 @@ function Overview({ cs, projectId }: { cs: CaseStudy; projectId: string }) {
 function Research({ cs }: { cs: CaseStudy }) {
   const r = cs.research;
   return (
-    <div className="space-y-12">
+    <div className="mx-auto max-w-6xl space-y-12">
       <div className="grid items-center gap-6 md:grid-cols-2">
         <div className="min-w-0">
           <Kicker>RESEARCH</Kicker>
@@ -679,7 +1315,10 @@ function Research({ cs }: { cs: CaseStudy }) {
             {r.body}
           </p>
         </div>
-        <div className="relative flex items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--hw-rose-from)] to-[var(--hw-rose-to)]" style={{ minHeight: 200 }}>
+        <div
+          className="relative flex items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--hw-rose-from)] to-[var(--hw-rose-to)]"
+          style={{ minHeight: 200 }}
+        >
           {r.illustration ? (
             <img
               src={r.image}
@@ -696,19 +1335,28 @@ function Research({ cs }: { cs: CaseStudy }) {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="mx-auto max-w-6xl grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {r.methods.map((m) => {
           const Icon = icon(m.icon);
           return (
-            <div key={m.title} className="rounded-2xl border border-[var(--hw-border)] bg-white p-5">
+            <div
+              key={m.title}
+              className="rounded-2xl border border-[var(--hw-border)] bg-white p-5"
+            >
               {m.image ? (
-                <img src={m.image} alt="" className="size-14 object-contain" />
+                <img
+                  src={m.image}
+                  alt=""
+                  className="size-14 object-contain"
+                />
               ) : (
                 <span className="grid size-10 place-items-center rounded-xl bg-[var(--hw-peach)] text-[var(--hw-coral)]">
                   <Icon className="size-5" />
                 </span>
               )}
-              <h3 className="mt-3 text-[16px] text-[var(--hw-navy)]">{m.title}</h3>
+              <h3 className="mt-3 text-[16px] text-[var(--hw-navy)]">
+                {m.title}
+              </h3>
               <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
                 {m.body}
               </p>
@@ -717,13 +1365,18 @@ function Research({ cs }: { cs: CaseStudy }) {
         })}
       </div>
 
-      <div>
-        <h3 className="text-[20px] text-[var(--hw-navy)]">Key Insights</h3>
+      <div className="mx-auto max-w-6xl">
+        <h3 className="text-[20px] text-[var(--hw-navy)]">
+          Key Insights
+        </h3>
         <div className="mt-4 grid gap-4 sm:grid-cols-3">
           {r.insights.map((ins, i) => {
             const Icon = icon(ins.icon);
             return (
-              <div key={i} className="rounded-2xl border border-[var(--hw-border)] bg-white p-6 text-center">
+              <div
+                key={i}
+                className="rounded-2xl border border-[var(--hw-border)] bg-white p-6 text-center"
+              >
                 <span className="mx-auto grid size-14 place-items-center rounded-full bg-[var(--hw-peach)] text-[var(--hw-coral)]">
                   <Icon className="size-6" />
                 </span>
@@ -743,7 +1396,7 @@ function Research({ cs }: { cs: CaseStudy }) {
 function DesignProcess({ cs }: { cs: CaseStudy }) {
   const p = cs.process;
   return (
-    <div className="space-y-12">
+    <div className="mx-auto max-w-6xl space-y-12">
       <div className="grid items-center gap-6 md:grid-cols-2">
         <div className="min-w-0">
           <Kicker>DESIGN PROCESS</Kicker>
@@ -754,7 +1407,10 @@ function DesignProcess({ cs }: { cs: CaseStudy }) {
             {p.body}
           </p>
         </div>
-        <div className="relative flex items-center justify-center overflow-hidden rounded-3xl" style={{ minHeight: 200 }}>
+        <div
+          className="relative flex items-center justify-center overflow-hidden rounded-3xl"
+          style={{ minHeight: 200 }}
+        >
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--hw-rose-from)]/60 to-[var(--hw-rose-to)]/60 mix-blend-multiply" />
           <ImageWithFallback
             src={p.image}
@@ -768,7 +1424,10 @@ function DesignProcess({ cs }: { cs: CaseStudy }) {
         {p.steps.map((s, i) => {
           const Icon = icon(s.icon);
           return (
-            <div key={s.title} className="rounded-2xl border border-[var(--hw-border)] bg-white p-5">
+            <div
+              key={s.title}
+              className="rounded-2xl border border-[var(--hw-border)] bg-white p-5"
+            >
               <div className="flex items-center gap-3">
                 <span className="grid size-10 place-items-center rounded-xl bg-[var(--hw-peach)] text-[var(--hw-coral)]">
                   <Icon className="size-5" />
@@ -777,7 +1436,9 @@ function DesignProcess({ cs }: { cs: CaseStudy }) {
                   Step {i + 1}
                 </span>
               </div>
-              <h3 className="mt-3 text-[16px] text-[var(--hw-navy)]">{s.title}</h3>
+              <h3 className="mt-3 text-[16px] text-[var(--hw-navy)]">
+                {s.title}
+              </h3>
               <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
                 {s.body}
               </p>
@@ -793,7 +1454,7 @@ function DesignProcess({ cs }: { cs: CaseStudy }) {
 function Results({ cs }: { cs: CaseStudy }) {
   const r = cs.results;
   return (
-    <div className="space-y-12">
+    <div className="mx-auto max-w-6xl space-y-12">
       <div className="max-w-2xl">
         <Kicker>RESULTS</Kicker>
         <h2 className="mt-2 text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
@@ -804,7 +1465,7 @@ function Results({ cs }: { cs: CaseStudy }) {
         </p>
       </div>
 
-      <div>
+      <div className="mx-auto max-w-6xl">
         <p className="mb-3 flex items-center gap-1.5 text-[12px] font-bold tracking-[0.2em] text-[var(--hw-coral)]">
           <Trophy className="size-4" /> REWARDS UNLOCKED
         </p>
@@ -821,8 +1482,12 @@ function Results({ cs }: { cs: CaseStudy }) {
               <span className="absolute right-3 top-3 text-[var(--hw-coral)]/40">
                 <Trophy className="size-4" />
               </span>
-              <p className="text-[40px] leading-none text-[var(--hw-coral)]">{s.value}</p>
-              <p className="mt-2 text-[13px] text-[var(--hw-slate)]">{s.label}</p>
+              <p className="text-[40px] leading-none text-[var(--hw-coral)]">
+                {s.value}
+              </p>
+              <p className="mt-2 text-[13px] text-[var(--hw-slate)]">
+                {s.label}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -843,7 +1508,7 @@ function Results({ cs }: { cs: CaseStudy }) {
 function Reflection({ cs }: { cs: CaseStudy }) {
   const r = cs.reflection;
   return (
-    <div className="max-w-2xl space-y-6">
+    <div className="mx-auto max-w-6xl space-y-6">
       <div>
         <Kicker>REFLECTION</Kicker>
         <h2 className="mt-2 text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
@@ -862,7 +1527,9 @@ function Reflection({ cs }: { cs: CaseStudy }) {
             <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-[var(--hw-peach)] text-[12px] font-semibold text-[var(--hw-coral)]">
               {i + 1}
             </span>
-            <p className="text-[14px] leading-relaxed text-[var(--hw-navy)]">{pt}</p>
+            <p className="text-[14px] leading-relaxed text-[var(--hw-navy)]">
+              {pt}
+            </p>
           </div>
         ))}
       </div>
