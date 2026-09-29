@@ -384,7 +384,7 @@ const greenpathCase: CaseStudy = {
 const studyflowCase: CaseStudy = {
   subtitle:
     "A frictionless focus workspace that lowers the activation energy of starting — so students spend less time planning and more time in flow.",
-  chips: ["Web App", "Productivity", "UX UI"],
+  chips: ["Mobile App", "Productivity", "UX UI"],
   intro:
     "StudyFlow started as a strict scheduling tool. Research revealed that rigid time planning was the problem, not the solution. I redesigned it around one principle: make starting so easy that there's no excuse not to.",
   heroImage: ART.studyflowScene,
@@ -467,8 +467,8 @@ const studyflowCase: CaseStudy = {
     ],
   },
   process: {
-    title: "From calendar grid to single-click focus card.",
-    body: "The diary study predicted what prototype testing later confirmed: sessions that were planned in great detail the night before were the ones most likely to be skipped. V1's calendar-style setup required subjects, estimated durations, and sub-tasks before any session could begin — users dropped off before studying started. V2 reduced that to a single click.",
+    title: "From calendar grid to one-tap focus card.",
+    body: "The diary study predicted what prototype testing later confirmed: sessions that were planned in great detail the night before were the ones most likely to be skipped. V1's calendar-style setup required subjects, estimated durations, and sub-tasks before any session could begin — users dropped off before studying started. V2 reduced that to a single tap.",
     steps: [
       {
         icon: "PenTool",
@@ -477,8 +477,8 @@ const studyflowCase: CaseStudy = {
       },
       {
         icon: "Boxes",
-        title: "V2: Single-click Focus Card",
-        body: "Redesigned home to show a single active task with a minimal countdown. Setup reduced to one click. The guiding message: 'Just start 5 minutes — you can adjust later.'",
+        title: "V2: One-tap Focus Card",
+        body: "Redesigned home screen to show a single active task with a minimal countdown. Setup reduced to one tap. The guiding message: 'Just start 5 minutes — you can adjust later.'",
       },
       {
         icon: "Sparkles",
@@ -501,7 +501,7 @@ const studyflowCase: CaseStudy = {
       {
         value: "Onboarding was frictionless",
         label:
-          "Most users clicked into their first focus card and launched a timer on first use without reading any instructions or asking for help — setup felt immediate.",
+          "Most users tapped into their first focus card and launched a timer on first use without reading any instructions or asking for help — setup felt immediate.",
       },
       {
         value: "Calm was clearly felt",
@@ -544,7 +544,7 @@ export const PROJECTS: Project[] = [
     tagline: "Sustainable living companion app.",
     description:
       "A companion app that nudges you toward greener daily habits.",
-    tags: ["Mobile", "Lifestyle"],
+    tags: ["Mobile", "Lifestyle", "UX UI"],
     image: ART.greenpathScene,
     icon: "Leaf",
     iconImage: ART.greenpathIcon,
@@ -555,10 +555,10 @@ export const PROJECTS: Project[] = [
   {
     id: "studyflow",
     name: "StudyFlow",
-    tagline: "Focus & productivity web application.",
+    tagline: "Focus & productivity mobile app.",
     description:
       "A focus timer and study planner for calmer, deeper work sessions.",
-    tags: ["Web", "Productivity"],
+    tags: ["Mobile", "Productivity", "UX UI"],
     image: ART.studyflowScene,
     icon: "BookOpen",
     iconImage: ART.studyflowIcon,
