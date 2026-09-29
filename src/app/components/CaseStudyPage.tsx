@@ -1467,7 +1467,7 @@ function Results({ cs }: { cs: CaseStudy }) {
 
       <div className="mx-auto max-w-6xl">
         <p className="mb-3 flex items-center gap-1.5 text-[12px] font-bold tracking-[0.2em] text-[var(--hw-coral)]">
-          <Trophy className="size-4" /> REWARDS UNLOCKED
+          <Trophy className="size-4" /> TESTING FINDINGS
         </p>
         <div className="grid gap-4 sm:grid-cols-3">
           {r.stats.map((s, i) => (
@@ -1477,15 +1477,15 @@ function Results({ cs }: { cs: CaseStudy }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="relative overflow-hidden rounded-2xl border border-[var(--hw-coral)]/30 bg-white p-6 text-center shadow-[0_0_24px_-14px_rgba(236,106,78,0.9)]"
+              className="rounded-2xl border border-[var(--hw-border)] bg-white p-5"
             >
-              <span className="absolute right-3 top-3 text-[var(--hw-coral)]/40">
+              <span className="mb-3 grid size-9 place-items-center rounded-xl bg-[var(--hw-peach)] text-[var(--hw-coral)]">
                 <Trophy className="size-4" />
               </span>
-              <p className="text-[40px] leading-none text-[var(--hw-coral)]">
+              <p className="text-[15px] font-semibold leading-snug text-[var(--hw-navy)]">
                 {s.value}
               </p>
-              <p className="mt-2 text-[13px] text-[var(--hw-slate)]">
+              <p className="mt-2 text-[13px] leading-relaxed text-[var(--hw-slate)]">
                 {s.label}
               </p>
             </motion.div>
