@@ -240,7 +240,7 @@ const bridglyCase: CaseStudy = {
       {
         icon: "Boxes",
         title: "V2: One Dial for Two Cities",
-        body: "V2 is built on one object: a GMT dual-time dial. Both cities sit on one 24-hour scale, so the window when you are both awake and free becomes a shape you can see. I explored three directions (departure board, airmail postcard, GMT dial) and chose the dial because it shows two cities at a glance.",
+        body: "V2 is built on one object: a GMT dual-time dial. Both cities sit on one 24-hour scale, so the window when you are both awake and free becomes a shape you can see.",
       },
       {
         icon: "Sparkles",
@@ -413,7 +413,7 @@ const greenpathCase: CaseStudy = {
       {
         icon: "Boxes",
         title: "V2: Quick Log + Carbon Facts",
-        body: "Logging became a short list: pick what you did, confirm. Every number borrows a format people already read: a nutrition label. Each action shows kg of CO₂ and its percent of a 2.5 kg daily goal; Route Facts compares walk, bike, and transit the same way. I chose this over seed-packet and field-notebook directions because it scales to data-heavy screens.",
+        body: "Logging became a short list: pick what you did, confirm. Every number borrows a format people already read: a nutrition label. Each action shows kg of CO₂ and its percent of a 2.5 kg daily goal; Route Facts compares walk, bike, and transit the same way.",
       },
       {
         icon: "Sparkles",
@@ -586,7 +586,7 @@ const studyflowCase: CaseStudy = {
       {
         icon: "Boxes",
         title: "V2: One-tap Hourglass",
-        body: "V2 shows a single active task and one hero object: an hourglass. Turn the glass to start; the sand shows what is left at a glance. Task and duration are bottom sheets over Today, so context is never lost. I chose the hourglass over index-card and punch-card directions because it keeps the timer, not the task list, at the center.",
+        body: "V2 shows a single active task and one hero object: an hourglass. Turn the glass to start; the sand shows what is left at a glance. Task and duration are bottom sheets over Today, so context is never lost.",
       },
       {
         icon: "Sparkles",
