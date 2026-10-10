@@ -27,7 +27,12 @@ export const IMAGES = {
 };
 
 /* ---------- Case study content model ---------- */
-type IconText = { icon: string; label: string; image?: string };
+type IconText = {
+  icon: string;
+  label: string;
+  description?: string;
+  image?: string;
+};
 type IconCard = {
   icon: string;
   title: string;
@@ -67,6 +72,7 @@ export type CaseStudy = {
   results: {
     title: string;
     body: string;
+    note?: string;
     stats: { value: string; label: string }[];
     image: string;
   };
@@ -123,23 +129,24 @@ const bridglyCase: CaseStudy = {
     problemSub: "Long-distance couples often struggle with:",
     problems: [
       {
-        icon: "Heart",
-        label: "Lack of daily connection",
-        image: ART.iconBrokenHeart,
-      },
-      {
         icon: "Clock",
-        label: "Different schedules & time zones",
+        label: "Time difference",
+        description:
+          "Messages often land during a partner's sleep, creating pressure and emotional asymmetry.",
         image: ART.iconClock,
       },
       {
-        icon: "Repeat",
-        label: "Hard to build shared routines",
+        icon: "CalendarDays",
+        label: "Opaque schedules",
+        description:
+          "Without seeing the overlap, it is hard to know a partner's status or find a good time to call.",
         image: ART.iconCalendar,
       },
       {
-        icon: "MessageCircle",
-        label: "Lack of meaningful interaction",
+        icon: "Repeat",
+        label: "Lack of rituals",
+        description:
+          "Messaging apps have no shared space for memories and plans to look forward to.",
         image: ART.iconHeartChat,
       },
     ],
@@ -196,12 +203,12 @@ const bridglyCase: CaseStudy = {
       {
         icon: "PenTool",
         title: "V1: Information Dashboard",
-        body: "Initial lo-fi opened with activity logs, progress charts, and a shared task list. Research had already pointed away from productivity framing; prototype sessions confirmed it — users described the experience as 'managing a project, not a relationship.'",
+        body: "V1 opened with activity logs, progress charts, and a shared task list. Prototype sessions confirmed what research suggested: users described it as 'managing a project, not a relationship.'",
       },
       {
         icon: "Boxes",
-        title: "V2: Presence-First Design",
-        body: "Redesigned around three emotional anchors drawn directly from research findings: see your partner's timezone and weather (awareness), connect through warm daily messaging (intimacy), and count down to your next reunion together (anticipation).",
+        title: "V2: One Dial for Two Cities",
+        body: "V2 is built on one object: a GMT dual-time dial. Both cities sit on one 24-hour scale, so the window when you are both awake and free becomes a shape you can see. I explored three directions (departure board, airmail postcard, GMT dial) and chose the dial because it shows two cities at a glance.",
       },
       {
         icon: "Sparkles",
@@ -215,6 +222,7 @@ const bridglyCase: CaseStudy = {
     title:
       "Tested with 8 users over 2 weeks — V1 hi-fi vs V2 hi-fi.",
     body: "I recruited 8 target users (students and working professionals in long-distance relationships) for a 2-week usability test using Think-Aloud Protocol. Sessions covered key flows: exploring partner context, sending a message, and interacting with the reunion countdown. All observations compared V1 against V2.",
+    note: "These sessions used the earlier V2 prototype. The final GMT dial design has a validation plan of its own and has not been tested yet.",
     stats: [
       {
         value: "Emotional tone landed",
@@ -251,7 +259,7 @@ const greenpathCase: CaseStudy = {
     "A sustainable living companion that replaces guilt-tripping with actionable low-carbon alternatives and habit-building micro-rewards.",
   chips: ["Mobile App", "Lifestyle", "UX UI"],
   intro:
-    "GreenPath started as a carbon calculator — but research revealed guilt doesn't change behavior. I redesigned it from the ground up around convenience, positive reinforcement, and frictionless daily logging.",
+    "GreenPath started as a carbon calculator — but research revealed guilt doesn't change behavior. I redesigned it from the ground up around convenience, quick daily logging, and impact you can read: kg of CO₂ saved against a daily goal.",
   heroImage: ART.greenpathScene,
   overview: {
     title: "Guilt-tripping doesn't work. Convenience does.",
@@ -320,14 +328,13 @@ const greenpathCase: CaseStudy = {
       },
       {
         icon: "Star",
-        body: "Micro-rewards and visible cumulative impact (e.g. 'equivalent to 3 trees saved') sustained motivation far better than raw carbon kilograms.",
+        body: "Micro-rewards and visible cumulative impact sustained motivation, but only when the number had a reference point. A raw total meant little; progress toward a daily goal was easy to read.",
       },
     ],
   },
   process: {
-    title:
-      "From carbon calculator to one-tap low-carbon alternatives.",
-    body: "V1 required users to manually input every purchase and trip in detail across dense forms and pie charts. Drop-off was immediate. V2 replaced that with one-tap logging cards and context-aware eco-routing suggestions — turning sustainable choices into the path of least resistance.",
+    title: "From carbon calculator to quick, readable logging",
+    body: "V1 required users to manually input every purchase and trip in detail across dense forms and pie charts. Drop-off was immediate. V2 replaced that with a quick log list and context-aware eco-routing suggestions — turning sustainable choices into the path of least resistance.",
     steps: [
       {
         icon: "PenTool",
@@ -336,8 +343,8 @@ const greenpathCase: CaseStudy = {
       },
       {
         icon: "Boxes",
-        title: "V2: One-tap Logging + Eco-Routing",
-        body: "Redesigned around card-based one-tap logging and map-integrated low-carbon route suggestions. Carbon data was reframed as trees saved, not kilograms emitted.",
+        title: "V2: Quick Log + Carbon Facts",
+        body: "Logging became a short list: pick what you did, confirm. Every number borrows a format people already read: a nutrition label. Each action shows kg of CO₂ and its percent of a 2.5 kg daily goal; Route Facts compares walk, bike, and transit the same way. I chose this over seed-packet and field-notebook directions because it scales to data-heavy screens.",
       },
       {
         icon: "Sparkles",
@@ -351,9 +358,10 @@ const greenpathCase: CaseStudy = {
     title:
       "Tested with the same 10 participants across research and usability phases.",
     body: "The 10 participants who took part in research interviews also completed the usability evaluation over 2 weeks, using remote and in-person task-based sessions. This continuity enabled richer longitudinal observation but introduced familiarity bias — participants already understood the project's direction, which may have made V2 easier to navigate. V1 observations were from an earlier lo-fi prototype session; V2 sessions used the hi-fi prototype.",
+    note: "The final Carbon label design has its own validation plan and has not been tested yet.",
     stats: [
       {
-        value: "One-tap logging worked",
+        value: "Quick logging worked",
         label:
           "Most participants completed the low-carbon logging task in V2 with noticeably fewer hesitations than V1's manual form — the contrast was visible in Think-Aloud sessions.",
       },
@@ -376,7 +384,7 @@ const greenpathCase: CaseStudy = {
     points: [
       "Removing the warning dashboard wasn't a visual decision — it was a behaviour science decision. Anxiety reduces action; encouragement increases it.",
       "The barcode scanner cut was the right call. A feature that damages trust when it fails is worse than no feature at all. Scope discipline is a design skill.",
-      "Carbon data only motivates when translated into human-scale equivalents. '3 trees saved this week' lands. '14.2 kg CO₂ avoided' doesn't.",
+      "Carbon data motivates when it has a reference point. '14.2 kg saved' alone means little; '0.8 kg, 32% of today's goal' tells you where you stand and what is left.",
     ],
   },
 };
@@ -391,7 +399,7 @@ const studyflowCase: CaseStudy = {
   overview: {
     title:
       "The problem wasn't focus. It was the friction before focus.",
-    body: "I originally assumed students failed to study because they lacked structured timers or detailed scheduling tools. Research proved the opposite: over-planning and strict schedules were causing analysis paralysis. StudyFlow was redesigned to remove every barrier between the user and their first focused minute.",
+    body: "I originally assumed students failed to study because they lacked structured timers or detailed scheduling tools. Research proved the opposite: over-planning and strict schedules were causing analysis paralysis. StudyFlow was redesigned to remove every barrier between the user and their first focused minute. The final design turns time into an object you can see: an hourglass, where sand moves from waiting to done.",
     meta: [
       {
         icon: "Tag",
@@ -473,12 +481,12 @@ const studyflowCase: CaseStudy = {
       {
         icon: "PenTool",
         title: "V1: Calendar Grid Setup",
-        body: "Initial lo-fi required filling a detailed schedule before studying. The diary study had already shown that over-ambitious planning predicted abandonment; prototype testing confirmed drop-off happened during setup itself.",
+        body: "V1 required filling a detailed schedule before studying. The diary study had already shown that over-ambitious planning predicted abandonment; prototype testing confirmed drop-off happened during setup itself.",
       },
       {
         icon: "Boxes",
-        title: "V2: One-tap Focus Card",
-        body: "Redesigned home screen to show a single active task with a minimal countdown. Setup reduced to one tap. The guiding message: 'Just start 5 minutes — you can adjust later.'",
+        title: "V2: One-tap Hourglass",
+        body: "V2 shows a single active task and one hero object: an hourglass. Turn the glass to start; the sand shows what is left at a glance. Task and duration are bottom sheets over Today, so context is never lost. I chose the hourglass over index-card and punch-card directions because it keeps the timer, not the task list, at the center.",
       },
       {
         icon: "Sparkles",
@@ -492,6 +500,7 @@ const studyflowCase: CaseStudy = {
     title:
       "Validated by 8 users over 2 weeks of task-based testing.",
     body: "I tested with 8 target users (university students and certification-prep working adults) over 2 weeks using usability testing and task completion evaluation. Observations from V1 hi-fi sessions — conducted earlier during the design phase — are compared against V2 hi-fi testing. These were separate evaluation points taken at different stages of the project, not a controlled within-subjects study.",
+    note: "These sessions used the earlier V2 prototype. The final hourglass design has its own validation plan (start in 2 taps or fewer, read time left from the sand) and has not been tested yet.",
     stats: [
       {
         value: "Session completion improved",

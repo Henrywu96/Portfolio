@@ -482,105 +482,61 @@ function PhoneTriple({
 
 /* Bridgly onboarding screens (image-12) */
 function BridglyScreen1() {
+  const dialNumbers = ["00", "03", "06", "09", "12", "15", "18", "21"];
+
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span
-          className="text-[8px] font-bold"
-          style={{ color: "var(--hw-coral)" }}
-        >
+        <span className="text-[8px] font-bold" style={{ color: "#2B2D42" }}>
           Bridgly
         </span>
-        <span
-          className="text-[7px]"
-          style={{ color: "var(--hw-slate)" }}
-        >
+        <span className="text-[6px]" style={{ color: "#2B2D42" }}>
           Skip
         </span>
       </div>
-      <div
-        className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center rounded-full"
-        style={{ background: "var(--hw-peach)" }}
-      >
-        <div className="flex gap-1">
-          <div
-            className="flex h-10 w-6 flex-col overflow-hidden rounded-[6px] shadow"
-            style={{ background: "#fff8e1" }}
-          >
-            <div
-              className="h-1"
-              style={{ background: "#fbbf24" }}
-            />
-            <div
-              className="flex-1"
+      <div className="relative mx-auto mt-1.5 size-[88px] rounded-full border-[7px] border-[#FFB5A7]">
+        <div className="absolute inset-[7px] rounded-full border-[4px] border-[#81B398]" />
+        {dialNumbers.map((number, i) => {
+          const angle = (i * Math.PI) / 4 - Math.PI / 2;
+          return (
+            <span
+              key={number}
+              className="absolute text-[4.5px] font-semibold"
               style={{
-                background:
-                  "linear-gradient(to bottom, #bae6fd, #fef9c3)",
+                color: "#2B2D42",
+                left: `${50 + Math.cos(angle) * 42}%`,
+                top: `${50 + Math.sin(angle) * 42}%`,
+                transform: "translate(-50%, -50%)",
               }}
-            />
-            <div
-              className="py-0.5 text-center text-[5px] font-bold"
-              style={{ color: "#92400e" }}
             >
-              14:00
-            </div>
-          </div>
-          <div
-            className="flex h-10 w-6 flex-col overflow-hidden rounded-[6px] shadow"
-            style={{ background: "var(--hw-navy)" }}
-          >
-            <div
-              className="h-1"
-              style={{ background: "var(--hw-navy)" }}
-            />
-            <div
-              className="flex flex-1 items-center justify-center"
-              style={{ background: "#1e1b4b" }}
-            >
-              <span className="text-[9px]">🌙</span>
-            </div>
-            <div className="py-0.5 text-center text-[5px] font-bold text-white">
-              07:00
-            </div>
-          </div>
+              {number}
+            </span>
+          );
+        })}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+          <span className="text-[4.5px] tracking-wide" style={{ color: "#81B398" }}>
+            TAIPEI · YOU
+          </span>
+          <span className="text-[13px] font-bold leading-none" style={{ color: "#2B2D42" }}>
+            14:00
+          </span>
+          <span className="mt-1 text-[4.5px] tracking-wide" style={{ color: "#FFB5A7" }}>
+            LONDON · ALEX
+          </span>
+          <span className="text-[8px] font-bold leading-none" style={{ color: "#2B2D42" }}>
+            07:00
+          </span>
         </div>
       </div>
-      <div className="mt-2 flex-1 text-center">
-        <p
-          className="text-[8px] font-bold leading-tight"
-          style={{ color: "var(--hw-navy)" }}
-        >
-          See Their World
-          <br />
-          in Real Time
-        </p>
-        <p
-          className="mt-1 text-[6px] leading-tight"
-          style={{ color: "var(--hw-slate)" }}
-        >
-          Know your partner's local time, weather, and daily
-          rhythm
-        </p>
-      </div>
-      <div className="mb-1.5 flex justify-center gap-1">
-        <div
-          className="h-1 w-3 rounded-full"
-          style={{ background: "var(--hw-coral)" }}
-        />
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="h-1 w-1 rounded-full"
-            style={{ background: "var(--hw-border)" }}
-          />
-        ))}
-      </div>
-      <div
-        className="rounded-lg py-1.5 text-center"
-        style={{ background: "var(--hw-coral)" }}
-      >
-        <span className="text-[8px] font-bold text-white">
-          Next
+      <p className="mt-2 text-[8px] font-bold leading-tight" style={{ color: "#2B2D42" }}>
+        Your 14:00 is their 07:00.
+      </p>
+      <p className="mt-1 text-[5.5px] leading-tight" style={{ color: "#2B2D42" }}>
+        See both cities on one dial and find when you are both free.
+      </p>
+      <div className="mt-auto rounded-lg py-1.5 text-center" style={{ background: "#FFB5A7" }}>
+        <span className="text-[7px] font-bold" style={{ color: "#2B2D42" }}>
+          Set up your dial
         </span>
       </div>
     </div>
@@ -591,85 +547,43 @@ function BridglyScreen2() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span
-          className="text-[8px] font-bold"
-          style={{ color: "var(--hw-coral)" }}
-        >
+        <span className="text-[8px] font-bold" style={{ color: "#2B2D42" }}>
           Bridgly
         </span>
-        <span
-          className="text-[7px]"
-          style={{ color: "var(--hw-slate)" }}
-        >
+        <span className="text-[6px]" style={{ color: "#2B2D42" }}>
           Skip
         </span>
       </div>
-      <div
-        className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center rounded-full"
-        style={{ background: "var(--hw-peach)" }}
-      >
-        <div
-          className="relative flex h-12 w-14 items-center justify-center rounded-xl shadow-lg"
-          style={{ background: "var(--hw-coral)" }}
-        >
-          <span className="text-[22px]">❤️</span>
-          <svg
-            className="absolute -bottom-2 left-1/2 -translate-x-1/2"
-            width="28"
-            height="10"
-            viewBox="0 0 28 10"
-          >
-            <path
-              d="M0 5 L4 5 L7 1 L10 9 L13 5 L17 5 L20 2 L23 8 L26 5 L28 5"
-              stroke="white"
-              strokeWidth="1.5"
-              fill="none"
-              strokeLinecap="round"
-            />
-          </svg>
+      <div className="mt-6 space-y-2">
+        <div className="max-w-[82%] rounded-lg px-2 py-1.5" style={{ background: "#FFB5A7" }}>
+          <p className="text-[5px] font-semibold" style={{ color: "#2B2D42" }}>
+            · Happy
+          </p>
+          <p className="text-[7px]" style={{ color: "#2B2D42" }}>
+            Heading home now.
+          </p>
         </div>
-      </div>
-      <div className="mt-3 flex-1 text-center">
-        <p
-          className="text-[8px] font-bold leading-tight"
-          style={{ color: "var(--hw-navy)" }}
-        >
-          Chat with Emotion,
-          <br />
-          Not Just Words
-        </p>
-        <p
-          className="mt-1 text-[6px] leading-tight"
-          style={{ color: "var(--hw-slate)" }}
-        >
-          Send haptic hugs, emotional context tags, and voice
-          capsules
+        <div className="ml-auto max-w-[78%] rounded-lg px-2 py-1.5" style={{ background: "#81B398" }}>
+          <p className="text-[7px]" style={{ color: "#2B2D42" }}>
+            Can we call soon?
+          </p>
+        </div>
+        <p className="text-center text-[5px]" style={{ color: "#2B2D42" }}>
+          You sent a hug · 13:48 TPE
         </p>
       </div>
-      <div className="mb-1.5 flex justify-center gap-1">
-        <div
-          className="h-1 w-1 rounded-full"
-          style={{ background: "var(--hw-border)" }}
-        />
-        <div
-          className="h-1 w-3 rounded-full"
-          style={{ background: "var(--hw-coral)" }}
-        />
-        {[0, 1].map((i) => (
-          <div
-            key={i}
-            className="h-1 w-1 rounded-full"
-            style={{ background: "var(--hw-border)" }}
-          />
-        ))}
-      </div>
-      <div
-        className="rounded-lg py-1.5 text-center"
-        style={{ background: "var(--hw-coral)" }}
-      >
-        <span className="text-[8px] font-bold text-white">
-          Next
-        </span>
+      <div className="mt-auto">
+        <p className="text-[10px] font-bold leading-tight" style={{ color: "#2B2D42" }}>
+          Send a hug, not just a text.
+        </p>
+        <p className="mt-1 text-[6px] leading-tight" style={{ color: "#2B2D42" }}>
+          Hugs, mood tags and voice notes arrive with both clocks.
+        </p>
+        <div className="mt-3 rounded-lg py-1.5 text-center" style={{ background: "#FFB5A7" }}>
+          <span className="text-[7px] font-bold" style={{ color: "#2B2D42" }}>
+            Next
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -679,77 +593,44 @@ function BridglyScreen3() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span
-          className="text-[8px] font-bold"
-          style={{ color: "var(--hw-coral)" }}
-        >
+        <span className="text-[8px] font-bold" style={{ color: "#2B2D42" }}>
           Bridgly
         </span>
-        <span
-          className="text-[7px]"
-          style={{ color: "var(--hw-slate)" }}
-        >
+        <span className="text-[6px]" style={{ color: "#2B2D42" }}>
           Skip
         </span>
       </div>
-      <div
-        className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center rounded-full"
-        style={{ background: "var(--hw-peach)" }}
-      >
-        <div className="text-center">
-          <div
-            className="rounded-xl px-2.5 py-1.5 shadow-lg"
-            style={{ background: "var(--hw-navy)" }}
-          >
-            <div className="text-[5px] font-semibold text-white/60">
-              TOGETHER
-            </div>
-            <div className="text-[18px] font-bold leading-none text-white">
-              23
-            </div>
-            <div className="text-[5px] text-white/60">DAYS</div>
-          </div>
+      <div className="mx-auto mt-2 flex size-[66px] flex-col items-center justify-center rounded-full border-[5px] border-[#81B398] text-center">
+        <span className="text-[18px] font-bold leading-none" style={{ color: "#2B2D42" }}>
+          23
+        </span>
+        <span className="text-[5px]" style={{ color: "#2B2D42" }}>
+          days to go
+        </span>
+      </div>
+      <div className="mt-2 space-y-1">
+        <div className="flex items-center justify-between border-b border-[#81B398] pb-1">
+          <span className="text-[5.5px] font-semibold" style={{ color: "#2B2D42" }}>
+            Visit Tokyo Together
+          </span>
+          <span className="text-[4.5px]" style={{ color: "#81B398" }}>
+            Planned
+          </span>
+        </div>
+        <div className="flex items-center justify-between border-b border-[#81B398] pb-1">
+          <span className="text-[5.5px] font-semibold" style={{ color: "#2B2D42" }}>
+            Move In Together
+          </span>
+          <span className="text-[4.5px]" style={{ color: "#81B398" }}>
+            Done
+          </span>
         </div>
       </div>
-      <div className="mt-3 flex-1 text-center">
-        <p
-          className="text-[8px] font-bold leading-tight"
-          style={{ color: "var(--hw-navy)" }}
-        >
-          Build Your Future
-          <br />
-          Together
-        </p>
-        <p
-          className="mt-1 text-[6px] leading-tight"
-          style={{ color: "var(--hw-slate)" }}
-        >
-          Count down to your next reunion and look forward to it
-          together
-        </p>
-      </div>
-      <div className="mb-1.5 flex justify-center gap-1">
-        {[0, 1].map((i) => (
-          <div
-            key={i}
-            className="h-1 w-1 rounded-full"
-            style={{ background: "var(--hw-border)" }}
-          />
-        ))}
-        <div
-          className="h-1 w-3 rounded-full"
-          style={{ background: "var(--hw-coral)" }}
-        />
-        <div
-          className="h-1 w-1 rounded-full"
-          style={{ background: "var(--hw-border)" }}
-        />
-      </div>
-      <div
-        className="rounded-lg py-1.5 text-center"
-        style={{ background: "var(--hw-coral)" }}
-      >
-        <span className="text-[8px] font-bold text-white">
+      <p className="mt-2 text-[8px] font-bold leading-tight" style={{ color: "#2B2D42" }}>
+        Plan the day you meet.
+      </p>
+      <div className="mt-auto rounded-lg py-1.5 text-center" style={{ background: "#FFB5A7" }}>
+        <span className="text-[7px] font-bold" style={{ color: "#2B2D42" }}>
           Next
         </span>
       </div>
@@ -760,75 +641,37 @@ function BridglyScreen3() {
 /* GreenPath screens */
 function GreenScreen1() {
   const actions = [
-    { done: true, label: "Bring reusable bag" },
-    { done: true, label: "Meatless meal" },
-    { done: false, label: "Walk or bike" },
-    { done: false, label: "Short shower" },
+    ["Bring reusable bag", "0.3 kg", "12%"],
+    ["Compost organic waste", "0.5 kg", "20%"],
   ];
+
   return (
-    <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
-      <div className="flex items-center justify-between">
-        <span
-          className="text-[8px] font-bold"
-          style={{ color: "var(--hw-accent-greenpath)" }}
-        >
-          GreenPath
-        </span>
-        <div className="flex items-center gap-0.5 rounded-full bg-green-100 px-1.5 py-0.5">
-          <span className="text-[7px]">🔥</span>
-          <span className="text-[7px] font-bold text-green-700">
-            12
-          </span>
-        </div>
-      </div>
-      <p
-        className="mt-1.5 text-[6.5px] font-bold tracking-wide"
-        style={{ color: "var(--hw-slate)" }}
-      >
-        TODAY'S ACTIONS
+    <div className="flex h-full flex-col bg-[#FDF6F1] px-3 pb-3 pt-1 text-[#1F2A44]">
+      <p className="border-b-[4px] border-[#1F2A44] pb-1 text-[13px] font-black leading-none tracking-tight">
+        Carbon Facts
       </p>
-      <div className="mt-1 flex-1 space-y-1.5">
-        {actions.map((a) => (
-          <div
-            key={a.label}
-            className="flex items-center gap-1.5 rounded-lg bg-green-50 px-2 py-1.5"
-          >
-            <div
-              className="flex size-4 shrink-0 items-center justify-center rounded-full"
-              style={{
-                background: a.done
-                  ? "var(--hw-accent-greenpath)"
-                  : "white",
-                border: a.done ? "none" : "1.5px solid #d1fae5",
-              }}
-            >
-              {a.done && (
-                <span className="text-[7px] text-white">✓</span>
-              )}
-            </div>
-            <span
-              className="text-[7px]"
-              style={{
-                color: a.done
-                  ? "var(--hw-slate)"
-                  : "var(--hw-navy)",
-                textDecoration: a.done
-                  ? "line-through"
-                  : "none",
-              }}
-            >
-              {a.label}
-            </span>
+      <div className="flex items-end justify-between border-b border-[#1F2A44] py-1.5">
+        <span className="text-[6px] font-bold">CO₂ saved</span>
+        <span className="text-[13px] font-black leading-none">0.8 kg</span>
+      </div>
+      <div className="flex items-center justify-between border-b-[3px] border-[#1F2A44] py-1">
+        <span className="text-[6px] font-bold">% Daily Goal</span>
+        <span className="text-[8px] font-black">32%</span>
+      </div>
+      <div className="border-b border-[#1F2A44] py-1 text-right text-[4.5px] font-bold uppercase">
+        Amount · Daily Goal
+      </div>
+      <div className="flex-1">
+        {actions.map(([label, amount, percent]) => (
+          <div key={label} className="grid grid-cols-[1fr_auto_auto] gap-1 border-b border-[#1F2A44] py-1.5 text-[5.5px]">
+            <span className="font-bold leading-tight">{label}</span>
+            <span>{amount}</span>
+            <span className="font-black">{percent}</span>
           </div>
         ))}
       </div>
-      <div
-        className="mt-1.5 rounded-lg py-1.5 text-center"
-        style={{ background: "var(--hw-accent-greenpath)" }}
-      >
-        <span className="text-[7.5px] font-bold text-white">
-          Log Action
-        </span>
+      <div className="bg-[#3A7A4D] py-1.5 text-center text-[6.5px] font-bold text-[#FDF6F1]">
+        Log an action
       </div>
     </div>
   );
@@ -836,157 +679,124 @@ function GreenScreen1() {
 
 function GreenScreen2() {
   return (
-    <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
-      <div className="flex items-center justify-between">
-        <span
-          className="text-[8px] font-bold"
-          style={{ color: "var(--hw-accent-greenpath)" }}
-        >
-          GreenPath
-        </span>
-        <span
-          className="text-[7px]"
-          style={{ color: "var(--hw-slate)" }}
-        >
-          This week
-        </span>
+    <div className="flex h-full flex-col bg-[#FDF6F1] px-3 pb-3 pt-1 text-[#1F2A44]">
+      <p className="border-b-[5px] border-[#1F2A44] pb-1 text-[15px] font-black leading-none tracking-tight">
+        Impact Facts
+      </p>
+      <p className="border-b border-[#1F2A44] py-1 text-right text-[5px] font-bold uppercase">
+        This week
+      </p>
+      <div className="border-b-[4px] border-[#1F2A44] py-2">
+        <p className="text-[6px] font-bold">Total CO₂ saved</p>
+        <p className="mt-0.5 text-[18px] font-black leading-none">12.4 kg</p>
+        <p className="mt-1 text-[7px] font-bold">71% of weekly goal</p>
       </div>
-      <div
-        className="mx-auto mt-2 flex h-[72px] w-[72px] flex-col items-center justify-center rounded-full border-[4px] bg-green-50"
-        style={{ borderColor: "var(--hw-accent-greenpath)" }}
-      >
-        <span
-          className="text-[18px] font-bold"
-          style={{ color: "var(--hw-accent-greenpath)" }}
-        >
-          12
-        </span>
-        <span className="text-[6px] text-green-600">
-          day streak
-        </span>
+      <div className="flex items-end justify-between border-b border-[#1F2A44] py-2">
+        <span className="text-[7px] font-bold">Actions logged</span>
+        <span className="text-[17px] font-black leading-none">42</span>
       </div>
-      <div className="mt-2 grid grid-cols-2 gap-1">
-        {[
-          ["3 trees", "saved this week"],
-          ["24 L", "Water saved"],
-        ].map(([v, l]) => (
-          <div
-            key={l}
-            className="rounded-lg bg-green-50 p-1.5 text-center"
-          >
-            <p
-              className="text-[10px] font-bold"
-              style={{ color: "var(--hw-accent-greenpath)" }}
-            >
-              {v}
-            </p>
-            <p
-              className="text-[6px]"
-              style={{ color: "var(--hw-slate)" }}
-            >
-              {l}
-            </p>
-          </div>
-        ))}
+      <div className="flex items-end justify-between border-b-[4px] border-[#1F2A44] py-2">
+        <span className="text-[7px] font-bold">Current streak</span>
+        <span className="text-[12px] font-black leading-none">5 days</span>
       </div>
-      <div
-        className="mt-auto rounded-lg py-1.5 text-center"
-        style={{ background: "var(--hw-accent-greenpath)" }}
-      >
-        <span className="text-[7.5px] font-bold text-white">
-          View Full Impact
-        </span>
+      <div className="mt-auto border-t border-[#1F2A44] pt-1 text-[5px] leading-tight">
+        Based on your logged actions and a 17.5 kg weekly goal.
       </div>
     </div>
   );
 }
 
 function GreenScreen3() {
+  const challenges = [
+    ["Bike to Work Week", "4.9 kg"],
+    ["Meatless Monday", "1.0 kg"],
+    ["Zero-Waste Weekend", "2.2 kg"],
+  ];
+
   return (
-    <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
-      <div className="flex items-center justify-between">
-        <span
-          className="text-[8px] font-bold"
-          style={{ color: "var(--hw-accent-greenpath)" }}
-        >
-          GreenPath
-        </span>
-        <div className="rounded-full bg-green-100 px-1.5 py-0.5 text-[6px] font-bold text-green-700">
-          LEVEL 3
-        </div>
+    <div className="flex h-full flex-col bg-[#FDF6F1] px-3 pb-3 pt-1 text-[#1F2A44]">
+      <div className="bg-[#3A7A4D] p-2 text-[#FDF6F1]">
+        <p className="text-[5px] font-black tracking-wider">ACTIVE</p>
+        <p className="mt-0.5 text-[9px] font-black leading-tight">Plastic-Free Week</p>
+        <p className="mt-1 text-[6px] font-bold">3 of 7 days</p>
       </div>
-      <p
-        className="mt-1.5 text-[6.5px] font-bold tracking-wide"
-        style={{ color: "var(--hw-slate)" }}
-      >
-        WEEKLY CHALLENGE
+      <p className="mt-2 border-b-[4px] border-[#1F2A44] pb-1 text-[12px] font-black leading-none tracking-tight">
+        Challenge Facts
       </p>
-      <div
-        className="mt-1 rounded-xl p-2.5 text-white"
-        style={{
-          background:
-            "linear-gradient(135deg, #4c9a63, #22c55e)",
-        }}
-      >
-        <span className="text-[13px]">🌱</span>
-        <p className="mt-0.5 text-[8px] font-bold leading-tight">
-          Zero Waste Week
-        </p>
-        <p className="mt-0.5 text-[6px] text-white/80">
-          Avoid single-use plastics for 7 days
-        </p>
-        <div className="mt-1.5 h-1 w-full rounded-full bg-white/30">
-          <div className="h-full w-3/5 rounded-full bg-white" />
-        </div>
-        <p className="mt-0.5 text-[5.5px] text-white/70">
-          4 of 7 days completed
-        </p>
+      <div className="border-b border-[#1F2A44] py-1 text-right text-[4.5px] font-bold uppercase">
+        CO₂ saved
       </div>
-      <div className="mt-1.5 space-y-1">
-        {[
-          ["🚴", "Bike to work", "+50 pts"],
-          ["🥗", "Plant-based meal", "+30 pts"],
-        ].map(([e, l, p]) => (
-          <div
-            key={l}
-            className="flex items-center gap-1.5 rounded-lg bg-green-50 px-2 py-1.5"
-          >
-            <span className="text-[8px]">{e}</span>
-            <span
-              className="text-[7px]"
-              style={{ color: "var(--hw-navy)" }}
-            >
-              {l}
-            </span>
-            <span
-              className="ml-auto text-[6px]"
-              style={{ color: "var(--hw-slate)" }}
-            >
-              {p}
-            </span>
+      <div className="flex-1">
+        {challenges.map(([label, amount]) => (
+          <div key={label} className="flex items-center justify-between gap-2 border-b border-[#1F2A44] py-1.5">
+            <span className="text-[5.5px] font-bold leading-tight">{label}</span>
+            <span className="shrink-0 text-[6px] font-black">{amount}</span>
           </div>
         ))}
+      </div>
+      <div className="border-t-[3px] border-[#1F2A44] pt-1 text-[5px] font-bold">
+        Total challenge impact · 8.1 kg
       </div>
     </div>
   );
 }
 
 /* StudyFlow screens */
-function StudyScreen1() {
+function StudyHourglass({ state = "ready" }: { state?: "ready" | "active" | "done" }) {
   return (
-    <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
-      <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>StudyFlow</span>
-        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>Today</span>
+    <svg viewBox="0 0 64 84" className="h-full w-full" aria-hidden>
+      <path d="M12 8 H52 M12 76 H52" stroke="#C07A3A" strokeWidth="6" strokeLinecap="round" />
+      <path d="M16 12 C17 28 24 34 32 42 C24 50 17 56 16 72 M48 12 C47 28 40 34 32 42 C40 50 47 56 48 72" fill="none" stroke="#F4EFE6" strokeWidth="2" />
+      <path d="M13 10 L18 13 M51 10 L46 13 M13 74 L18 71 M51 74 L46 71" stroke="#C07A3A" strokeWidth="3" strokeLinecap="round" />
+      {state !== "done" && (
+        <path d={state === "active" ? "M20 17 H44 L34 36 H30 Z" : "M18 15 H46 L34 38 H30 Z"} fill="#E6B85C" />
+      )}
+      {state === "active" && <path d="M32 37 V55" stroke="#E6B85C" strokeWidth="2" strokeLinecap="round" />}
+      <path d={state === "done" ? "M18 68 H46 L35 46 H29 Z" : state === "active" ? "M22 68 H42 L34 56 H30 Z" : "M27 68 H37 L33 62 H31 Z"} fill="#E6B85C" />
+      <path d="M10 5 H54 M10 79 H54" stroke="#C07A3A" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function StudyScreen1() {
+  const durations = ["5m", "15m", "25m", "45m"];
+
+  return (
+    <div className="flex h-full flex-col bg-[#202C46] px-3 pb-3 pt-1">
+      <div className="flex items-center justify-between font-mono text-[5.5px] uppercase tracking-wider text-[#E6B85C]">
+        <span>StudyFlow</span>
+        <span>Today</span>
       </div>
-      <p className="mt-2 text-[6.5px] font-bold tracking-wide" style={{ color: "var(--hw-slate)" }}>UP NEXT</p>
-      <div className="mt-1 flex-1 rounded-xl p-2.5" style={{ background: "#fffbeb", outline: "1px solid #fde68a" }}>
-        <span className="text-[13px]">🧮</span>
-        <p className="mt-1 text-[8px] font-bold leading-tight" style={{ color: "var(--hw-navy)" }}>Practice problems</p>
-        <p className="mt-0.5 text-[6px] leading-tight" style={{ color: "var(--hw-slate)" }}>Just start 5 minutes — you can adjust later.</p>
+      <p className="mt-2 font-mono text-[5.5px] font-bold tracking-[0.18em] text-[#E6B85C]">
+        NOW FOCUSING
+      </p>
+      <p className="mt-1 font-serif text-[9px] font-semibold leading-tight text-[#F4EFE6]">
+        Read Chapter 3
+      </p>
+      <div className="mx-auto mt-1 h-[68px] w-[52px]">
+        <StudyHourglass />
       </div>
-      <div className="mt-1.5 rounded-lg py-1.5 text-center" style={{ background: "var(--hw-accent-studyflow)" }}>
-        <span className="text-[7.5px] font-bold text-white">Start</span>
+      <p className="text-center font-serif text-[14px] font-bold leading-none text-[#F4EFE6]">
+        25:00
+      </p>
+      <div className="mt-2 grid grid-cols-4 gap-1">
+        {durations.map((duration) => (
+          <span
+            key={duration}
+            className={`rounded-full border py-0.5 text-center font-mono text-[5px] uppercase ${
+              duration === "25m"
+                ? "border-[#E6B85C] bg-[#E6B85C] text-[#202C46]"
+                : "border-[#E6B85C] text-[#F4EFE6]"
+            }`}
+          >
+            {duration}
+          </span>
+        ))}
+      </div>
+      <div className="mt-auto rounded-lg bg-[#E6B85C] py-1.5 text-center">
+        <span className="font-mono text-[6.5px] font-bold uppercase tracking-wide text-[#202C46]">
+          Turn the glass
+        </span>
       </div>
     </div>
   );
@@ -994,25 +804,30 @@ function StudyScreen1() {
 
 function StudyScreen2() {
   return (
-    <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
-      <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>StudyFlow</span>
-        <div className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[6px] font-bold text-amber-700">FOCUS</div>
+    <div className="flex h-full flex-col bg-[#202C46] px-3 pb-3 pt-1">
+      <div className="flex items-center justify-between font-mono text-[5.5px] uppercase tracking-wider text-[#E6B85C]">
+        <span>StudyFlow</span>
+        <span>Focus</span>
       </div>
-      <p className="mt-0.5 text-center text-[6px]" style={{ color: "var(--hw-slate)" }}>Practice problems</p>
-      <div className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center">
-        <svg className="absolute inset-0 -rotate-90" viewBox="0 0 72 72">
-          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--hw-border)" strokeWidth="5" />
-          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--hw-accent-studyflow)" strokeWidth="5" strokeDasharray="188" strokeDashoffset="63" strokeLinecap="round" />
-        </svg>
-        <div className="text-center">
-          <p className="text-[15px] font-bold" style={{ color: "var(--hw-navy)" }}>03:20</p>
-          <p className="text-[5.5px]" style={{ color: "var(--hw-slate)" }}>remaining</p>
-        </div>
+      <p className="mt-3 text-center font-mono text-[6px] font-bold tracking-[0.2em] text-[#E6B85C]">
+        IN SESSION
+      </p>
+      <p className="mt-1 text-center font-serif text-[10px] font-semibold text-[#F4EFE6]">
+        Read Chapter 3
+      </p>
+      <div className="mx-auto mt-3 h-[90px] w-[68px]">
+        <StudyHourglass state="active" />
       </div>
-      <p className="mt-2 text-center text-[6px]" style={{ color: "var(--hw-slate)" }}>Keep going — stop anytime.</p>
-      <div className="mt-auto rounded-lg py-1.5 text-center" style={{ background: "var(--hw-accent-studyflow)" }}>
-        <span className="text-[7.5px] font-bold text-white">Pause</span>
+      <p className="mt-2 text-center font-serif text-[19px] font-bold leading-none text-[#F4EFE6]">
+        18:42
+      </p>
+      <p className="mt-1 text-center font-mono text-[5.5px] font-bold tracking-[0.2em] text-[#E6B85C]">
+        REMAINING
+      </p>
+      <div className="mt-auto rounded-lg border border-[#E6B85C] py-1.5 text-center">
+        <span className="font-mono text-[7px] font-bold uppercase tracking-wide text-[#F4EFE6]">
+          Pause
+        </span>
       </div>
     </div>
   );
@@ -1020,20 +835,28 @@ function StudyScreen2() {
 
 function StudyScreen3() {
   return (
-    <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
-      <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>StudyFlow</span>
-        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>Done</span>
+    <div className="flex h-full flex-col items-center bg-[#202C46] px-3 pb-3 pt-1 text-center">
+      <div className="h-[66px] w-[50px]">
+        <StudyHourglass state="done" />
       </div>
-      <div className="flex flex-1 flex-col items-center justify-center text-center">
-        <span className="text-[22px]">🎉</span>
-        <p className="mt-1 text-[8px] font-bold leading-tight" style={{ color: "var(--hw-navy)" }}>Nice start!</p>
-        <p className="mt-0.5 text-[6px] leading-tight" style={{ color: "var(--hw-slate)" }}>5 minutes focused</p>
+      <p className="mt-1 font-serif text-[13px] font-semibold text-[#F4EFE6]">
+        Nice work.
+      </p>
+      <p className="mt-1 font-mono text-[5.5px] font-bold tracking-[0.15em] text-[#E6B85C]">
+        25 MINUTES OF FOCUS
+      </p>
+      <div className="mt-auto w-full space-y-1.5">
+        <div className="rounded-lg bg-[#E6B85C] py-1.5 text-center">
+          <span className="font-mono text-[5.5px] font-bold uppercase tracking-wide text-[#202C46]">
+            Continue studying
+          </span>
+        </div>
+        <div className="rounded-lg border border-[#E6B85C] py-1.5 text-center">
+          <span className="font-mono text-[5.5px] font-bold uppercase tracking-wide text-[#F4EFE6]">
+            Take a break
+          </span>
+        </div>
       </div>
-      <div className="rounded-lg py-1.5 text-center" style={{ background: "var(--hw-accent-studyflow)" }}>
-        <span className="text-[7.5px] font-bold text-white">Keep going</span>
-      </div>
-      <p className="mt-1.5 text-center text-[6px]" style={{ color: "var(--hw-slate)" }}>Done for now</p>
     </div>
   );
 }
@@ -1130,7 +953,13 @@ function Overview({
           <p className="mt-1 text-[14px] text-[var(--hw-slate)]">
             {o.problemSub}
           </p>
-          <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div
+            className={`mt-5 grid gap-4 ${
+              o.problems.length === 3
+                ? "sm:grid-cols-3"
+                : "grid-cols-2 sm:grid-cols-4"
+            }`}
+          >
             {o.problems.map((p) => {
               const Icon = icon(p.icon);
               return (
@@ -1146,9 +975,20 @@ function Overview({
                       <Icon className="size-5" />
                     </span>
                   )}
-                  <p className="mt-2 text-[12px] leading-snug text-[var(--hw-slate)]">
-                    {p.label}
-                  </p>
+                  {p.description ? (
+                    <>
+                      <p className="mt-2 text-[13px] font-semibold leading-snug text-[var(--hw-navy)]">
+                        {p.label}
+                      </p>
+                      <p className="mt-1 text-[12px] leading-relaxed text-[var(--hw-slate)]">
+                        {p.description}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="mt-2 text-[12px] leading-snug text-[var(--hw-slate)]">
+                      {p.label}
+                    </p>
+                  )}
                 </div>
               );
             })}
@@ -1327,6 +1167,11 @@ function Results({ cs }: { cs: CaseStudy }) {
         <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
           {r.body}
         </p>
+        {r.note && (
+          <p className="mt-3 text-[15px] leading-relaxed text-[var(--hw-slate)]">
+            {r.note}
+          </p>
+        )}
       </div>
 
       <div className="mx-auto max-w-6xl">
