@@ -6,7 +6,6 @@ const NAV: { label: string; target: string }[] = [
   { label: "Home", target: "home" },
   { label: "Work", target: "work" },
   { label: "About", target: "about" },
-  { label: "Resume", target: "resume" },
   { label: "Contact", target: "contact" },
 ];
 
@@ -15,16 +14,6 @@ function scrollToSection(id: string) {
   if (el)
     el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
-
-function downloadResume() {
-  const a = document.createElement("a");
-  a.href = ART.resumePdf;
-  a.download = "Henry-Wu-Resume.pdf";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-}
-
 
 export function Navbar({
   onLogoClick,
@@ -39,9 +28,7 @@ export function Navbar({
     label: string;
     target: string;
   }) => {
-    if (item.label === "Resume") {
-      downloadResume();
-    } else if (item.label === "Contact") {
+    if (item.label === "Contact") {
       openContact("Hello Henry");
     } else {
       scrollToSection(item.target);
