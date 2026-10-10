@@ -64,5 +64,15 @@ export const ART = {
 };
 
 // Contact email used across the site
-export const CONTACT_EMAIL = "henry.wu@example.com";
+export const CONTACT_EMAIL = "henrywu0829@gmail.com";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/min-tzu-wu-7910851b4/";
+const HAS_REAL_EMAIL = !CONTACT_EMAIL.toLowerCase().endsWith("@example.com");
+
+export function openContact(subject?: string) {
+  if (HAS_REAL_EMAIL) {
+    const q = subject ? `?subject=${encodeURIComponent(subject)}` : "";
+    window.location.href = `mailto:${CONTACT_EMAIL}${q}`;
+  } else {
+    window.open(LINKEDIN_URL, "_blank", "noopener,noreferrer");
+  }
+}

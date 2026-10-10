@@ -1,10 +1,12 @@
-import { ART, CONTACT_EMAIL, LINKEDIN_URL } from "../assets";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { ART, LINKEDIN_URL, openContact } from "../assets";
 
 const NAV: { label: string; target: string }[] = [
   { label: "Home", target: "home" },
   { label: "Work", target: "work" },
   { label: "About", target: "about" },
-  // { label: "Resume", target: "resume" },
+  { label: "Resume", target: "resume" },
   { label: "Contact", target: "contact" },
 ];
 
@@ -17,7 +19,7 @@ function scrollToSection(id: string) {
 function downloadResume() {
   const a = document.createElement("a");
   a.href = ART.resumePdf;
-  a.download = "Resume.pdf";
+  a.download = "Henry-Wu-Resume.pdf";
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -31,6 +33,8 @@ export function Navbar({
   onLogoClick?: () => void;
   active?: string;
 }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleNav = (item: {
     label: string;
     target: string;
@@ -38,7 +42,7 @@ export function Navbar({
     if (item.label === "Resume") {
       downloadResume();
     } else if (item.label === "Contact") {
-      window.location.href = `mailto:${CONTACT_EMAIL}`;
+      openContact("Hello Henry");
     } else {
       scrollToSection(item.target);
     }
@@ -93,8 +97,34 @@ export function Navbar({
               <path fill="#fff" d="M13.2 14.4h-3.6V26h3.6V14.4zm-1.8-5.4a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2zm12.9 5.1c-1.8 0-3 .9-3.6 1.8v-1.5H16.5V26h3.6v-6.3c0-1.5.3-3 1.95-3 1.65 0 1.65 1.8 1.65 3.15V26H27.5v-6.75c0-3.15-.6-5.1-3.2-5.1z" />
             </svg>
           </a>
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            className="grid size-9 place-items-center rounded-lg text-[var(--hw-navy)] transition hover:text-[var(--hw-coral)] md:hidden"
+          >
+            {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
       </div>
+      {menuOpen && (
+        <div className="border-t border-white/50 bg-white/90 px-5 py-2 backdrop-blur-md md:hidden">
+          {NAV.map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                handleNav(item);
+              }}
+              className="block w-full py-3 text-left text-[15px] text-[var(--hw-navy)] transition-colors hover:text-[var(--hw-coral)]"
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
     </header>
   );
 }

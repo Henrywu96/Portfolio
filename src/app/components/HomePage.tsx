@@ -19,12 +19,15 @@ import {
   Zap,
   ScrollText,
   Mouse,
+  Coffee,
+  BriefcaseBusiness,
+  ExternalLink,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Navbar } from "./Navbar";
-import { ART, CONTACT_EMAIL } from "../assets";
+import { ART, openContact } from "../assets";
 import { IMAGES, PROJECTS, SKILLS, type Project } from "../data";
 
 const ICONS: Record<string, any> = {
@@ -122,9 +125,62 @@ function ProjectRow({
           project.iconImage
             ? "bg-gradient-to-br from-[var(--hw-rose-from)] to-[var(--hw-rose-to)] object-contain p-1"
             : "object-cover"
-        }`}
+          }`}
       />
+      <ArrowRight className="size-5 shrink-0 text-[var(--hw-coral)] sm:hidden" />
     </button>
+  );
+}
+
+type SideQuest = {
+  name: string;
+  description: string;
+  url: string;
+  tags: string[];
+  icon: typeof Coffee;
+  accent: string;
+};
+
+function SideQuestCard({ quest }: { quest: SideQuest }) {
+  const Icon = quest.icon;
+
+  return (
+    <a
+      href={quest.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Visit ${quest.name} live site`}
+      className="group relative flex min-h-44 w-full flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-5 text-left backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/80 hover:shadow-[0_18px_40px_-28px_rgba(32,43,69,0.65)]"
+    >
+      <span
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-1"
+        style={{ backgroundColor: quest.accent }}
+      />
+      <span className="flex items-start justify-between gap-4">
+        <span
+          className="grid size-11 shrink-0 place-items-center rounded-xl"
+          style={{ backgroundColor: `color-mix(in srgb, ${quest.accent} 14%, transparent)`, color: quest.accent }}
+        >
+          <Icon className="size-5" />
+        </span>
+        <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-[0.16em] text-[var(--hw-slate)]">
+          LIVE SITE
+          <ExternalLink className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </span>
+      </span>
+      <span className="mt-4 text-[18px] font-semibold text-[var(--hw-navy)]">
+        {quest.name}
+      </span>
+      <span className="mt-1.5 text-[13px] leading-relaxed text-[var(--hw-slate)]">
+        {quest.description}
+      </span>
+      <span className="mt-auto flex flex-wrap gap-1.5 pt-4">
+        {quest.tags.map((tag) => (
+          <Tag key={tag}>{tag}</Tag>
+        ))}
+      </span>
+    </a>
   );
 }
 
@@ -156,7 +212,15 @@ export function HomePage({
   // Parallax scroll — manual listener avoids framer-motion peer dependency
   const [scrollY, setScrollY] = useState(0);
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrollY(window.scrollY);
+        ticking = false;
+      });
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -315,7 +379,7 @@ export function HomePage({
             <div className="mt-5 max-w-md rounded-xl border border-white/50 bg-white/40 px-3 py-2.5 backdrop-blur-md">
               <div className="mb-2 flex items-center gap-1.5">
                 <Shield className="size-3 text-[var(--hw-coral)] opacity-70" />
-                <span className="text-[9px] font-bold tracking-[0.2em] text-[var(--hw-slate)] opacity-60">CHARACTER STATS</span>
+                <span className="text-[10px] font-bold tracking-[0.2em] text-[var(--hw-slate)] opacity-80">CHARACTER STATS</span>
               </div>
               <div className="space-y-1.5">
                 <StatBar label="HP" value={95} color="var(--hw-coral)" glow="var(--hw-coral-glow)" compact />
@@ -325,15 +389,17 @@ export function HomePage({
             </div>
             <div className="mt-7 flex flex-wrap gap-3">
               <button
-                onClick={() => onOpenProject(bridgly)}
+                onClick={() =>
+                  document
+                    .getElementById("work")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105 sm:flex-none"
               >
                 View My Work <ArrowRight className="size-4" />
               </button>
               <button
-                onClick={() => {
-                  window.location.href = `mailto:${CONTACT_EMAIL}`;
-                }}
+                onClick={() => openContact("Hello Henry")}
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-[var(--hw-border-btn)] bg-white px-5 py-3 text-[14px] font-semibold text-[var(--hw-navy)] transition hover:bg-[var(--hw-cream-2)] sm:flex-none"
               >
                 Get in Touch <Mail className="size-4" />
@@ -496,6 +562,27 @@ export function HomePage({
             </motion.div>
           ))}
         </div>
+
+        <div className="mt-8 flex items-center gap-3">
+          <span className="h-px flex-1 bg-[var(--hw-border)]" />
+          <p className="flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] text-[var(--hw-slate)]">
+            <Sparkles className="size-3.5 text-[var(--hw-coral)]" />
+            SIDE QUESTS · BONUS BUILDS
+          </p>
+          <span className="h-px flex-1 bg-[var(--hw-border)]" />
+        </div>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {SIDE_QUESTS.map((quest, i) => (
+            <motion.div
+              key={quest.name}
+              initial={{ opacity: 0, y: 24 }}
+              animate={questInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.5 + i * 0.14, ease: "easeOut" }}
+            >
+              <SideQuestCard quest={quest} />
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Skills */}
@@ -571,7 +658,7 @@ export function HomePage({
       {/* Trademark footer */}
       <footer className="pb-8 pt-4 text-center">
         <p className="text-[11px] tracking-[0.15em] text-[var(--hw-slate)] opacity-60">
-          © {new Date().getFullYear()} Henry Wu™. All rights reserved.
+          © {new Date().getFullYear()} Henry Wu. All rights reserved.
         </p>
       </footer>
       </div>
@@ -588,6 +675,27 @@ const TOOL_SPELLS = [
   { label: "Maze",    emoji: "🧩", color: "#ff4f00", x: "48%", y: "3%",  duration: 3.6, delay: 1.7, rot: 3 },
   { label: "Lottie",  emoji: "✨", color: "#00c8c8", x: "58%", y: "16%", duration: 4.0, delay: 0.9, rot: 2 },
   { label: "Spline",  emoji: "🧊", color: "#0f4c8a", x: "66%", y: "30%", duration: 3.8, delay: 1.4, rot: 3 },
+];
+
+const SIDE_QUESTS: SideQuest[] = [
+  {
+    name: "Emberline Coffee",
+    description:
+      "A cinematic coffee product landing page crafted around brand storytelling and an immersive browsing experience.",
+    url: "https://henrywu96.github.io/emberline-landing/",
+    tags: ["Web Design", "UI Design", "Branding"],
+    icon: Coffee,
+    accent: "var(--hw-accent-studyflow)",
+  },
+  {
+    name: "Job Tracking Web App",
+    description:
+      "A focused workspace for organizing job applications and keeping every opportunity moving forward.",
+    url: "https://mern-project-job.onrender.com/landing",
+    tags: ["Web App", "UX UI", "Development"],
+    icon: BriefcaseBusiness,
+    accent: "var(--hw-rarity-rare)",
+  },
 ];
 
 /* Brush sparks burst from Henry's left-hand paintbrush (≈ 14% x, 44–56% y) */
@@ -720,7 +828,7 @@ function StatBar({
 }) {
   return (
     <div className="flex items-center gap-2">
-      <span className={`w-6 font-bold tracking-wider text-[var(--hw-slate)] ${compact ? "text-[9px] opacity-60" : "w-8 text-[10px]"}`}>
+      <span className={`w-6 font-bold tracking-wider text-[var(--hw-slate)] ${compact ? "text-[10px] opacity-80" : "w-8 text-[10px]"}`}>
         {label}
       </span>
       <div className={`relative flex-1 overflow-hidden rounded-full bg-black/10 ${compact ? "h-1.5" : "h-3 ring-1 ring-white/60"}`}>
@@ -732,7 +840,7 @@ function StatBar({
           style={{ background: color, boxShadow: compact ? "none" : `0 0 10px ${glow}` }}
         />
       </div>
-      <span className={`text-right tabular-nums text-[var(--hw-navy)] ${compact ? "w-6 text-[9px] opacity-60" : "w-9 text-[10px] font-semibold"}`}>
+      <span className={`text-right tabular-nums text-[var(--hw-navy)] ${compact ? "w-6 text-[10px] opacity-80" : "w-9 text-[10px] font-semibold"}`}>
         {value}
       </span>
     </div>

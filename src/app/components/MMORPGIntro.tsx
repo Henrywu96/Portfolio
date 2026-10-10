@@ -35,23 +35,49 @@ export function MMORPGIntro({ onDone }: { onDone: () => void }) {
   const [progress, setProgress] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const rafRef = useRef<number | undefined>(undefined);
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const finishingRef = useRef(false);
+  const onDoneRef = useRef(onDone);
+
+  const clearTimers = () => {
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+  };
+
+  const finishIntro = () => {
+    if (finishingRef.current) return;
+    finishingRef.current = true;
+
+    if (rafRef.current !== undefined) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = undefined;
+    }
+    clearTimers();
+    setLeaving(true);
+    timersRef.current.push(setTimeout(() => onDoneRef.current(), 700));
+  };
+
+  useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
 
   useEffect(() => {
     const schedule: [number, () => void][] = [
-      [80,   () => setPhase(1)],
-      [480,  () => setPhase(2)],
-      [1050, () => setPhase(3)],
-      [1650, () => setPhase(4)],
-      [2100, () => setPhase(5)],
+      [60, () => setPhase(1)],
+      [380, () => setPhase(2)],
+      [800, () => setPhase(3)],
+      [1200, () => setPhase(4)],
+      [1500, () => setPhase(5)],
     ];
-    const timers = schedule.map(([ms, fn]) => setTimeout(fn, ms));
-    return () => timers.forEach(clearTimeout);
+    timersRef.current.push(
+      ...schedule.map(([ms, fn]) => setTimeout(fn, ms)),
+    );
   }, []);
 
   useEffect(() => {
     if (phase < 5) return;
     let start: number | null = null;
-    const duration = 1600;
+    const duration = 1000;
     const tick = (ts: number) => {
       if (start === null) start = ts;
       const p = Math.min(((ts - start) / duration) * 100, 100);
@@ -59,15 +85,36 @@ export function MMORPGIntro({ onDone }: { onDone: () => void }) {
       if (p < 100) {
         rafRef.current = requestAnimationFrame(tick);
       } else {
-        setTimeout(() => {
-          setLeaving(true);
-          setTimeout(onDone, 900);
-        }, 350);
+        timersRef.current.push(setTimeout(finishIntro, 150));
       }
     };
     rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [phase, onDone]);
+    return () => {
+      if (rafRef.current !== undefined) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = undefined;
+      }
+    };
+  }, [phase]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") finishIntro();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (rafRef.current !== undefined) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      clearTimers();
+    },
+    [],
+  );
 
   return (
     <>
@@ -96,6 +143,9 @@ export function MMORPGIntro({ onDone }: { onDone: () => void }) {
         }
         .hw-shimmer { animation: hw-shimmer 1.4s 0.2s infinite linear; }
         .hw-sun-pulse { animation: hw-sun-pulse 4s infinite ease-in-out; }
+        @media (prefers-reduced-motion: reduce) {
+          .hw-sparkle, .hw-shimmer, .hw-sun-pulse { animation: none; }
+        }
       `}</style>
 
       <motion.div
@@ -103,7 +153,7 @@ export function MMORPGIntro({ onDone }: { onDone: () => void }) {
         animate={leaving ? { y: "-100%" } : { y: "0%" }}
         transition={
           leaving
-            ? { duration: 0.88, ease: [0.76, 0, 0.24, 1] }
+            ? { duration: 0.7, ease: [0.76, 0, 0.24, 1] }
             : { duration: 0 }
         }
       >
@@ -304,7 +354,7 @@ export function MMORPGIntro({ onDone }: { onDone: () => void }) {
               color: "var(--hw-slate)",
             }}
           >
-            UX Designer · Portfolio
+            UI/UX Designer · Portfolio
           </motion.p>
 
           {/* Loading bar */}
@@ -356,17 +406,25 @@ export function MMORPGIntro({ onDone }: { onDone: () => void }) {
             </div>
 
             <p
-              className="text-center text-[9px] tracking-[0.3em] uppercase"
+              className="text-center text-[10px] tracking-[0.3em] uppercase"
               style={{
                 fontFamily: "var(--font-body)",
                 color: "var(--hw-slate)",
-                opacity: 0.5,
+                opacity: 0.7,
               }}
             >
               Loading portfolio assets
             </p>
           </motion.div>
         </div>
+        <button
+          type="button"
+          onClick={finishIntro}
+          aria-label="Skip intro"
+          className="absolute bottom-6 right-6 z-10 rounded-full border border-white/70 bg-white/70 px-4 py-2 text-[11px] font-bold tracking-[0.2em] text-[var(--hw-slate)] backdrop-blur-md transition hover:bg-white hover:text-[var(--hw-coral)]"
+        >
+          SKIP ›
+        </button>
       </motion.div>
     </>
   );

@@ -11,8 +11,10 @@ import {
 import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { icon } from "./icons";
+import { openContact } from "../assets";
 import {
   CASE_TABS,
+  PROJECTS,
   type CaseTab,
   type Project,
   type CaseStudy,
@@ -50,12 +52,12 @@ function Chip({ children }: { children: React.ReactNode }) {
 export function CaseStudyPage({
   project,
   onBack,
-  onViewPrototype,
+  onNextProject,
   initialTab = "Overview",
 }: {
   project: Project;
   onBack: () => void;
-  onViewPrototype?: () => void;
+  onNextProject?: (p: Project) => void;
   initialTab?: CaseTab;
 }) {
   const [tab, setTab] = useState<CaseTab>(initialTab);
@@ -76,7 +78,7 @@ export function CaseStudyPage({
             onClick={onBack}
             className="inline-flex items-center gap-2 text-[14px] text-[var(--hw-slate)] transition hover:text-[var(--hw-navy)]"
           >
-            <ArrowLeft className="size-4" /> Back to Quest Board
+            <ArrowLeft className="size-4" /> Back to Quest Log
           </button>
         </div>
       </div>
@@ -122,7 +124,7 @@ export function CaseStudyPage({
                 onClick={() => setShowProtoModal(true)}
                 className="inline-flex items-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105"
               >
-                View Prototype <ArrowRight className="size-4" />
+                Request Prototype <ArrowRight className="size-4" />
               </button>
             </div>
           </motion.div>
@@ -148,7 +150,9 @@ export function CaseStudyPage({
                   : "object-cover"
               }`}
             />
-            <Heart className="absolute right-6 top-6 z-10 size-8 fill-[var(--hw-coral)] text-[var(--hw-coral)] drop-shadow" />
+            {project.id === "bridgly" && (
+              <Heart className="absolute right-6 top-6 z-10 size-8 fill-[var(--hw-coral)] text-[var(--hw-coral)] drop-shadow" />
+            )}
           </motion.div>
         </div>
       </section>
@@ -197,6 +201,41 @@ export function CaseStudyPage({
           {tab === "Results" && <Results cs={cs} />}
           {tab === "Reflection" && <Reflection cs={cs} />}
         </motion.div>
+        {onNextProject &&
+          (() => {
+            const idx = PROJECTS.findIndex((p) => p.id === project.id);
+            const next = PROJECTS[(idx + 1) % PROJECTS.length];
+            return (
+              <div className="mx-auto mt-16 max-w-6xl border-t border-[var(--hw-border)] pt-8">
+                <p className="text-[11px] font-bold tracking-[0.2em] text-[var(--hw-slate)]">
+                  NEXT QUEST
+                </p>
+                <button
+                  onClick={() => onNextProject(next)}
+                  className="group mt-3 flex w-full items-center justify-between gap-4 rounded-2xl border border-[var(--hw-border)] bg-white p-4 text-left transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-28px_rgba(32,43,69,0.65)]"
+                >
+                  <span className="flex items-center gap-4">
+                    {next.iconImage && (
+                      <img
+                        src={next.iconImage}
+                        alt=""
+                        className="size-12 rounded-xl object-contain"
+                      />
+                    )}
+                    <span>
+                      <span className="block text-[16px] font-semibold text-[var(--hw-navy)]">
+                        {next.name}
+                      </span>
+                      <span className="block text-[13px] text-[var(--hw-slate)]">
+                        {next.tagline}
+                      </span>
+                    </span>
+                  </span>
+                  <ArrowRight className="size-5 shrink-0 text-[var(--hw-coral)] transition-transform group-hover:translate-x-1" />
+                </button>
+              </div>
+            );
+          })()}
       </div>
 
       {/* Prototype modal */}
@@ -233,7 +272,7 @@ export function CaseStudyPage({
                 fontFamily: "var(--font-display)",
               }}
             >
-              Prototype Coming Soon
+              Prototype Walkthrough
             </h3>
             <p
               className="mt-3 text-center text-[14px] leading-relaxed"
@@ -242,19 +281,28 @@ export function CaseStudyPage({
                 fontFamily: "var(--font-body)",
               }}
             >
-              Full interactive prototype and end-to-end user
-              flows are available for walkthrough during the
-              interview stage.
+              The full interactive prototype and end-to-end flows are best
+              shown live. I'd be happy to walk you through {project.name} in
+              an interview, or share access on request.
             </p>
             <button
-              onClick={() => setShowProtoModal(false)}
+              onClick={() => {
+                openContact(`Prototype request: ${project.name}`);
+                setShowProtoModal(false);
+              }}
               className="mt-6 w-full rounded-xl py-3 text-[14px] font-semibold text-white transition hover:brightness-105"
               style={{
                 background: "var(--hw-coral)",
                 fontFamily: "var(--font-body)",
               }}
             >
-              Got it
+              Request Access
+            </button>
+            <button
+              onClick={() => setShowProtoModal(false)}
+              className="w-full rounded-xl py-3 text-[14px] font-semibold text-[var(--hw-slate)] transition hover:bg-black/5"
+            >
+              Close
             </button>
           </motion.div>
         </div>
@@ -676,8 +724,8 @@ function BridglyScreen3() {
           className="mt-1 text-[6px] leading-tight"
           style={{ color: "var(--hw-slate)" }}
         >
-          Set reunion countdowns, milestone goals, and track
-          your shared journey
+          Count down to your next reunion and look forward to it
+          together
         </p>
       </div>
       <div className="mb-1.5 flex justify-center gap-1">
@@ -800,7 +848,7 @@ function GreenScreen2() {
           className="text-[7px]"
           style={{ color: "var(--hw-slate)" }}
         >
-          May 2024
+          This week
         </span>
       </div>
       <div
@@ -819,7 +867,7 @@ function GreenScreen2() {
       </div>
       <div className="mt-2 grid grid-cols-2 gap-1">
         {[
-          ["3.2 kg", "CO₂ saved"],
+          ["3 trees", "saved this week"],
           ["24 L", "Water saved"],
         ].map(([v, l]) => (
           <div
@@ -928,248 +976,64 @@ function StudyScreen1() {
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span
-          className="text-[8px] font-bold"
-          style={{ color: "var(--hw-accent-studyflow)" }}
-        >
-          StudyFlow
-        </span>
-        <div className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[6px] font-bold text-amber-700">
-          FOCUS
-        </div>
+        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>StudyFlow</span>
+        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>Today</span>
       </div>
-      <p
-        className="mt-0.5 text-center text-[6px]"
-        style={{ color: "var(--hw-slate)" }}
-      >
-        Chapter 4 · Research Methods
-      </p>
-      <div className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center">
-        <svg
-          className="absolute inset-0 -rotate-90"
-          viewBox="0 0 72 72"
-        >
-          <circle
-            cx="36"
-            cy="36"
-            r="30"
-            fill="none"
-            stroke="var(--hw-border)"
-            strokeWidth="5"
-          />
-          <circle
-            cx="36"
-            cy="36"
-            r="30"
-            fill="none"
-            stroke="var(--hw-accent-studyflow)"
-            strokeWidth="5"
-            strokeDasharray="188"
-            strokeDashoffset="47"
-            strokeLinecap="round"
-          />
-        </svg>
-        <div className="text-center">
-          <p
-            className="text-[15px] font-bold"
-            style={{ color: "var(--hw-navy)" }}
-          >
-            18:42
-          </p>
-          <p
-            className="text-[5.5px]"
-            style={{ color: "var(--hw-slate)" }}
-          >
-            remaining
-          </p>
-        </div>
+      <p className="mt-2 text-[6.5px] font-bold tracking-wide" style={{ color: "var(--hw-slate)" }}>UP NEXT</p>
+      <div className="mt-1 flex-1 rounded-xl p-2.5" style={{ background: "#fffbeb", outline: "1px solid #fde68a" }}>
+        <span className="text-[13px]">🧮</span>
+        <p className="mt-1 text-[8px] font-bold leading-tight" style={{ color: "var(--hw-navy)" }}>Practice problems</p>
+        <p className="mt-0.5 text-[6px] leading-tight" style={{ color: "var(--hw-slate)" }}>Just start 5 minutes — you can adjust later.</p>
       </div>
-      <div className="mt-1 flex justify-center gap-1.5">
-        <div className="rounded bg-amber-50 px-1.5 py-0.5 text-[5.5px] text-amber-700">
-          Pomodoro 3/4
-        </div>
-        <div className="rounded bg-blue-50 px-1.5 py-0.5 text-[5.5px] text-blue-700">
-          Break in 18m
-        </div>
-      </div>
-      <div
-        className="mt-auto rounded-lg py-1.5 text-center"
-        style={{ background: "var(--hw-accent-studyflow)" }}
-      >
-        <span className="text-[7.5px] font-bold text-white">
-          Pause Session
-        </span>
+      <div className="mt-1.5 rounded-lg py-1.5 text-center" style={{ background: "var(--hw-accent-studyflow)" }}>
+        <span className="text-[7.5px] font-bold text-white">Start</span>
       </div>
     </div>
   );
 }
 
 function StudyScreen2() {
-  const tasks = [
-    { done: true, e: "📚", label: "Read Ch.3" },
-    { done: true, e: "✏️", label: "Take notes" },
-    {
-      done: false,
-      e: "🧮",
-      label: "Practice problems",
-      hi: true,
-    },
-    { done: false, e: "🃏", label: "Review flashcards" },
-  ];
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span
-          className="text-[8px] font-bold"
-          style={{ color: "var(--hw-accent-studyflow)" }}
-        >
-          StudyFlow
-        </span>
-        <span
-          className="text-[7px]"
-          style={{ color: "var(--hw-slate)" }}
-        >
-          Mon, Oct 14
-        </span>
+        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>StudyFlow</span>
+        <div className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[6px] font-bold text-amber-700">FOCUS</div>
       </div>
-      <div className="mt-1 flex items-center gap-1">
-        <div
-          className="h-1 flex-1 rounded-full"
-          style={{ background: "var(--hw-border)" }}
-        >
-          <div
-            className="h-full w-1/2 rounded-full"
-            style={{ background: "var(--hw-accent-studyflow)" }}
-          />
+      <p className="mt-0.5 text-center text-[6px]" style={{ color: "var(--hw-slate)" }}>Practice problems</p>
+      <div className="relative mx-auto mt-2 flex h-[72px] w-[72px] items-center justify-center">
+        <svg className="absolute inset-0 -rotate-90" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--hw-border)" strokeWidth="5" />
+          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--hw-accent-studyflow)" strokeWidth="5" strokeDasharray="188" strokeDashoffset="63" strokeLinecap="round" />
+        </svg>
+        <div className="text-center">
+          <p className="text-[15px] font-bold" style={{ color: "var(--hw-navy)" }}>03:20</p>
+          <p className="text-[5.5px]" style={{ color: "var(--hw-slate)" }}>remaining</p>
         </div>
-        <span
-          className="text-[6px]"
-          style={{ color: "var(--hw-slate)" }}
-        >
-          2/4
-        </span>
       </div>
-      <div className="mt-1.5 flex-1 space-y-1.5">
-        {tasks.map((t) => (
-          <div
-            key={t.label}
-            className="flex items-center gap-1.5 rounded-lg px-2 py-1.5"
-            style={{
-              background: t.hi ? "#fffbeb" : "var(--hw-cream)",
-              outline: t.hi ? "1px solid #fde68a" : "none",
-            }}
-          >
-            <div
-              className="flex size-4 shrink-0 items-center justify-center rounded"
-              style={{
-                background: t.done
-                  ? "var(--hw-accent-studyflow)"
-                  : "white",
-                border: t.done
-                  ? "none"
-                  : "1.5px solid var(--hw-border)",
-              }}
-            >
-              {t.done && (
-                <span className="text-[7px] text-white">✓</span>
-              )}
-            </div>
-            <span className="text-[7px]">{t.e}</span>
-            <span
-              className="text-[7px]"
-              style={{
-                color: t.done
-                  ? "var(--hw-slate)"
-                  : "var(--hw-navy)",
-                textDecoration: t.done
-                  ? "line-through"
-                  : "none",
-              }}
-            >
-              {t.label}
-            </span>
-          </div>
-        ))}
+      <p className="mt-2 text-center text-[6px]" style={{ color: "var(--hw-slate)" }}>Keep going — stop anytime.</p>
+      <div className="mt-auto rounded-lg py-1.5 text-center" style={{ background: "var(--hw-accent-studyflow)" }}>
+        <span className="text-[7.5px] font-bold text-white">Pause</span>
       </div>
     </div>
   );
 }
 
 function StudyScreen3() {
-  const days = ["M", "T", "W", "T", "F", "S", "S"];
-  const hrs = [2.5, 3, 1.5, 4, 3.5, 1, 0];
   return (
     <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
       <div className="flex items-center justify-between">
-        <span
-          className="text-[8px] font-bold"
-          style={{ color: "var(--hw-accent-studyflow)" }}
-        >
-          StudyFlow
-        </span>
-        <span
-          className="text-[7px]"
-          style={{ color: "var(--hw-slate)" }}
-        >
-          This week
-        </span>
+        <span className="text-[8px] font-bold" style={{ color: "var(--hw-accent-studyflow)" }}>StudyFlow</span>
+        <span className="text-[7px]" style={{ color: "var(--hw-slate)" }}>Done</span>
       </div>
-      <div className="mt-1 grid grid-cols-3 gap-1">
-        {[
-          ["15.5h", "studied"],
-          ["24", "sessions"],
-          ["6🔥", "streak"],
-        ].map(([v, l]) => (
-          <div
-            key={l}
-            className="rounded-lg bg-amber-50 p-1 text-center"
-          >
-            <p
-              className="text-[9px] font-bold"
-              style={{ color: "var(--hw-accent-studyflow)" }}
-            >
-              {v}
-            </p>
-            <p
-              className="text-[5.5px]"
-              style={{ color: "var(--hw-slate)" }}
-            >
-              {l}
-            </p>
-          </div>
-        ))}
+      <div className="flex flex-1 flex-col items-center justify-center text-center">
+        <span className="text-[22px]">🎉</span>
+        <p className="mt-1 text-[8px] font-bold leading-tight" style={{ color: "var(--hw-navy)" }}>Nice start!</p>
+        <p className="mt-0.5 text-[6px] leading-tight" style={{ color: "var(--hw-slate)" }}>5 minutes focused</p>
       </div>
-      <p
-        className="mt-1.5 text-[6px] font-semibold tracking-wide"
-        style={{ color: "var(--hw-slate)" }}
-      >
-        DAILY HOURS
-      </p>
-      <div className="mt-1 flex flex-1 items-end justify-between gap-0.5">
-        {days.map((d, i) => (
-          <div
-            key={i}
-            className="flex flex-1 flex-col items-center gap-0.5"
-          >
-            <div
-              className="w-full rounded-t"
-              style={{
-                height: `${(hrs[i] / 4) * 36}px`,
-                background:
-                  i === 3
-                    ? "var(--hw-accent-studyflow)"
-                    : "var(--hw-border)",
-              }}
-            />
-            <span
-              className="text-[5.5px]"
-              style={{ color: "var(--hw-slate)" }}
-            >
-              {d}
-            </span>
-          </div>
-        ))}
+      <div className="rounded-lg py-1.5 text-center" style={{ background: "var(--hw-accent-studyflow)" }}>
+        <span className="text-[7.5px] font-bold text-white">Keep going</span>
       </div>
+      <p className="mt-1.5 text-center text-[6px]" style={{ color: "var(--hw-slate)" }}>Done for now</p>
     </div>
   );
 }
