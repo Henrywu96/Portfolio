@@ -38,6 +38,12 @@ type IconCard = {
   title: string;
   body: string;
   image?: string;
+  directions?: {
+    label: "A" | "B" | "C";
+    title: string;
+    verdict: string;
+    chosen?: boolean;
+  }[];
 };
 
 export type CaseStudy = {
@@ -198,12 +204,38 @@ const bridglyCase: CaseStudy = {
   process: {
     title:
       "V1 felt like project management. V2 felt like being close.",
-    body: "Research established the product direction: couples needed presence, not a productivity layer. Prototype testing then confirmed how that direction should be implemented — the information-dense V1 felt clinical and impersonal. V2 translated the research insight into three concrete emotional anchors visible on the home screen.",
+    body: "Research established the product direction: couples needed presence, not a productivity layer. Prototype testing then confirmed how that direction should be implemented — the information-dense V1 felt clinical and impersonal. V2 translated the research insight into one object on the home screen: a dual-time dial that shows both cities and the window when you are both free.",
     steps: [
       {
         icon: "PenTool",
         title: "V1: Information Dashboard",
         body: "V1 opened with activity logs, progress charts, and a shared task list. Prototype sessions confirmed what research suggested: users described it as 'managing a project, not a relationship.'",
+      },
+      {
+        icon: "LayoutGrid",
+        title: "Directions Explored",
+        body: "I explored three visual directions for the home screen. Each had to show two cities at a glance.",
+        directions: [
+          {
+            label: "A",
+            title: "Departure board",
+            verdict:
+              "A split-flap table of two cities. Strong, but it reads as a schedule, not a shared moment.",
+          },
+          {
+            label: "B",
+            title: "Airmail postcard",
+            verdict:
+              "Warm and personal. Hard to stretch to chat, calendar, and plans.",
+          },
+          {
+            label: "C",
+            title: "GMT dial",
+            verdict:
+              "One scale for both cities. The shared window becomes a shape you can see.",
+            chosen: true,
+          },
+        ],
       },
       {
         icon: "Boxes",
@@ -286,11 +318,22 @@ const greenpathCase: CaseStudy = {
     problems: [
       {
         icon: "Zap",
-        label: "Overwhelming, conflicting advice",
+        label: "Conflicting advice",
+        description:
+          "Overwhelming, contradictory guidance makes the next useful action hard to find.",
       },
-      { icon: "Clock", label: "No time to research choices" },
-      { icon: "Repeat", label: "Habits are hard to sustain" },
-      { icon: "BarChart3", label: "No sense of real impact" },
+      {
+        icon: "Clock",
+        label: "Logging costs time",
+        description:
+          "Detailed manual entry for every purchase or trip becomes another obligation.",
+      },
+      {
+        icon: "AlertTriangle",
+        label: "Warnings backfire",
+        description:
+          "Carbon warnings without alternatives produce anxiety and avoidance, not habits.",
+      },
     ],
     problemImage: IMAGES.volunteers,
     phoneImage: IMAGES.greenpath,
@@ -340,6 +383,32 @@ const greenpathCase: CaseStudy = {
         icon: "PenTool",
         title: "V1: Warning Dashboard",
         body: "Initial lo-fi used full-screen carbon charts and manual data entry forms. Testing showed users felt overwhelmed and judged — drop-off happened within the first two screens.",
+      },
+      {
+        icon: "LayoutGrid",
+        title: "Directions Explored",
+        body: "I explored three visual directions for the Today screen. Each had to make a number feel readable, not judgmental.",
+        directions: [
+          {
+            label: "A",
+            title: "Seed packet",
+            verdict:
+              "Warm and illustrative. Harder to extend to data-heavy screens.",
+          },
+          {
+            label: "B",
+            title: "Field notebook",
+            verdict:
+              "A strong hand-made feel. Dense tables get noisy.",
+          },
+          {
+            label: "C",
+            title: "Carbon label",
+            verdict:
+              "Turns every number into a format people already know.",
+            chosen: true,
+          },
+        ],
       },
       {
         icon: "Boxes",
@@ -422,16 +491,21 @@ const studyflowCase: CaseStudy = {
     problems: [
       {
         icon: "Zap",
-        label: "Too much setup friction before starting",
+        label: "Setup delays the first minute",
+        description:
+          "Choosing a subject, estimating time, and splitting subtasks all demand decisions before studying starts.",
       },
       {
         icon: "Clock",
-        label: "Over-planning leads to paralysis & giving up",
+        label: "Missed plans become all-or-nothing",
+        description:
+          "When a rigid plan slips, people abandon the session instead of adjusting it.",
       },
-      { icon: "Repeat", label: "Inconsistent study routines" },
       {
-        icon: "MessageCircle",
-        label: "Procrastination & overwhelm",
+        icon: "AlertTriangle",
+        label: "Dense screens add pressure",
+        description:
+          "Feature-heavy productivity dashboards raise cognitive load before focus begins.",
       },
     ],
     problemImage: IMAGES.student,
@@ -482,6 +556,32 @@ const studyflowCase: CaseStudy = {
         icon: "PenTool",
         title: "V1: Calendar Grid Setup",
         body: "V1 required filling a detailed schedule before studying. The diary study had already shown that over-ambitious planning predicted abandonment; prototype testing confirmed drop-off happened during setup itself.",
+      },
+      {
+        icon: "LayoutGrid",
+        title: "Directions Explored",
+        body: "I explored three visual directions for the Today screen. Each had to make starting feel smaller.",
+        directions: [
+          {
+            label: "A",
+            title: "Hourglass",
+            verdict:
+              "Time becomes a shape you can see, and the screen has one hero object.",
+            chosen: true,
+          },
+          {
+            label: "B",
+            title: "Index cards",
+            verdict:
+              "Great for tasks, but the timer becomes secondary.",
+          },
+          {
+            label: "C",
+            title: "Punch card",
+            verdict:
+              "Clear and structured, but it reads like a table.",
+          },
+        ],
       },
       {
         icon: "Boxes",

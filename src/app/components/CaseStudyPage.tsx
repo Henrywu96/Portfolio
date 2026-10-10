@@ -196,7 +196,11 @@ export function CaseStudyPage({
           )}
           {tab === "Research" && <Research cs={cs} />}
           {tab === "Design Process" && (
-            <DesignProcess cs={cs} />
+            <DesignProcess
+              cs={cs}
+              projectId={project.id}
+              projectAccent={project.accent}
+            />
           )}
           {tab === "Results" && <Results cs={cs} />}
           {tab === "Reflection" && <Reflection cs={cs} />}
@@ -794,7 +798,7 @@ function StudyScreen1() {
         ))}
       </div>
       <div className="mt-auto rounded-lg bg-[#E6B85C] py-1.5 text-center">
-        <span className="font-mono text-[6.5px] font-bold uppercase tracking-wide text-[#202C46]">
+        <span className="font-serif text-[6.5px] font-bold tracking-wide text-[#202C46]">
           Turn the glass
         </span>
       </div>
@@ -825,7 +829,7 @@ function StudyScreen2() {
         REMAINING
       </p>
       <div className="mt-auto rounded-lg border border-[#E6B85C] py-1.5 text-center">
-        <span className="font-mono text-[7px] font-bold uppercase tracking-wide text-[#F4EFE6]">
+        <span className="font-serif text-[7px] font-bold tracking-wide text-[#F4EFE6]">
           Pause
         </span>
       </div>
@@ -847,12 +851,12 @@ function StudyScreen3() {
       </p>
       <div className="mt-auto w-full space-y-1.5">
         <div className="rounded-lg bg-[#E6B85C] py-1.5 text-center">
-          <span className="font-mono text-[5.5px] font-bold uppercase tracking-wide text-[#202C46]">
+          <span className="font-serif text-[5.5px] font-bold tracking-wide text-[#202C46]">
             Continue studying
           </span>
         </div>
         <div className="rounded-lg border border-[#E6B85C] py-1.5 text-center">
-          <span className="font-mono text-[5.5px] font-bold uppercase tracking-wide text-[#F4EFE6]">
+          <span className="font-serif text-[5.5px] font-bold tracking-wide text-[#F4EFE6]">
             Take a break
           </span>
         </div>
@@ -1097,7 +1101,188 @@ function Research({ cs }: { cs: CaseStudy }) {
 }
 
 /* ---------- Design Process ---------- */
-function DesignProcess({ cs }: { cs: CaseStudy }) {
+function DirectionMockup({
+  projectId,
+  direction,
+}: {
+  projectId: string;
+  direction: "A" | "B" | "C";
+}) {
+  const shell =
+    "mx-auto flex aspect-[9/16] w-full max-w-[76px] flex-col overflow-hidden rounded-[12px] border-2 border-[var(--hw-navy)]";
+
+  if (projectId === "bridgly" && direction === "A") {
+    return (
+      <div className={`${shell} bg-black p-2 text-[#f5b942]`}>
+        <span className="text-[5px] font-bold tracking-widest">WORLD TIME</span>
+        <div className="mt-3 border-y border-[#f5b942] py-1.5">
+          <p className="text-[5px]">TAIPEI</p>
+          <p className="font-mono text-[11px] font-bold">14:00</p>
+        </div>
+        <div className="border-b border-[#f5b942] py-1.5">
+          <p className="text-[5px]">LONDON</p>
+          <p className="font-mono text-[11px] font-bold">07:00</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (projectId === "bridgly" && direction === "B") {
+    return (
+      <div className={`${shell} bg-[#eee0c5] p-2 text-[#594a42]`}>
+        <div className="ml-auto grid size-5 place-items-center border border-[#c96f61] text-[5px] text-[#c96f61]">
+          AIR
+        </div>
+        <p className="mt-2 font-serif text-[8px] italic leading-tight">
+          Wish you were here.
+        </p>
+        <div className="mt-3 border-t border-dashed border-[#8d796d] pt-2">
+          <p className="font-serif text-[6px] italic">Taipei · 14:00</p>
+          <p className="mt-1 font-serif text-[6px] italic">London · 07:00</p>
+        </div>
+        <div className="mt-auto h-5 border-b border-[#8d796d]" />
+      </div>
+    );
+  }
+
+  if (projectId === "bridgly") {
+    return (
+      <div className={`${shell} items-center bg-[#2B2D42] p-2 text-white`}>
+        <span className="text-[5px] tracking-wider">BOTH CITIES</span>
+        <div className="relative mt-3 size-12 rounded-full border-[5px] border-[#FFB5A7]">
+          <div className="absolute inset-1 rounded-full border-[3px] border-[#65b8b1]" />
+          <div className="absolute inset-0 grid place-items-center text-center">
+            <span className="text-[6px] font-bold leading-none">14:00</span>
+            <span className="text-[4px] leading-none">07:00</span>
+          </div>
+        </div>
+        <div className="mt-auto h-1.5 w-full bg-[#FFB5A7]" />
+      </div>
+    );
+  }
+
+  if (projectId === "studyflow" && direction === "A") {
+    return (
+      <div className={`${shell} items-center bg-[#202C46] p-2 text-[#F4EFE6]`}>
+        <span className="font-mono text-[5px] tracking-widest text-[#E6B85C]">
+          NOW FOCUSING
+        </span>
+        <div className="mt-2 h-14 w-10">
+          <StudyHourglass />
+        </div>
+        <span className="mt-1 font-serif text-[10px] font-bold">25:00</span>
+      </div>
+    );
+  }
+
+  if (projectId === "studyflow" && direction === "B") {
+    return (
+      <div className={`${shell} bg-[#f7f0df] p-2 text-[#493f35]`}>
+        <span className="font-serif text-[6px] italic">Today</span>
+        <div className="mt-2 -rotate-2 border border-[#bda98b] bg-[#fffaf0] p-1.5">
+          <p className="font-serif text-[6px] italic">Read Chapter 3</p>
+          <p className="mt-2 font-serif text-[9px] font-bold">25 min</p>
+        </div>
+        <div className="mt-2 rotate-1 border border-[#bda98b] bg-[#fffaf0] p-1.5 font-serif text-[5px] italic">
+          Review notes
+        </div>
+      </div>
+    );
+  }
+
+  if (projectId === "studyflow") {
+    return (
+      <div className={`${shell} bg-[#ead9bd] p-2 text-[#40382f]`}>
+        <span className="text-[6px] font-black tracking-wider">TIME CARD</span>
+        <div className="mt-2 border-y-2 border-[#40382f]">
+          {["TASK", "START", "LENGTH"].map((label) => (
+            <div
+              key={label}
+              className="flex justify-between border-b border-[#40382f] py-1 text-[4.5px] last:border-b-0"
+            >
+              <span>{label}</span>
+              <span>—</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-auto border-2 border-[#40382f] py-1 text-center text-[5px] font-black">
+          PUNCH IN
+        </div>
+      </div>
+    );
+  }
+
+  if (projectId === "greenpath" && direction === "A") {
+    return (
+      <div className={`${shell} items-center bg-[#d8b986] p-2 text-[#294b32]`}>
+        <span className="text-[5px] font-black tracking-widest">DAILY SEEDS</span>
+        <div className="relative mt-4 h-12 w-10">
+          <span className="absolute bottom-0 left-1/2 h-9 w-0.5 -translate-x-1/2 bg-[#3A7A4D]" />
+          <span className="absolute left-1/2 top-2 h-3 w-5 -translate-x-full -rotate-12 rounded-[100%_0] bg-[#3A7A4D]" />
+          <span className="absolute right-1/2 top-5 h-3 w-5 translate-x-full rotate-12 rounded-[0_100%] bg-[#3A7A4D]" />
+        </div>
+        <span className="mt-auto border-y border-[#294b32] py-1 text-center text-[5px] font-bold">
+          SMALL ACTIONS
+        </span>
+      </div>
+    );
+  }
+
+  if (projectId === "greenpath" && direction === "B") {
+    return (
+      <div
+        className={`${shell} bg-[#f3df91] p-2 text-[#344152]`}
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(52,65,82,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(52,65,82,0.12) 1px, transparent 1px)",
+          backgroundSize: "8px 8px",
+        }}
+      >
+        <span className="bg-[#f3df91] text-[6px] font-black">FIELD SURVEY</span>
+        <div className="mt-3 bg-[#f3df91]">
+          {["ACTION", "CO₂", "GOAL"].map((label) => (
+            <div
+              key={label}
+              className="flex justify-between border-b border-[#344152] py-1 text-[5px]"
+            >
+              <span>{label}</span>
+              <span>—</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`${shell} bg-[#FDF6F1] p-2 text-[#1F2A44]`}>
+      <span className="border-b-[3px] border-[#1F2A44] pb-1 text-[8px] font-black">
+        Carbon Facts
+      </span>
+      <div className="flex items-end justify-between border-b border-[#1F2A44] py-1.5">
+        <span className="text-[4.5px] font-bold">CO₂ saved</span>
+        <span className="text-[9px] font-black">0.8 kg</span>
+      </div>
+      <div className="flex justify-between border-b-[3px] border-[#1F2A44] py-1 text-[4.5px] font-bold">
+        <span>Daily Goal</span>
+        <span>32%</span>
+      </div>
+      <div className="mt-1 border-b border-[#1F2A44] py-1 text-[4.5px]">
+        Reusable bag
+      </div>
+    </div>
+  );
+}
+
+function DesignProcess({
+  cs,
+  projectId,
+  projectAccent,
+}: {
+  cs: CaseStudy;
+  projectId: string;
+  projectAccent: string;
+}) {
   const p = cs.process;
   return (
     <div className="mx-auto max-w-6xl space-y-12">
@@ -1124,7 +1309,7 @@ function DesignProcess({ cs }: { cs: CaseStudy }) {
         </div>
       </div>
 
-      <div className="relative grid gap-4 sm:grid-cols-3">
+      <div className="relative grid gap-4 sm:grid-cols-2">
         {p.steps.map((s, i) => {
           const Icon = icon(s.icon);
           return (
@@ -1146,6 +1331,37 @@ function DesignProcess({ cs }: { cs: CaseStudy }) {
               <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
                 {s.body}
               </p>
+              {s.directions && (
+                <div className="mt-5 grid grid-cols-3 gap-2">
+                  {s.directions.map((direction) => (
+                    <div key={direction.label} className="min-w-0">
+                      <div className="mb-2 flex min-h-5 items-center justify-between gap-1">
+                        <span className="text-[10px] font-bold tracking-[0.18em] text-[var(--hw-slate)]">
+                          {direction.label}
+                        </span>
+                        {direction.chosen && (
+                          <span
+                            className="rounded px-1.5 py-0.5 text-[8px] font-bold tracking-wider text-white"
+                            style={{ backgroundColor: projectAccent }}
+                          >
+                            CHOSEN
+                          </span>
+                        )}
+                      </div>
+                      <DirectionMockup
+                        projectId={projectId}
+                        direction={direction.label}
+                      />
+                      <p className="mt-2 text-[11px] font-semibold leading-tight text-[var(--hw-navy)]">
+                        {direction.title}
+                      </p>
+                      <p className="mt-1 text-[10px] leading-relaxed text-[var(--hw-slate)]">
+                        {direction.verdict}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           );
         })}
