@@ -51,6 +51,11 @@ export type CaseStudy = {
   chips: string[];
   intro: string;
   heroImage: string;
+  tldr: {
+    problem: string;
+    whatIDid: string;
+    outcome: string;
+  };
   overview: {
     title: string;
     body: string;
@@ -110,6 +115,14 @@ const bridglyCase: CaseStudy = {
   intro:
     "Bridgly started as a goal-tracking app, but research revealed couples didn't need another task manager — they needed to feel present in each other's daily lives. The design shifted entirely toward warmth, awareness, and emotional closeness.",
   heroImage: ART.bridglyScene2,
+  tldr: {
+    problem:
+      "Long-distance couples could message all day but still couldn't tell when the other was awake or free.",
+    whatIDid:
+      "Solo, 10 weeks. 12 interviews and 87 survey responses led me to pivot from a goal tracker to a dual-time dial that shows both cities and the window when you are both free.",
+    outcome:
+      "In Think-Aloud tests with 8 users, V2 felt warmer than V1 and most found partner context and the reunion countdown on the first try. The final dial design has a validation plan ready.",
+  },
   overview: {
     title:
       "Couples don't need a task manager. They need to feel each other's presence.",
@@ -293,6 +306,14 @@ const greenpathCase: CaseStudy = {
   intro:
     "GreenPath started as a carbon calculator — but research revealed guilt doesn't change behavior. I redesigned it from the ground up around convenience, quick daily logging, and impact you can read: kg of CO₂ saved against a daily goal.",
   heroImage: ART.greenpathScene,
+  tldr: {
+    problem:
+      "People already knew the carbon problem. Slow logging and guilt-heavy warnings made them give up.",
+    whatIDid:
+      "Solo, 8 weeks. 10 interviews and 120 survey responses led me to a quick log and a nutrition-label format: every action shows kg of CO₂ and its percent of a daily goal.",
+    outcome:
+      "Testers logged actions with fewer hesitations than V1's form and described V2 as encouraging rather than guilt-inducing. The final label design has a validation plan ready.",
+  },
   overview: {
     title: "Guilt-tripping doesn't work. Convenience does.",
     body: "I originally assumed people avoided sustainable choices because they lacked knowledge about their carbon footprint. Research proved otherwise: users already knew the problem. What they lacked was a frictionless way to act on it. GreenPath pivoted from a warning dashboard to an actionable habit-building platform.",
@@ -465,6 +486,14 @@ const studyflowCase: CaseStudy = {
   intro:
     "StudyFlow started as a strict scheduling tool. Research revealed that rigid time planning was the problem, not the solution. I redesigned it around one principle: make starting so easy that there's no excuse not to.",
   heroImage: ART.studyflowScene,
+  tldr: {
+    problem:
+      "Students failed at starting, not studying. Detailed planning made them abandon sessions before the first minute.",
+    whatIDid:
+      "Solo, 9 weeks. 9 interviews and a 15-person diary study led me to replace calendar setup with a one-tap hourglass: turn the glass, and the sand shows time left.",
+    outcome:
+      'In testing with 8 users, more completed a full session in V2, and feedback described it as "less stressful to open." The final hourglass design has a validation plan ready.',
+  },
   overview: {
     title:
       "The problem wasn't focus. It was the friction before focus.",

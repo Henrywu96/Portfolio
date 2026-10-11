@@ -157,6 +157,34 @@ export function CaseStudyPage({
         </div>
       </section>
 
+      {/* TL;DR */}
+      <section className="mx-auto mt-8 max-w-6xl px-5">
+        <div className="rounded-2xl border border-[var(--hw-border)] bg-white/70 p-5">
+          <p className="text-[11px] font-bold tracking-[0.2em] text-[var(--hw-coral)]">
+            TL;DR
+          </p>
+          <div className="mt-3 divide-y divide-[var(--hw-border)]">
+            {[
+              ["Problem", cs.tldr.problem],
+              ["What I did", cs.tldr.whatIDid],
+              ["Outcome", cs.tldr.outcome],
+            ].map(([label, body]) => (
+              <div
+                key={label}
+                className="grid gap-1 py-3 first:pt-0 last:pb-0 sm:grid-cols-[110px_1fr] sm:gap-4"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--hw-slate)]">
+                  {label}
+                </p>
+                <p className="text-[16px] leading-relaxed text-[var(--hw-navy)]">
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Tabs */}
       <div className="sticky top-0 z-30 mt-10 border-b border-[var(--hw-border)] bg-[var(--hw-cream)]/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5">
