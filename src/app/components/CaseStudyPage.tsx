@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { FinalDesign } from "./FinalDesign";
 import { icon } from "./icons";
 import { openContact } from "../assets";
 import {
@@ -63,12 +64,23 @@ export function CaseStudyPage({
   const [tab, setTab] = useState<CaseTab>(initialTab);
   const [showProtoModal, setShowProtoModal] = useState(false);
   const cs = project.caseStudy!;
+  const tabs: readonly CaseTab[] =
+    cs.finalDesign
+      ? [
+          "Overview",
+          "Research",
+          "Design Process",
+          "Final Design",
+          "Results",
+          "Reflection",
+        ]
+      : CASE_TABS;
   const rarity = RARITY[project.id] ?? {
     label: "COMMON",
     color: "var(--hw-rarity-common)",
     level: 10,
   };
-  const chapter = CASE_TABS.indexOf(tab) + 1;
+  const chapter = tabs.indexOf(tab) + 1;
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[var(--hw-cream)] text-[var(--hw-navy)]">
@@ -189,7 +201,7 @@ export function CaseStudyPage({
       <div className="sticky top-0 z-30 mt-10 border-b border-[var(--hw-border)] bg-[var(--hw-cream)]/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5">
           <div className="flex gap-6 overflow-x-auto">
-            {CASE_TABS.map((t) => (
+            {tabs.map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
@@ -207,7 +219,7 @@ export function CaseStudyPage({
             ))}
           </div>
           <span className="hidden shrink-0 items-center gap-1.5 text-[11px] font-bold tracking-wider text-[var(--hw-slate)] sm:flex">
-            CHAPTER {chapter}/{CASE_TABS.length}
+            CHAPTER {chapter}/{tabs.length}
           </span>
         </div>
       </div>
@@ -229,6 +241,9 @@ export function CaseStudyPage({
               projectId={project.id}
               projectAccent={project.accent}
             />
+          )}
+          {tab === "Final Design" && cs.finalDesign && (
+            <FinalDesign finalDesign={cs.finalDesign} />
           )}
           {tab === "Results" && <Results cs={cs} />}
           {tab === "Reflection" && <Reflection cs={cs} />}

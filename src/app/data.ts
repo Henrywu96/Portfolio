@@ -56,6 +56,11 @@ export type CaseStudy = {
     whatIDid: string;
     outcome: string;
   };
+  finalDesign?: {
+    intro: string;
+    images: { src: string; caption: string }[];
+    interactionDetails?: { src: string; caption: string }[];
+  };
   overview: {
     title: string;
     body: string;
@@ -122,6 +127,58 @@ const bridglyCase: CaseStudy = {
       "Solo, 10 weeks. 12 interviews and 87 survey responses led me to pivot from a goal tracker to a dual-time dial that shows both cities and the window when you are both free.",
     outcome:
       "In Think-Aloud tests with 8 users, V2 felt warmer than V1 and most found partner context and the reunion countdown on the first try. The final dial design has a validation plan ready.",
+  },
+  finalDesign: {
+    intro:
+      "The final design puts both cities on one dial, then carries that idea through chat, plans, and memories.",
+    images: [
+      {
+        src: ART.bridgly01Splash,
+        caption: "Splash: two cities, one dial",
+      },
+      {
+        src: ART.bridgly02Onboarding1,
+        caption: "Your 14:00 is their 07:00",
+      },
+      {
+        src: ART.bridgly03Onboarding2,
+        caption: "Send a hug, not just a text",
+      },
+      {
+        src: ART.bridgly04Onboarding3,
+        caption: "Plan the day you meet",
+      },
+      {
+        src: ART.bridgly05Home,
+        caption: "Home: the shared free window",
+      },
+      {
+        src: ART.bridgly06Chat,
+        caption: "Chat: both clocks on every message",
+      },
+      {
+        src: ART.bridgly07Blueprint,
+        caption: "Blueprint: 23 days to go",
+      },
+      {
+        src: ART.bridgly08Moments,
+        caption: "Moments: a shared timeline",
+      },
+      {
+        src: ART.bridgly09Profile,
+        caption: "Profile: time zones and quiet hours",
+      },
+    ],
+    interactionDetails: [
+      {
+        src: ART.bridgly10Onboarding4,
+        caption: "Onboarding: 9 hours both awake",
+      },
+      {
+        src: ART.bridgly11ChatKeyboard,
+        caption: "Composing: the shared window stays visible while typing",
+      },
+    ],
   },
   overview: {
     title:
@@ -314,6 +371,44 @@ const greenpathCase: CaseStudy = {
     outcome:
       "Testers logged actions with fewer hesitations than V1's form and described V2 as encouraging rather than guilt-inducing. The final label design has a validation plan ready.",
   },
+  finalDesign: {
+    intro:
+      "The final design reads every number like a nutrition label: amount, then percent of a daily goal.",
+    images: [
+      {
+        src: ART.greenpath01Welcome,
+        caption: "Read your day like a label",
+      },
+      {
+        src: ART.greenpath02Today,
+        caption: "Today: Carbon Facts",
+      },
+      {
+        src: ART.greenpath03QuickLog,
+        caption: "Log an action: pick and confirm",
+      },
+      {
+        src: ART.greenpath04Explore,
+        caption: "Explore: Route Facts",
+      },
+      {
+        src: ART.greenpath05Challenges,
+        caption: "Challenges: active and available",
+      },
+      {
+        src: ART.greenpath06ChallengeDetail,
+        caption: "Bike to Work Week",
+      },
+      {
+        src: ART.greenpath07Impact,
+        caption: "Impact: the week in numbers",
+      },
+      {
+        src: ART.greenpath08Profile,
+        caption: "Profile: lifetime facts",
+      },
+    ],
+  },
   overview: {
     title: "Guilt-tripping doesn't work. Convenience does.",
     body: "I originally assumed people avoided sustainable choices because they lacked knowledge about their carbon footprint. Research proved otherwise: users already knew the problem. What they lacked was a frictionless way to act on it. GreenPath pivoted from a warning dashboard to an actionable habit-building platform.",
@@ -493,6 +588,48 @@ const studyflowCase: CaseStudy = {
       "Solo, 9 weeks. 9 interviews and a 15-person diary study led me to replace calendar setup with a one-tap hourglass: turn the glass, and the sand shows time left.",
     outcome:
       'In testing with 8 users, more completed a full session in V2, and feedback described it as "less stressful to open." The final hourglass design has a validation plan ready.',
+  },
+  finalDesign: {
+    intro:
+      "The final design keeps one hero object on screen: an hourglass that shows time as sand.",
+    images: [
+      {
+        src: ART.studyflow01Welcome,
+        caption: "Begin with five minutes",
+      },
+      {
+        src: ART.studyflow02Today,
+        caption: "Today: turn the glass to start",
+      },
+      {
+        src: ART.studyflow03TaskPicker,
+        caption: "Choose a task without leaving Today",
+      },
+      {
+        src: ART.studyflow04Duration,
+        caption: "Pick 5, 15, 25, or 45 minutes",
+      },
+      {
+        src: ART.studyflow05Focus,
+        caption: "Focus: 18:42 remaining",
+      },
+      {
+        src: ART.studyflow06Summary,
+        caption: "Nice work: continue or take a break",
+      },
+      {
+        src: ART.studyflow07Tasks,
+        caption: "Tasks: start from the list",
+      },
+      {
+        src: ART.studyflow08Progress,
+        caption: "Progress: hours per day",
+      },
+      {
+        src: ART.studyflow09Settings,
+        caption: "Settings: a plain list",
+      },
+    ],
   },
   overview: {
     title:
@@ -723,4 +860,4 @@ export const CASE_TABS = [
   "Reflection",
 ] as const;
 
-export type CaseTab = (typeof CASE_TABS)[number];
+export type CaseTab = (typeof CASE_TABS)[number] | "Final Design";
