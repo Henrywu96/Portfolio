@@ -679,6 +679,33 @@ const TOOL_SPELLS = [
 
 const SIDE_QUESTS: SideQuest[] = [
   {
+    name: "Mini Island",
+    description:
+      "A playful 3D island experience designed for interactive exploration directly in the browser.",
+    url: "https://henrywu96.github.io/mini-island/",
+    tags: ["3D Design", "Interaction", "Web Experience"],
+    icon: Boxes,
+    accent: "var(--hw-accent-greenpath)",
+  },
+  {
+    name: "Arcline Automotive",
+    description:
+      "A cinematic automotive product landing page focused on visual storytelling and premium presentation.",
+    url: "https://henrywu96.github.io/arcline-landing/",
+    tags: ["Web Design", "UI Design", "Landing Page"],
+    icon: Zap,
+    accent: "var(--hw-coral)",
+  },
+  {
+    name: "Stackyard Warehouse Ops",
+    description:
+      "A warehouse operations workspace that brings inventory, tasks, and day-to-day logistics into one interface.",
+    url: "https://henrywu96.github.io/stackyard-warehouse-ops/",
+    tags: ["Web App", "Dashboard", "UX UI"],
+    icon: BriefcaseBusiness,
+    accent: "var(--hw-rarity-epic)",
+  },
+  {
     name: "Emberline Coffee",
     description:
       "A cinematic coffee product landing page crafted around brand storytelling and an immersive browsing experience.",
