@@ -688,6 +688,15 @@ const SIDE_QUESTS: SideQuest[] = [
     accent: "var(--hw-accent-greenpath)",
   },
   {
+    name: "Edmonton LRT Live",
+    description:
+      "A live transit experience for checking Edmonton LRT arrivals and navigating the system at a glance.",
+    url: "https://henrywu96.github.io/edmonton-lrt-live/",
+    tags: ["Web App", "Transit", "Live Data"],
+    icon: LayoutGrid,
+    accent: "var(--hw-rarity-rare)",
+  },
+  {
     name: "Arcline Automotive",
     description:
       "A cinematic automotive product landing page focused on visual storytelling and premium presentation.",
