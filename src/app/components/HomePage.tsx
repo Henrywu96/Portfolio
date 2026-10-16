@@ -682,7 +682,7 @@ const SIDE_QUESTS: SideQuest[] = [
     name: "Mini Island",
     description:
       "A playful 3D island experience designed for interactive exploration directly in the browser.",
-    url: "https://henrywu96.github.io/mini-island/",
+    url: "https://mini-island.vercel.app/",
     tags: ["3D Design", "Interaction", "Web Experience"],
     icon: Boxes,
     accent: "var(--hw-accent-greenpath)",
@@ -691,7 +691,7 @@ const SIDE_QUESTS: SideQuest[] = [
     name: "Edmonton LRT Live",
     description:
       "A live transit experience for checking Edmonton LRT arrivals and navigating the system at a glance.",
-    url: "https://henrywu96.github.io/edmonton-lrt-live/",
+    url: "https://edmonton-lrt-live.vercel.app/",
     tags: ["Web App", "Transit", "Live Data"],
     icon: LayoutGrid,
     accent: "var(--hw-rarity-rare)",
@@ -700,7 +700,7 @@ const SIDE_QUESTS: SideQuest[] = [
     name: "Arcline Automotive",
     description:
       "A cinematic automotive product landing page focused on visual storytelling and premium presentation.",
-    url: "https://henrywu96.github.io/arcline-landing/",
+    url: "https://arcline-landing-kappa.vercel.app/",
     tags: ["Web Design", "UI Design", "Landing Page"],
     icon: Zap,
     accent: "var(--hw-coral)",
@@ -709,7 +709,7 @@ const SIDE_QUESTS: SideQuest[] = [
     name: "Stackyard Warehouse Ops",
     description:
       "A warehouse operations workspace that brings inventory, tasks, and day-to-day logistics into one interface.",
-    url: "https://henrywu96.github.io/stackyard-warehouse-ops/",
+    url: "https://stackyard-warehouse-ops.vercel.app/",
     tags: ["Web App", "Dashboard", "UX UI"],
     icon: BriefcaseBusiness,
     accent: "var(--hw-rarity-epic)",
@@ -718,7 +718,7 @@ const SIDE_QUESTS: SideQuest[] = [
     name: "Emberline Coffee",
     description:
       "A cinematic coffee product landing page crafted around brand storytelling and an immersive browsing experience.",
-    url: "https://henrywu96.github.io/emberline-landing/",
+    url: "https://emberline-landing.vercel.app/",
     tags: ["Web Design", "UI Design", "Branding"],
     icon: Coffee,
     accent: "var(--hw-accent-studyflow)",
