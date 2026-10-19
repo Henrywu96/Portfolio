@@ -843,6 +843,10 @@ export const PROJECTS: Project[] = [
   },
 ];
 
+export const VISIBLE_PROJECTS = PROJECTS.filter(
+  (project) => project.id === "bridgly",
+);
+
 export const SKILLS = [
   { label: "UX Research", icon: "Search" },
   { label: "UI Design", icon: "PenTool" },

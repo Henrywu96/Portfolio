@@ -28,7 +28,7 @@ import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Navbar } from "./Navbar";
 import { ART, openContact } from "../assets";
-import { IMAGES, PROJECTS, SKILLS, type Project } from "../data";
+import { IMAGES, VISIBLE_PROJECTS, SKILLS, type Project } from "../data";
 
 const ICONS: Record<string, any> = {
   Heart,
@@ -207,7 +207,7 @@ export function HomePage({
   onOpenProject: (p: Project) => void;
   onLogo: () => void;
 }) {
-  const bridgly = PROJECTS[0];
+  const bridgly = VISIBLE_PROJECTS[0];
 
   // Parallax scroll — manual listener avoids framer-motion peer dependency
   const [scrollY, setScrollY] = useState(0);
@@ -546,12 +546,12 @@ export function HomePage({
       {/* Projects */}
       <section id="work" className="mx-auto mt-14 max-w-6xl px-5 scroll-mt-20">
         <GameHeading
-          eyebrow="CHOOSE YOUR ADVENTURE"
+          eyebrow="CASE STUDY"
           title="Quest Log"
           icon={<ScrollText className="size-5" />}
         />
         <div ref={questRef} className="mt-4 space-y-3">
-          {PROJECTS.map((p, i) => (
+          {VISIBLE_PROJECTS.map((p, i) => (
             <motion.div
               key={p.id}
               initial={{ opacity: 0, x: -40 }}

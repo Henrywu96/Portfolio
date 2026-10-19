@@ -3,14 +3,14 @@ import { MotionConfig } from "motion/react";
 import { HomePage } from "./components/HomePage";
 import { CaseStudyPage } from "./components/CaseStudyPage";
 import { MMORPGIntro } from "./components/MMORPGIntro";
-import { PROJECTS, type Project, type CaseTab } from "./data";
+import { VISIBLE_PROJECTS, type Project, type CaseTab } from "./data";
 
 type Route = "home" | "case-study";
 
 export default function App() {
   const [route, setRoute] = useState<Route>("home");
   const [caseTab, setCaseTab] = useState<CaseTab>("Overview");
-  const [selected, setSelected] = useState<Project>(PROJECTS[0]);
+  const [selected, setSelected] = useState<Project>(VISIBLE_PROJECTS[0]);
   const [introPlayed, setIntroPlayed] = useState(() => {
     let prefersReducedMotion = false;
     let playedThisSession = false;
@@ -64,7 +64,7 @@ export default function App() {
 
   useEffect(() => {
     const handlePopState = (event: PopStateEvent) => {
-      const project = PROJECTS.find(
+      const project = VISIBLE_PROJECTS.find(
         (p) =>
           p.id === event.state?.id &&
           event.state?.hwRoute === "case-study" &&
@@ -142,7 +142,11 @@ export default function App() {
             project={selected}
             initialTab={caseTab}
             onBack={handleCaseStudyBack}
-            onNextProject={(p) => openProject(p, true)}
+            onNextProject={
+              VISIBLE_PROJECTS.length > 1
+                ? (p) => openProject(p, true)
+                : undefined
+            }
           />
         )}
       </div>
