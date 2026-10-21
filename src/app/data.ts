@@ -43,6 +43,7 @@ type IconCard = {
     title: string;
     verdict: string;
     chosen?: boolean;
+    explored?: boolean;
   }[];
 };
 
@@ -60,6 +61,11 @@ export type CaseStudy = {
     intro: string;
     images: { src: string; caption: string }[];
     interactionDetails?: { src: string; caption: string }[];
+    styleGuide?: {
+      colors: { name: string; hex: string; role: string }[];
+      type: string;
+      rules: string[];
+    };
   };
   overview: {
     title: string;
@@ -70,6 +76,10 @@ export type CaseStudy = {
     problemImage: string;
     phoneImage: string;
     phoneMockup?: string;
+    /** three real screens shown in phone frames next to the overview */
+    phoneScreens?: [string, string, string];
+    solutionsTitle?: string;
+    solutions?: { title: string; body: string; image: string }[];
   };
   research: {
     title: string;
@@ -77,20 +87,33 @@ export type CaseStudy = {
     image: string;
     illustration?: boolean;
     methods: IconCard[];
-    insights: { icon: string; body: string }[];
+    insights: { icon: string; body: string; means?: string; built?: string }[];
+    hmw?: { question: string; items: string[] };
   };
   process: {
     title: string;
     body: string;
     steps: IconCard[];
     image: string;
+    /** show the whole image (a diagram or screen strip) instead of a cropped photo */
+    imageContain?: boolean;
+    imageCaption?: string;
+    changes?: { area: string; before: string; after: string; why: string }[];
   };
   results: {
     title: string;
     body: string;
     note?: string;
     stats: { value: string; label: string }[];
+    quote?: { text: string; source: string };
     image: string;
+    next?: {
+      title: string;
+      body: string;
+      hypotheses: string[];
+      tasks: { task: string; measure: string; target: string }[];
+      method: string;
+    };
   };
   reflection: {
     title: string;
@@ -115,80 +138,85 @@ export type Project = {
 
 const bridglyCase: CaseStudy = {
   subtitle:
-    "A long-distance relationship app designed around emotional presence — helping couples feel in each other's world through shared moments, daily connection, and meaningful milestones.",
-  chips: ["Mobile App", "Relationship", "UX UI"],
+    "Designing for emotional presence across distance: a mobile app that helps long-distance couples feel part of each other's day.",
+  chips: ["Mobile App", "Relationship", "UX / UI"],
   intro:
-    "Bridgly started as a goal-tracking app, but research revealed couples didn't need another task manager — they needed to feel present in each other's daily lives. The design shifted entirely toward warmth, awareness, and emotional closeness.",
+    "Bridgly began as a shared goal tracker. Research showed couples didn't need another task manager — they wanted to feel present in each other's daily lives, so the design moved to partner context, warm contact and shared plans.",
   heroImage: ART.bridglyScene2,
   tldr: {
     problem:
-      "Long-distance couples could message all day but still couldn't tell when the other was awake or free.",
+      "Messages arrive, but presence doesn't. Across time zones, couples couldn't tell when the other was awake or free, and messaging apps left no space for shared memories or plans.",
     whatIDid:
-      "Solo, 10 weeks. 12 interviews and 87 survey responses led me to pivot from a goal tracker to a dual-time dial that shows both cities and the window when you are both free.",
+      "Solo, 10 weeks. 12 interviews, 87 survey responses and a review of 6 apps led me to pivot from a goal tracker to V2: a warm, photo-led app built around partner awareness, warm contact, shared anticipation and shared memories.",
     outcome:
-      "In Think-Aloud tests with 8 users, V2 felt warmer than V1 and most found partner context and the reunion countdown on the first try. The final dial design has a validation plan ready.",
+      "In a 2-week Think-Aloud test with 8 users, V2 felt warmer and more personal than V1, and most reached partner context and the reunion countdown on the first try. V2 is the final design.",
   },
   finalDesign: {
     intro:
-      "The final design puts both cities on one dial, then carries that idea through chat, plans, and memories.",
+      "V2 is the final design: onboarding sets a warm tone, Home shows both cities at a glance, Chat carries feeling, Blueprint counts down to the reunion, and Moments and Profile keep the shared story.",
     images: [
       {
-        src: ART.bridgly01Splash,
-        caption: "Splash: two cities, one dial",
+        src: ART.bridglyOnboarding1,
+        caption: "Onboarding · see their world in real time",
       },
       {
-        src: ART.bridgly02Onboarding1,
-        caption: "Your 14:00 is their 07:00",
+        src: ART.bridglyOnboarding2,
+        caption: "Onboarding · chat with emotion, not just words",
       },
       {
-        src: ART.bridgly03Onboarding2,
-        caption: "Send a hug, not just a text",
+        src: ART.bridglyOnboarding3,
+        caption: "Onboarding · build your future together",
       },
       {
-        src: ART.bridgly04Onboarding3,
-        caption: "Plan the day you meet",
+        src: ART.bridglyHome,
+        caption: "Home · both cities at a glance",
       },
       {
-        src: ART.bridgly05Home,
-        caption: "Home: the shared free window",
+        src: ART.bridglyChat,
+        caption: "Chat · hugs and voice capsules",
       },
       {
-        src: ART.bridgly06Chat,
-        caption: "Chat: both clocks on every message",
+        src: ART.bridglyBlueprint,
+        caption: "Blueprint · 23 days to go",
       },
       {
-        src: ART.bridgly07Blueprint,
-        caption: "Blueprint: 23 days to go",
+        src: ART.bridglyMoments,
+        caption: "Moments · shared timeline",
       },
       {
-        src: ART.bridgly08Moments,
-        caption: "Moments: a shared timeline",
+        src: ART.bridglyProfile,
+        caption: "Profile · memory vault and badges",
       },
       {
-        src: ART.bridgly09Profile,
-        caption: "Profile: time zones and quiet hours",
+        src: ART.bridglyOnboarding4,
+        caption: "Bridge the distance",
       },
     ],
-    interactionDetails: [
-      {
-        src: ART.bridgly10Onboarding4,
-        caption: "Onboarding: 9 hours both awake",
-      },
-      {
-        src: ART.bridgly11ChatKeyboard,
-        caption: "Composing: the shared window stays visible while typing",
-      },
-    ],
+    styleGuide: {
+      colors: [
+        { name: "Midnight lavender", hex: "#2B2D42", role: "Headings and dark accents" },
+        { name: "Dawn peach", hex: "#FFB5A7", role: "Primary actions and warmth" },
+        { name: "Peach dark", hex: "#E89485", role: "Pressed states and highlights" },
+        { name: "Sage", hex: "#81B29A", role: "Progress and done states" },
+        { name: "White", hex: "#FFFFFF", role: "Surfaces" },
+      ],
+      type: "Inter throughout: Extra Bold headings, Semi Bold labels, Medium body text.",
+      rules: [
+        "Both cities' times wherever you plan together",
+        "Photos and illustrations carry the emotion",
+        "8 px spacing · 4-column grid · 16 px margins",
+      ],
+    },
   },
   overview: {
     title:
-      "Couples don't need a task manager. They need to feel each other's presence.",
-    body: "I originally designed Bridgly as a shared goal tracker for long-distance couples. Research showed the real problem was different: couples felt emotionally out of sync — not because they lacked tools, but because existing apps treated relationships like productivity tasks. Bridgly was redesigned around emotional presence: knowing each other's world, staying connected daily, and marking the moments that matter.",
+      "Couples didn't want another task manager. They wanted to feel part of each other's day.",
+    body: "A personal mobile concept for long-distance couples — students and working professionals living in different cities or countries. It began as a shared goal tracker. Research showed couples didn't need another task manager — they wanted to feel present in each other's daily lives.",
     meta: [
       {
         icon: "Tag",
         label: "Type",
-        value: "Personal Concept Project",
+        value: "Personal concept · Mobile app",
       },
       {
         icon: "Users",
@@ -198,11 +226,11 @@ const bridglyCase: CaseStudy = {
       {
         icon: "CalendarDays",
         label: "Timeline",
-        value: "May – Jul 2024 (10 Weeks)",
+        value: "May – Jul 2024 (10 weeks)",
       },
-      { icon: "Wrench", label: "Tools", value: "Figma" },
+      { icon: "Wrench", label: "Tool", value: "Figma" },
     ],
-    problemSub: "Long-distance couples often struggle with:",
+    problemSub: "Messages arrive, presence doesn't:",
     problems: [
       {
         icon: "Clock",
@@ -215,7 +243,7 @@ const bridglyCase: CaseStudy = {
         icon: "CalendarDays",
         label: "Opaque schedules",
         description:
-          "Without seeing the overlap, it is hard to know a partner's status or find a good time to call.",
+          "Without seeing the overlap, it's hard to know a partner's status or find a good time to call.",
         image: ART.iconCalendar,
       },
       {
@@ -228,63 +256,133 @@ const bridglyCase: CaseStudy = {
     ],
     problemImage: IMAGES.desk,
     phoneImage: IMAGES.phone,
-    phoneMockup: ART.bridglyPhones,
+    phoneScreens: [ART.bridglyOnboarding1, ART.bridglyHome, ART.bridglyMoments],
+    solutionsTitle: "Four product areas, each tied to a user need",
+    solutions: [
+      {
+        title: "Partner awareness",
+        body: "Both cities side by side on Home: local time, weather, status and a shared calendar of free time.",
+        image: ART.bridglyHome,
+      },
+      {
+        title: "Warm contact",
+        body: "Hugs, mood tags and voice capsules, so a quick gesture still carries feeling.",
+        image: ART.bridglyChat,
+      },
+      {
+        title: "Shared anticipation",
+        body: "A reunion countdown, a future canvas of plans, and the couple's journey timeline.",
+        image: ART.bridglyBlueprint,
+      },
+      {
+        title: "Shared memories",
+        body: "A timeline of moments, a memory vault and milestones such as 100 days together.",
+        image: ART.bridglyMoments,
+      },
+    ],
   },
   research: {
-    title:
-      "The gap wasn't missing tools — it was missing presence.",
-    body: "I conducted 12 user interviews and collected 87 survey responses from couples in long-distance relationships across 6 countries. My original hypothesis was that couples struggled because they lacked shared goal-tracking tools. The interviews revealed something different entirely.",
+    title: "Three methods tested the original assumption.",
+    body: "My original hypothesis was that couples lacked shared goal-tracking tools. I ran 12 interviews, collected 87 survey responses and reviewed 6 apps. The interviews revealed something different.",
     image: ART.bridglyCoupleCloud,
     illustration: true,
     methods: [
       {
         icon: "Users",
-        title: "User Interviews",
-        body: "12 in-depth interviews with long-distance couples, exploring what made them feel connected or disconnected on a daily basis — and what existing apps got wrong.",
+        title: "12 interviews",
+        body: "Long-distance couples on what made them feel connected or disconnected each day.",
         image: ART.iconInterview,
       },
       {
         icon: "BarChart3",
-        title: "Surveys",
-        body: "87 responses from users across 6 countries, exploring emotional patterns, communication frequency, and what moments made couples feel 'in sync'.",
+        title: "87 survey responses",
+        body: "Respondents across 6 countries on emotional patterns and communication habits.",
         image: ART.iconSurvey,
       },
       {
         icon: "Zap",
-        title: "Competitive Analysis",
-        body: "Reviewed 6 relationship and communication apps, identifying a common gap: most focused on messaging or task-tracking, few addressed emotional presence.",
+        title: "6 apps reviewed",
+        body: "Relationship and messaging apps focused on chat or tasks — rarely on ambient presence.",
         image: ART.iconCompetitive,
       },
     ],
     insights: [
       {
         icon: "Heart",
-        body: "Couples didn't want another task manager — they wanted to feel part of each other's day. Knowing a partner's weather, time zone, or current mood mattered more than shared to-do lists.",
+        body: "Couples wanted to feel part of each other's day.",
+        means: "Everyday context should be readable without composing a message.",
+        built: "Lead with partner time, weather and availability.",
       },
       {
         icon: "Sparkles",
-        body: 'Small, ambient moments of connection sustained relationships more than milestone events. A quick "thinking of you" beat a weekly review call.',
+        body: "Small, ambient moments sustained connection.",
+        means: "A brief gesture of care should fit inside an existing habit.",
+        built: "Keep hugs and mood cues next to messaging.",
       },
       {
         icon: "Repeat",
-        body: "Shared countdowns and rituals gave couples something to look forward to together. Anticipation of reunion was itself a form of emotional connection.",
+        body: "Countdowns and rituals created anticipation.",
+        means: "The future can carry emotional weight, not just tasks.",
+        built: "Use reunion countdowns and shared milestones.",
       },
     ],
+    hmw: {
+      question:
+        "How might we help long-distance couples feel present in each other's daily lives, while respecting personal boundaries?",
+      items: [
+        "How might we explain availability without making someone feel monitored?",
+        "How might we make a brief gesture of affection feel meaningful between calls?",
+        "How might we turn the next reunion into a shared source of anticipation?",
+      ],
+    },
   },
   process: {
-    title:
-      "V1 felt like project management. V2 felt like being close.",
-    body: "Research established the product direction: couples needed presence, not a productivity layer. Prototype testing then confirmed how that direction should be implemented — the information-dense V1 felt clinical and impersonal. V2 translated the research insight into one object on the home screen: a dual-time dial that shows both cities and the window when you are both free.",
+    title: "V1 felt like project management. V2 felt like being close.",
+    body: "Research set the direction: couples needed presence, not a productivity layer. Prototype testing showed how to deliver it. The information-dense V1 felt clinical, so V2 put partner context first and replaced charts with photos, illustrations and a warm peach palette.",
+    image: ART.bridglyHomeProcess,
+    imageContain: true,
+    imageCaption: "Home: wireframe → mid-fi → V2 final",
+    changes: [
+      {
+        area: "Entry screen",
+        before: "Activity logs, progress charts and a shared task list",
+        after: "Partner context leads the home screen",
+        why: "Testers said V1 felt like “managing a project, not a relationship”",
+      },
+      {
+        area: "Emotional hierarchy",
+        before: "Information density dominated",
+        after: "Warm daily contact and reunion anticipation are central",
+        why: "Research pointed to everyday closeness",
+      },
+      {
+        area: "Visual identity",
+        before: "Charts, progress bars and generic cards",
+        after: "Photos, illustrations and a warm peach palette",
+        why: "The first screen should feel like your partner, not a dashboard",
+      },
+    ],
     steps: [
       {
         icon: "PenTool",
-        title: "V1: Information Dashboard",
-        body: "V1 opened with activity logs, progress charts, and a shared task list. Prototype sessions confirmed what research suggested: users described it as 'managing a project, not a relationship.'",
+        title: "V1: Information dashboard",
+        body: "V1 opened with activity logs, progress charts and a shared task list. Prototype sessions confirmed what research suggested: users described it as “managing a project, not a relationship.”",
+      },
+      {
+        icon: "Heart",
+        title: "V2: Warmth first",
+        body: "Four tabs around a centre + button — Home, Moments, Blueprint, Profile. Peach leads actions and warmth, sage marks progress, midnight lavender carries text. Photos and illustrations replaced V1's charts, so the first screen feels personal.",
+      },
+      {
+        icon: "Sparkles",
+        title: "Cut after testing: Global leaderboard",
+        body: "I removed a global leaderboard and reward store. Participants reacted to competitive ranking as anxiety-inducing, and it broke a core principle: intimacy and competition don't coexist. Trade-offs I accepted: context depends on accurate settings, and asynchronous signals add warmth but can't replace a timely conversation.",
       },
       {
         icon: "LayoutGrid",
-        title: "Directions Explored",
-        body: "I explored three visual directions for the home screen. Each had to show two cities at a glance.",
+        title: "After testing: three directions, V2 kept",
+        body: "After the V2 test, three visual directions pushed the home screen further. Each had to show two cities at a glance. Outcome: V2 stayed the final design — it was tested with 8 users, and its warmth was the point.",
+        image: ART.bridglyDirections,
         directions: [
           {
             label: "A",
@@ -296,62 +394,68 @@ const bridglyCase: CaseStudy = {
             label: "B",
             title: "Airmail postcard",
             verdict:
-              "Warm and personal. Hard to stretch to chat, calendar, and plans.",
+              "Warm and personal. Hard to stretch to chat, calendar and plans.",
           },
           {
             label: "C",
             title: "GMT dial",
             verdict:
-              "One scale for both cities. The shared window becomes a shape you can see.",
-            chosen: true,
+              "One scale for both cities. Precise, but the lists around it started to read like a planner again.",
+            explored: true,
           },
         ],
       },
-      {
-        icon: "Boxes",
-        title: "V2: One Dial for Two Cities",
-        body: "V2 is built on one object: a GMT dual-time dial. Both cities sit on one 24-hour scale, so the window when you are both awake and free becomes a shape you can see.",
-      },
-      {
-        icon: "Sparkles",
-        title: "Cut: Global Leaderboard",
-        body: "Originally planned a gamified leaderboard and reward store. During testing, participants reacted negatively to competitive ranking — describing it as anxiety-inducing and misaligned with how they wanted to feel in the app. This also conflicted with a core design principle: intimacy and competition don't coexist.",
-      },
     ],
-    image: IMAGES.stickyNotes,
   },
   results: {
-    title:
-      "Tested with 8 users over 2 weeks — V1 hi-fi vs V2 hi-fi.",
-    body: "I recruited 8 target users (students and working professionals in long-distance relationships) for a 2-week usability test using Think-Aloud Protocol. Sessions covered key flows: exploring partner context, sending a message, and interacting with the reunion countdown. All observations compared V1 against V2.",
-    note: "These sessions used the earlier V2 prototype. The final GMT dial design has a validation plan of its own and has not been tested yet.",
+    title: "What testing showed: 8 users, 2 weeks, V1 vs V2.",
+    body: "I recruited 8 target users (students and working professionals in long-distance relationships) for a 2-week Think-Aloud usability test comparing the V1 and V2 hi-fi prototypes. Tasks: find partner context, send a message or hug, and use the reunion countdown.",
     stats: [
       {
         value: "Emotional tone landed",
-        label:
-          "Participants consistently described V2 as feeling warmer and more personal than V1 during Think-Aloud walkthroughs — 'it feels like you're together' was a recurring response.",
+        label: "Participants described V2 as warmer and more personal than V1.",
       },
       {
         value: "Navigation was intuitive",
         label:
-          "Most users reached the partner awareness screen and reunion countdown on first attempt without instruction. Key flows required little to no guidance.",
+          "Most reached partner awareness and the countdown on the first attempt.",
       },
       {
-        value: "Visual satisfaction was high",
+        value: "Positive for all 8",
         label:
-          "Post-test questionnaire on interface warmth, clarity, and emotional appropriateness returned consistently positive responses across all 8 participants.",
+          "Post-test feedback on warmth, clarity and emotional fit was positive.",
       },
     ],
+    quote: {
+      text: "It feels like you're together.",
+      source: "Recurring response in Think-Aloud sessions",
+    },
     image: IMAGES.coupleHands,
+    next: {
+      title: "What I would test next",
+      body: "V2 was tested with 8 users. The next round would check ideas borrowed from the GMT dial exploration, inside V2.",
+      hypotheses: [
+        "A highlighted shared window on Home helps people find a time to talk without opening the calendar.",
+        "Dual timestamps in chat reduce “is it a good time?” messages.",
+        "Mood tags make a short message feel warmer than text alone.",
+      ],
+      tasks: [
+        { task: "Find the next time you can both talk", measure: "Time to answer", target: "< 10 s" },
+        { task: "Send a hug with a mood tag", measure: "Completion", target: "≥ 90%" },
+        { task: "Add a plan to Blueprint", measure: "Completion", target: "≥ 90%" },
+      ],
+      method:
+        "5 participants across at least two time-zone pairs · moderated Think-Aloud · 3 tasks, ~20 min · SUS questionnaire",
+    },
   },
   reflection: {
     title:
-      "Emotional tone is an IA decision, not just a visual one.",
-    body: "The biggest lesson from Bridgly came from watching users react to V1. The data dashboard wasn't wrong because it was ugly — it was wrong because it framed the relationship as a project to manage. Moving partner context to the first screen and leading with warmth rather than metrics completely changed how users described the app. 'It feels like you're together' replaced 'it feels like homework.'",
+      "Emotional tone is an information-architecture decision, not just a visual one.",
+    body: "Choosing what to surface first — a partner's world or a task list — defined the emotional contract of the app. Moving partner context to the first screen changed how people described it: “it feels like you're together” replaced “it feels like homework.”",
     points: [
-      "The V1→V2 pivot wasn't a visual redesign — it was a product framing shift. Choosing what to surface first (partner's world vs. your task list) defines the emotional contract of the entire app.",
-      "The leaderboard cut was grounded in both testing observations and design values — they happened to align. Testing showed it triggered anxiety; our core principle said intimacy and competition don't coexist. When evidence and values point the same direction, the decision is straightforward.",
-      "Think-Aloud testing revealed emotional misalignment that satisfaction scores would have missed. Watching users navigate and hearing them describe how the app made them feel was more useful than any post-test survey.",
+      "The V1→V2 pivot wasn't a visual redesign — it was a product framing shift. What the first screen shows decides how the whole app feels.",
+      "The leaderboard cut was backed by both testing and design values. Testing showed it triggered anxiety, and intimacy and competition don't coexist.",
+      "Think-Aloud surfaced emotional misalignment that a satisfaction score would miss. Hearing people describe how the app made them feel was more useful than any post-test survey.",
     ],
   },
 };

@@ -527,159 +527,25 @@ function PhoneTriple({
   );
 }
 
-/* Bridgly onboarding screens (image-12) */
-function BridglyScreen1() {
-  const dialNumbers = ["00", "03", "06", "09", "12", "15", "18", "21"];
-
+/* Real app screens (PNG exports) in simple phone frames */
+function ScreenTriple({ screens }: { screens: [string, string, string] }) {
   return (
-    <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
-      <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "#2B2D42" }}>
-          Bridgly
-        </span>
-        <span className="text-[6px]" style={{ color: "#2B2D42" }}>
-          Skip
-        </span>
-      </div>
-      <div className="relative mx-auto mt-1.5 size-[88px] rounded-full border-[7px] border-[#FFB5A7]">
-        <div className="absolute inset-[7px] rounded-full border-[4px] border-[#81B398]" />
-        {dialNumbers.map((number, i) => {
-          const angle = (i * Math.PI) / 4 - Math.PI / 2;
-          return (
-            <span
-              key={number}
-              className="absolute text-[4.5px] font-semibold"
-              style={{
-                color: "#2B2D42",
-                left: `${50 + Math.cos(angle) * 42}%`,
-                top: `${50 + Math.sin(angle) * 42}%`,
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              {number}
-            </span>
-          );
-        })}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className="text-[4.5px] tracking-wide" style={{ color: "#81B398" }}>
-            TAIPEI · YOU
-          </span>
-          <span className="text-[13px] font-bold leading-none" style={{ color: "#2B2D42" }}>
-            14:00
-          </span>
-          <span className="mt-1 text-[4.5px] tracking-wide" style={{ color: "#FFB5A7" }}>
-            LONDON · ALEX
-          </span>
-          <span className="text-[8px] font-bold leading-none" style={{ color: "#2B2D42" }}>
-            07:00
-          </span>
-        </div>
-      </div>
-      <p className="mt-2 text-[8px] font-bold leading-tight" style={{ color: "#2B2D42" }}>
-        Your 14:00 is their 07:00.
-      </p>
-      <p className="mt-1 text-[5.5px] leading-tight" style={{ color: "#2B2D42" }}>
-        See both cities on one dial and find when you are both free.
-      </p>
-      <div className="mt-auto rounded-lg py-1.5 text-center" style={{ background: "#FFB5A7" }}>
-        <span className="text-[7px] font-bold" style={{ color: "#2B2D42" }}>
-          Set up your dial
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function BridglyScreen2() {
-  return (
-    <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
-      <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "#2B2D42" }}>
-          Bridgly
-        </span>
-        <span className="text-[6px]" style={{ color: "#2B2D42" }}>
-          Skip
-        </span>
-      </div>
-      <div className="mt-6 space-y-2">
-        <div className="max-w-[82%] rounded-lg px-2 py-1.5" style={{ background: "#FFB5A7" }}>
-          <p className="text-[5px] font-semibold" style={{ color: "#2B2D42" }}>
-            · Happy
-          </p>
-          <p className="text-[7px]" style={{ color: "#2B2D42" }}>
-            Heading home now.
-          </p>
-        </div>
-        <div className="ml-auto max-w-[78%] rounded-lg px-2 py-1.5" style={{ background: "#81B398" }}>
-          <p className="text-[7px]" style={{ color: "#2B2D42" }}>
-            Can we call soon?
-          </p>
-        </div>
-        <p className="text-center text-[5px]" style={{ color: "#2B2D42" }}>
-          You sent a hug · 13:48 TPE
-        </p>
-      </div>
-      <div className="mt-auto">
-        <p className="text-[10px] font-bold leading-tight" style={{ color: "#2B2D42" }}>
-          Send a hug, not just a text.
-        </p>
-        <p className="mt-1 text-[6px] leading-tight" style={{ color: "#2B2D42" }}>
-          Hugs, mood tags and voice notes arrive with both clocks.
-        </p>
-        <div className="mt-3 rounded-lg py-1.5 text-center" style={{ background: "#FFB5A7" }}>
-          <span className="text-[7px] font-bold" style={{ color: "#2B2D42" }}>
-            Next
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function BridglyScreen3() {
-  return (
-    <div className="flex h-full flex-col bg-white px-3 pb-3 pt-1">
-      <div className="flex items-center justify-between">
-        <span className="text-[8px] font-bold" style={{ color: "#2B2D42" }}>
-          Bridgly
-        </span>
-        <span className="text-[6px]" style={{ color: "#2B2D42" }}>
-          Skip
-        </span>
-      </div>
-      <div className="mx-auto mt-2 flex size-[66px] flex-col items-center justify-center rounded-full border-[5px] border-[#81B398] text-center">
-        <span className="text-[18px] font-bold leading-none" style={{ color: "#2B2D42" }}>
-          23
-        </span>
-        <span className="text-[5px]" style={{ color: "#2B2D42" }}>
-          days to go
-        </span>
-      </div>
-      <div className="mt-2 space-y-1">
-        <div className="flex items-center justify-between border-b border-[#81B398] pb-1">
-          <span className="text-[5.5px] font-semibold" style={{ color: "#2B2D42" }}>
-            Visit Tokyo Together
-          </span>
-          <span className="text-[4.5px]" style={{ color: "#81B398" }}>
-            Planned
-          </span>
-        </div>
-        <div className="flex items-center justify-between border-b border-[#81B398] pb-1">
-          <span className="text-[5.5px] font-semibold" style={{ color: "#2B2D42" }}>
-            Move In Together
-          </span>
-          <span className="text-[4.5px]" style={{ color: "#81B398" }}>
-            Done
-          </span>
-        </div>
-      </div>
-      <p className="mt-2 text-[8px] font-bold leading-tight" style={{ color: "#2B2D42" }}>
-        Plan the day you meet.
-      </p>
-      <div className="mt-auto rounded-lg py-1.5 text-center" style={{ background: "#FFB5A7" }}>
-        <span className="text-[7px] font-bold" style={{ color: "#2B2D42" }}>
-          Next
-        </span>
+    <div className="flex w-full items-center justify-center overflow-hidden py-4">
+      <div className="flex shrink-0 items-end gap-3">
+        {screens.map((src, i) => (
+          <div
+            key={src}
+            className={`overflow-hidden rounded-[22px] border-[3px] border-[var(--hw-navy)] bg-white shadow-xl ${
+              i === 1 ? "w-[124px] sm:w-40" : "w-[104px] opacity-90 sm:w-[136px]"
+            }`}
+          >
+            <img
+              src={src}
+              alt=""
+              className="block aspect-[390/844] w-full object-cover object-top"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -930,12 +796,8 @@ function Overview({
           </p>
         </div>
         <div className="min-w-0">
-          {projectId === "bridgly" ? (
-            <PhoneTriple
-              a={<BridglyScreen1 />}
-              b={<BridglyScreen2 />}
-              c={<BridglyScreen3 />}
-            />
+          {o.phoneScreens ? (
+            <ScreenTriple screens={o.phoneScreens} />
           ) : projectId === "greenpath" ? (
             <PhoneTriple
               a={<GreenScreen1 />}
@@ -1047,6 +909,39 @@ function Overview({
           className="h-44 w-full rounded-2xl object-cover"
         />
       </div>
+
+      {o.solutions && (
+        <div>
+          <Kicker>BREAKDOWN OF THE SOLUTION</Kicker>
+          {o.solutionsTitle && (
+            <h3 className="mt-2 text-[22px] leading-tight text-[var(--hw-navy)]">
+              {o.solutionsTitle}
+            </h3>
+          )}
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {o.solutions.map((sol) => (
+              <div
+                key={sol.title}
+                className="flex flex-col rounded-2xl border border-[var(--hw-border)] bg-white p-4"
+              >
+                <div className="rounded-xl bg-[var(--hw-cream)] px-6 pt-5">
+                  <img
+                    src={sol.image}
+                    alt={sol.title}
+                    className="mx-auto block aspect-[390/600] w-full max-w-[180px] rounded-t-[18px] border-[3px] border-b-0 border-[var(--hw-navy)] object-cover object-top"
+                  />
+                </div>
+                <h4 className="mt-4 text-[16px] font-semibold text-[var(--hw-navy)]">
+                  {sol.title}
+                </h4>
+                <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
+                  {sol.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1134,11 +1029,56 @@ function Research({ cs }: { cs: CaseStudy }) {
                 <p className="mt-3 text-[14px] leading-relaxed text-[var(--hw-navy)]">
                   {ins.body}
                 </p>
+                {ins.means && (
+                  <div className="mt-4 space-y-3 border-t border-[var(--hw-border)] pt-4 text-left">
+                    <div>
+                      <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-slate)]">
+                        WHAT IT MEANS
+                      </p>
+                      <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
+                        {ins.means}
+                      </p>
+                    </div>
+                    {ins.built && (
+                      <div>
+                        <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral)]">
+                          WHAT I BUILT
+                        </p>
+                        <p className="mt-1 text-[13px] font-medium leading-relaxed text-[var(--hw-navy)]">
+                          {ins.built}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             );
           })}
         </div>
       </div>
+
+      {r.hmw && (
+        <div className="rounded-3xl bg-[var(--hw-navy)] p-6 text-white sm:p-8">
+          <p className="text-[12px] font-semibold tracking-[0.2em] text-[var(--hw-coral-soft)]">
+            HOW MIGHT WE
+          </p>
+          <p className="mt-3 max-w-3xl text-[20px] font-semibold leading-snug sm:text-[24px]">
+            {r.hmw.question}
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {r.hmw.items.map((item, i) => (
+              <div key={item} className="rounded-2xl bg-white/10 p-4">
+                <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral-soft)]">
+                  HMW 0{i + 1}
+                </p>
+                <p className="mt-2 text-[14px] leading-relaxed text-white/90">
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1339,18 +1279,73 @@ function DesignProcess({
             {p.body}
           </p>
         </div>
-        <div
-          className="relative flex items-center justify-center overflow-hidden rounded-3xl"
-          style={{ minHeight: 200 }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--hw-rose-from)]/60 to-[var(--hw-rose-to)]/60 mix-blend-multiply" />
-          <ImageWithFallback
-            src={p.image}
-            alt="Design process"
-            className="h-52 w-full object-cover"
-          />
-        </div>
+        {p.imageContain ? (
+          <figure className="min-w-0">
+            <div className="overflow-hidden rounded-3xl border border-[var(--hw-border)] bg-white p-3">
+              <img
+                src={p.image}
+                alt={p.imageCaption ?? "Design process"}
+                className="block h-auto w-full"
+              />
+            </div>
+            {p.imageCaption && (
+              <figcaption className="mt-2 text-[13px] text-[var(--hw-slate)]">
+                {p.imageCaption}
+              </figcaption>
+            )}
+          </figure>
+        ) : (
+          <div
+            className="relative flex items-center justify-center overflow-hidden rounded-3xl"
+            style={{ minHeight: 200 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--hw-rose-from)]/60 to-[var(--hw-rose-to)]/60 mix-blend-multiply" />
+            <ImageWithFallback
+              src={p.image}
+              alt="Design process"
+              className="h-52 w-full object-cover"
+            />
+          </div>
+        )}
       </div>
+
+      {p.changes && (
+        <div>
+          <h3 className="text-[20px] text-[var(--hw-navy)]">
+            What changed between versions, and why
+          </h3>
+          <div className="mt-4 space-y-3">
+            <div className="hidden grid-cols-[1fr_1.3fr_1.3fr_1.3fr] gap-4 px-5 text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral)] md:grid">
+              <span>AREA</span>
+              <span>BEFORE (V1)</span>
+              <span>AFTER (V2)</span>
+              <span>WHY</span>
+            </div>
+            {p.changes.map((c) => (
+              <div
+                key={c.area}
+                className="grid gap-2 rounded-2xl border border-[var(--hw-border)] bg-white p-5 md:grid-cols-[1fr_1.3fr_1.3fr_1.3fr] md:items-center md:gap-4"
+              >
+                <p className="text-[15px] font-semibold text-[var(--hw-navy)]">
+                  {c.area}
+                </p>
+                <p className="text-[13px] leading-relaxed text-[var(--hw-slate)]">
+                  <span className="mr-1 font-bold text-[var(--hw-slate)] md:hidden">Before:</span>
+                  {c.before}
+                </p>
+                <p className="text-[13px] font-semibold leading-relaxed text-[var(--hw-navy)]">
+                  <span className="mr-1 font-bold text-[var(--hw-coral)] md:hidden">After:</span>
+                  {c.after}
+                </p>
+                <p className="text-[13px] leading-relaxed text-[var(--hw-slate)]">
+                  <span className="mr-1 font-bold md:hidden">Why:</span>
+                  {c.why}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="relative grid gap-4 sm:grid-cols-2">
         {p.steps.map((s, i) => {
@@ -1374,6 +1369,15 @@ function DesignProcess({
               <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
                 {s.body}
               </p>
+              {s.image && (
+                <div className="mt-5 overflow-hidden rounded-xl border border-[var(--hw-border)] bg-[var(--hw-cream)]">
+                  <img
+                    src={s.image}
+                    alt={`${s.title}: directions A, B and C`}
+                    className="block h-auto w-full"
+                  />
+                </div>
+              )}
               {s.directions && (
                 <div className="mt-5 grid grid-cols-3 gap-2">
                   {s.directions.map((direction) => (
@@ -1390,11 +1394,18 @@ function DesignProcess({
                             CHOSEN
                           </span>
                         )}
+                        {direction.explored && (
+                          <span className="rounded bg-[var(--hw-navy)] px-1.5 py-0.5 text-[8px] font-bold tracking-wider text-white">
+                            EXPLORED
+                          </span>
+                        )}
                       </div>
-                      <DirectionMockup
-                        projectId={projectId}
-                        direction={direction.label}
-                      />
+                      {!s.image && (
+                        <DirectionMockup
+                          projectId={projectId}
+                          direction={direction.label}
+                        />
+                      )}
                       <p className="mt-2 text-[11px] font-semibold leading-tight text-[var(--hw-navy)]">
                         {direction.title}
                       </p>
@@ -1461,13 +1472,75 @@ function Results({ cs }: { cs: CaseStudy }) {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-3xl">
-        <ImageWithFallback
-          src={r.image}
-          alt="Results"
-          className="h-64 w-full object-cover"
-        />
-      </div>
+      {r.quote ? (
+        <div className="grid overflow-hidden rounded-3xl md:grid-cols-[1fr_1.4fr]">
+          <div className="flex flex-col justify-between gap-6 bg-[var(--hw-navy)] p-6 text-white sm:p-8">
+            <p className="text-[26px] font-semibold leading-tight sm:text-[30px]">
+              “{r.quote.text}”
+            </p>
+            <p className="text-[13px] text-white/70">{r.quote.source}</p>
+          </div>
+          <ImageWithFallback
+            src={r.image}
+            alt="Results"
+            className="h-64 w-full object-cover md:h-full"
+          />
+        </div>
+      ) : (
+        <div className="overflow-hidden rounded-3xl">
+          <ImageWithFallback
+            src={r.image}
+            alt="Results"
+            className="h-64 w-full object-cover"
+          />
+        </div>
+      )}
+
+      {r.next && (
+        <div className="rounded-3xl border border-[var(--hw-border)] bg-white p-6 sm:p-8">
+          <Kicker>NEXT VALIDATION</Kicker>
+          <h3 className="mt-2 text-[22px] leading-tight text-[var(--hw-navy)]">
+            {r.next.title}
+          </h3>
+          <p className="mt-2 text-[14px] leading-relaxed text-[var(--hw-slate)]">
+            {r.next.body}
+          </p>
+          <div className="mt-6 grid gap-8 md:grid-cols-2">
+            <div className="space-y-4">
+              {r.next.hypotheses.map((h, i) => (
+                <div key={h} className="flex gap-3">
+                  <span className="shrink-0 text-[15px] font-bold text-[var(--hw-accent-greenpath)]">
+                    H{i + 1}
+                  </span>
+                  <p className="text-[14px] leading-relaxed text-[var(--hw-navy)]">
+                    {h}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-[var(--hw-border)]">
+              <div className="grid grid-cols-[1.6fr_1fr_auto] gap-3 bg-[var(--hw-navy)] px-4 py-3 text-[12px] font-semibold text-white">
+                <span>Task</span>
+                <span>Measure</span>
+                <span>Target</span>
+              </div>
+              {r.next.tasks.map((t) => (
+                <div
+                  key={t.task}
+                  className="grid grid-cols-[1.6fr_1fr_auto] gap-3 border-t border-[var(--hw-border)] px-4 py-3 text-[13px] text-[var(--hw-navy)]"
+                >
+                  <span>{t.task}</span>
+                  <span className="text-[var(--hw-slate)]">{t.measure}</span>
+                  <span className="font-bold text-[var(--hw-coral)]">{t.target}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="mt-5 text-[12px] leading-relaxed text-[var(--hw-slate)]">
+            <span className="font-bold tracking-[0.12em]">METHOD</span> · {r.next.method}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
