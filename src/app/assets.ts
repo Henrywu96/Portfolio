@@ -39,6 +39,9 @@ import bridglyMoments from "../imports/bridgly/bridgly-v2-moments.png";
 import bridglyProfile from "../imports/bridgly/bridgly-v2-profile.png";
 import bridglyHomeProcess from "../imports/bridgly/bridgly-home-process.png";
 import bridglyDirections from "../imports/bridgly/bridgly-directions.png";
+import bridglyCover from "../imports/bridgly/bridgly-cover.jpg";
+import bridglyProblemTime from "../imports/bridgly/bridgly-problem-time.png";
+import bridglyWireframesV1 from "../imports/bridgly/bridgly-wireframes-v1.png";
 import greenpath01Welcome from "../imports/greenpath/greenpath-01-welcome.png";
 import greenpath02Today from "../imports/greenpath/greenpath-02-today.png";
 import greenpath03QuickLog from "../imports/greenpath/greenpath-03-quick-log.png";
@@ -97,6 +100,9 @@ export const ART = {
   bridglyProfile,
   bridglyHomeProcess,
   bridglyDirections,
+  bridglyCover,
+  bridglyProblemTime,
+  bridglyWireframesV1,
   greenpath01Welcome,
   greenpath02Today,
   greenpath03QuickLog,

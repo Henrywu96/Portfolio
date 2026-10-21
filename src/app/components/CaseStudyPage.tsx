@@ -19,6 +19,7 @@ import {
   type CaseTab,
   type Project,
   type CaseStudy,
+  type Level,
 } from "../data";
 
 const RARITY: Record<
@@ -96,13 +97,10 @@ export function CaseStudyPage({
       </div>
 
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-5 pt-12 sm:pt-16">
-        <div className="grid items-center gap-6 md:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+      {(() => {
+        const proto = cs.finalDesign?.prototype;
+        const heading = (
+          <>
             <div className="flex flex-wrap items-center gap-2">
               <p className="flex items-center gap-1.5 text-[12px] font-semibold tracking-[0.2em] text-[var(--hw-coral)]">
                 <Scroll className="size-3.5" /> QUEST LOG
@@ -128,46 +126,110 @@ export function CaseStudyPage({
                 <Chip key={c}>{c}</Chip>
               ))}
             </div>
-            <p className="mt-5 max-w-md text-[14px] leading-relaxed text-[var(--hw-slate)]">
+          </>
+        );
+        const intro = (
+          <>
+            <p className="max-w-md text-[14px] leading-relaxed text-[var(--hw-slate)]">
               {cs.intro}
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <button
-                onClick={() => setShowProtoModal(true)}
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105"
-              >
-                Request Prototype <ArrowRight className="size-4" />
-              </button>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {proto ? (
+                <>
+                  <a
+                    href={proto.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105"
+                  >
+                    View Prototype <ArrowRight className="size-4" />
+                  </a>
+                  <button
+                    onClick={() => setShowProtoModal(true)}
+                    className="inline-flex items-center gap-2 rounded-xl border border-[var(--hw-border-btn)] bg-white px-5 py-3 text-[14px] font-semibold text-[var(--hw-navy)] transition hover:bg-[var(--hw-cream-2)]"
+                  >
+                    Request a walkthrough
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => setShowProtoModal(true)}
+                  className="inline-flex items-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105"
+                >
+                  Request Prototype <ArrowRight className="size-4" />
+                </button>
+              )}
             </div>
-          </motion.div>
+          </>
+        );
+        if (cs.coverImage) {
+          return (
+            <section className="mx-auto max-w-6xl px-5 pt-8 sm:pt-10">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="overflow-hidden rounded-3xl border border-[var(--hw-border)] bg-[var(--hw-cream-2)]"
+              >
+                <img
+                  src={cs.coverImage}
+                  alt={`${project.name}: final V2 screens`}
+                  className="block aspect-[4/3] w-full object-cover sm:aspect-[16/8] md:aspect-[12/5]"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="mt-8 grid gap-6 md:grid-cols-2 md:items-end"
+              >
+                <div className="min-w-0">{heading}</div>
+                <div className="min-w-0">{intro}</div>
+              </motion.div>
+            </section>
+          );
+        }
+        return (
+          <section className="mx-auto max-w-6xl px-5 pt-12 sm:pt-16">
+            <div className="grid items-center gap-6 md:grid-cols-2">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {heading}
+                <div className="mt-5">{intro}</div>
+              </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="relative overflow-hidden rounded-3xl"
-          >
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `linear-gradient(135deg, ${project.accent}26, ${project.accent}12)`,
-              }}
-            />
-            <ImageWithFallback
-              src={cs.heroImage}
-              alt={`${project.name} hero`}
-              className={`relative h-[220px] w-full sm:h-[300px] md:h-[360px] ${
-                project.iconImage
-                  ? "object-contain p-4"
-                  : "object-cover"
-              }`}
-            />
-            {project.id === "bridgly" && (
-              <Heart className="absolute right-6 top-6 z-10 size-8 fill-[var(--hw-coral)] text-[var(--hw-coral)] drop-shadow" />
-            )}
-          </motion.div>
-        </div>
-      </section>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="relative overflow-hidden rounded-3xl"
+              >
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: `linear-gradient(135deg, ${project.accent}26, ${project.accent}12)`,
+                  }}
+                />
+                <ImageWithFallback
+                  src={cs.heroImage}
+                  alt={`${project.name} hero`}
+                  className={`relative h-[220px] w-full sm:h-[300px] md:h-[360px] ${
+                    project.iconImage
+                      ? "object-contain p-4"
+                      : "object-cover"
+                  }`}
+                />
+                {project.id === "bridgly" && (
+                  <Heart className="absolute right-6 top-6 z-10 size-8 fill-[var(--hw-coral)] text-[var(--hw-coral)] drop-shadow" />
+                )}
+              </motion.div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* TL;DR */}
       <section className="mx-auto mt-8 max-w-6xl px-5">
@@ -246,7 +308,7 @@ export function CaseStudyPage({
             <FinalDesign finalDesign={cs.finalDesign} />
           )}
           {tab === "Results" && <Results cs={cs} />}
-          {tab === "Reflection" && <Reflection cs={cs} />}
+          {tab === "Reflection" && <Reflection cs={cs} projectName={project.name} />}
         </motion.div>
         {onNextProject &&
           (() => {
@@ -854,7 +916,11 @@ function Overview({
         })}
       </div>
 
-      <div className="grid items-center gap-8 rounded-3xl border border-[var(--hw-border)] bg-white p-6 md:grid-cols-[1fr_200px]">
+      <div
+        className={`grid items-center gap-8 rounded-3xl border border-[var(--hw-border)] bg-white p-6 ${
+          o.problemVisual ? "" : "md:grid-cols-[1fr_200px]"
+        }`}
+      >
         <div>
           <h3 className="text-[22px] text-[var(--hw-navy)]">
             The Problem
@@ -903,11 +969,19 @@ function Overview({
             })}
           </div>
         </div>
-        <ImageWithFallback
-          src={o.problemImage}
-          alt="Problem framing"
-          className="h-44 w-full rounded-2xl object-cover"
-        />
+        {o.problemVisual ? (
+          <img
+            src={o.problemVisual.src}
+            alt={o.problemVisual.alt}
+            className="mx-auto block h-auto w-full max-w-3xl rounded-2xl"
+          />
+        ) : (
+          <ImageWithFallback
+            src={o.problemImage}
+            alt="Problem framing"
+            className="h-44 w-full rounded-2xl object-cover"
+          />
+        )}
       </div>
 
       {o.solutions && (
@@ -1010,6 +1084,8 @@ function Research({ cs }: { cs: CaseStudy }) {
           );
         })}
       </div>
+
+      {r.competitors && <Competitors c={r.competitors} />}
 
       <div className="mx-auto max-w-6xl">
         <h3 className="text-[20px] text-[var(--hw-navy)]">
@@ -1309,9 +1385,12 @@ function DesignProcess({
         )}
       </div>
 
+      {p.ideation && <Ideation d={p.ideation} />}
+
       {p.changes && (
         <div>
-          <h3 className="text-[20px] text-[var(--hw-navy)]">
+          <Kicker>ITERATIONS</Kicker>
+          <h3 className="mt-2 text-[20px] text-[var(--hw-navy)]">
             What changed between versions, and why
           </h3>
           <div className="mt-4 space-y-3">
@@ -1546,7 +1625,7 @@ function Results({ cs }: { cs: CaseStudy }) {
 }
 
 /* ---------- Reflection ---------- */
-function Reflection({ cs }: { cs: CaseStudy }) {
+function Reflection({ cs, projectName }: { cs: CaseStudy; projectName: string }) {
   const r = cs.reflection;
   return (
     <div className="mx-auto max-w-6xl space-y-6">
@@ -1573,6 +1652,270 @@ function Reflection({ cs }: { cs: CaseStudy }) {
             </p>
           </div>
         ))}
+      </div>
+      {cs.resources && (
+        <div className="pt-6">
+          <Kicker>RESOURCES</Kicker>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {cs.resources.map((res) => {
+              const cls =
+                "block rounded-2xl border border-[var(--hw-border)] bg-white p-4 text-left transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-28px_rgba(32,43,69,0.65)]";
+              const inner = (
+                <>
+                  <span className="block text-[15px] font-semibold text-[var(--hw-navy)]">
+                    {res.label}
+                  </span>
+                  <span
+                    className={`mt-0.5 inline-flex items-center gap-1 text-[13px] ${
+                      res.href
+                        ? "font-medium text-[var(--hw-coral)]"
+                        : "text-[var(--hw-slate)]"
+                    }`}
+                  >
+                    {res.value}
+                    {res.href && <ArrowRight className="size-3.5" />}
+                  </span>
+                  {res.request && (
+                    <span className="mt-1 block text-[11px] text-[var(--hw-slate)]">
+                      Email me to request it
+                    </span>
+                  )}
+                </>
+              );
+              return res.href ? (
+                <a
+                  key={res.label}
+                  href={res.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cls}
+                >
+                  {inner}
+                </a>
+              ) : (
+                <button
+                  key={res.label}
+                  onClick={() => openContact(`${res.label} request: ${projectName}`)}
+                  className={cls}
+                >
+                  {inner}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ---------- Competitive analysis ---------- */
+function LevelMark({ level }: { level: Level }) {
+  if (level === "none")
+    return (
+      <span
+        aria-hidden
+        className="inline-block h-[3px] w-4 shrink-0 rounded bg-[#ADB5BD]"
+      />
+    );
+  return (
+    <span
+      aria-hidden
+      className={`inline-block size-3.5 shrink-0 rounded-full ${
+        level === "full" ? "bg-[#81B29A]" : "border-[2.5px] border-[#81B29A]"
+      }`}
+    />
+  );
+}
+
+const LEVEL_LABEL: Record<Level, string> = {
+  full: "Core feature",
+  partly: "Partly",
+  none: "Not offered",
+};
+
+function Competitors({
+  c,
+}: {
+  c: NonNullable<CaseStudy["research"]["competitors"]>;
+}) {
+  const cols = `minmax(170px,1.3fr) repeat(${c.apps.length}, minmax(140px,1fr))`;
+  return (
+    <div className="mx-auto max-w-6xl">
+      <Kicker>COMPETITIVE ANALYSIS</Kicker>
+      <h3 className="mt-2 text-[22px] leading-tight text-[var(--hw-navy)]">
+        {c.title}
+      </h3>
+      <p className="mt-1 text-[14px] text-[var(--hw-slate)]">{c.body}</p>
+      <div className="relative mt-5 overflow-x-auto rounded-2xl border border-[var(--hw-border)] bg-white">
+        <div className="min-w-[760px]">
+          <div className="grid" style={{ gridTemplateColumns: cols }}>
+            <div className="self-end px-4 py-4 text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral)]">
+              WHAT COUPLES NEED
+            </div>
+            {c.apps.map((a) => (
+              <div
+                key={a.name}
+                className={`px-4 py-4 ${a.me ? "bg-[var(--hw-peach)]/60" : ""}`}
+              >
+                <p
+                  className={`text-[16px] font-semibold ${
+                    a.me ? "text-[var(--hw-coral)]" : "text-[var(--hw-navy)]"
+                  }`}
+                >
+                  {a.name}
+                </p>
+                <p className="text-[12px] text-[var(--hw-slate)]">{a.desc}</p>
+              </div>
+            ))}
+          </div>
+          {c.rows.map((row) => (
+            <div
+              key={row.need}
+              className="grid border-t border-[var(--hw-border)]"
+              style={{ gridTemplateColumns: cols }}
+            >
+              <div className="px-4 py-3 text-[13px] font-semibold text-[var(--hw-navy)]">
+                {row.need}
+              </div>
+              {row.cells.map((cell, i) => (
+                <div
+                  key={i}
+                  className={`flex items-center gap-2 px-4 py-3 text-[13px] text-[var(--hw-navy)] ${
+                    c.apps[i]?.me ? "bg-[var(--hw-peach)]/60 font-medium" : ""
+                  }`}
+                >
+                  <LevelMark level={cell.level} />
+                  <span className="sr-only">{LEVEL_LABEL[cell.level]}</span>
+                  {cell.text && <span>{cell.text}</span>}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-4 text-[12px] text-[var(--hw-slate)]">
+        {(["full", "partly", "none"] as Level[]).map((l) => (
+          <span key={l} className="inline-flex items-center gap-1.5">
+            <LevelMark level={l} /> {LEVEL_LABEL[l]}
+          </span>
+        ))}
+      </div>
+      <div className="mt-4 flex flex-col gap-2 rounded-2xl bg-[var(--hw-navy)] p-5 text-white sm:flex-row sm:items-center sm:gap-5">
+        <span className="shrink-0 text-[11px] font-bold tracking-[0.18em] text-[var(--hw-coral-soft)]">
+          THE GAP
+        </span>
+        <p className="text-[15px] font-medium leading-relaxed">{c.gap}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Ideating ---------- */
+function Ideation({
+  d,
+}: {
+  d: NonNullable<CaseStudy["process"]["ideation"]>;
+}) {
+  return (
+    <div className="space-y-10">
+      <div>
+        <Kicker>IDEATING</Kicker>
+        <h3 className="mt-2 text-[22px] leading-tight text-[var(--hw-navy)]">
+          {d.title}
+        </h3>
+        <p className="mt-1 text-[14px] text-[var(--hw-slate)]">{d.body}</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {d.groups.map((g) => (
+            <div
+              key={g.hmw}
+              className="flex flex-col rounded-2xl border border-[var(--hw-border)] bg-white p-5"
+            >
+              <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral)]">
+                {g.hmw}
+              </p>
+              <p className="mt-2 text-[15px] font-semibold leading-snug text-[var(--hw-navy)]">
+                {g.question}
+              </p>
+              <p className="mt-4 border-t border-[var(--hw-border)] pt-4 text-[10px] font-bold tracking-[0.16em] text-[var(--hw-slate)]">
+                IDEAS
+              </p>
+              <ul className="mt-2 mb-5 space-y-2">
+                {g.ideas.map((idea) => (
+                  <li
+                    key={idea}
+                    className="flex items-start gap-2 text-[13px] leading-relaxed text-[var(--hw-navy)]"
+                  >
+                    <span className="mt-[7px] size-2 shrink-0 rounded-full bg-[#81B29A]" />
+                    {idea}
+                  </li>
+                ))}
+              </ul>
+              <span className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--hw-peach)] px-3 py-1.5 text-[12px] font-semibold text-[var(--hw-navy)]">
+                <ArrowRight className="size-3.5 text-[var(--hw-coral)]" /> {g.area}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-[20px] text-[var(--hw-navy)]">{d.structureTitle}</h3>
+        <p className="mt-1 text-[14px] text-[var(--hw-slate)]">
+          {d.structureBody}
+        </p>
+        <div className="mt-5 grid gap-3 md:grid-cols-[180px_1fr]">
+          <div className="rounded-2xl bg-[var(--hw-navy)] p-4 text-white">
+            <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral-soft)]">
+              START
+            </p>
+            <p className="mt-1 text-[16px] font-semibold">Onboarding</p>
+            <p className="mt-1 text-[12px] leading-relaxed text-white/70">
+              {d.onboarding}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+            {d.tabs.map((t, i) => (
+              <div
+                key={t.name}
+                className={`rounded-2xl border border-[var(--hw-border)] p-4 ${
+                  i === 0 ? "bg-[var(--hw-peach)]/60" : "bg-white"
+                }`}
+              >
+                <p
+                  className={`text-[15px] font-semibold ${
+                    i === 0 ? "text-[var(--hw-coral)]" : "text-[var(--hw-navy)]"
+                  }`}
+                >
+                  {t.name}
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {t.items.map((it) => (
+                    <li
+                      key={it}
+                      className="flex items-start gap-2 text-[12px] leading-relaxed text-[var(--hw-navy)]"
+                    >
+                      <span className="mt-[6px] size-1.5 shrink-0 rounded-full bg-[#81B29A]" />
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+        <figure className="mt-5">
+          <div className="overflow-x-auto rounded-2xl border border-[var(--hw-border)] bg-[#F8F9FA]">
+            <img
+              src={d.wireframes.src}
+              alt={d.wireframes.caption}
+              className="block h-auto w-full min-w-[720px]"
+            />
+          </div>
+          <figcaption className="mt-2 text-[13px] text-[var(--hw-slate)]">
+            {d.wireframes.caption}
+          </figcaption>
+        </figure>
       </div>
     </div>
   );

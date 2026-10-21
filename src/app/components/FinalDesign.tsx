@@ -13,6 +13,42 @@ export function FinalDesign({
       <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-[var(--hw-slate)]">
         {finalDesign.intro}
       </p>
+      {finalDesign.prototype && (
+        <div className="mt-8 grid items-center gap-6 overflow-hidden rounded-3xl border border-[var(--hw-border)] bg-[#FFF0ED] p-5 sm:p-8 md:grid-cols-[minmax(0,300px)_1fr]">
+          <video
+            className="mx-auto block w-full max-w-[300px] rounded-[28px]"
+            src={finalDesign.prototype.video}
+            poster={finalDesign.prototype.poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label={finalDesign.prototype.caption}
+          />
+          <div>
+            <p className="text-[12px] font-semibold tracking-[0.2em] text-[var(--hw-coral)]">
+              PROTOTYPE
+            </p>
+            <h3 className="mt-2 text-[22px] leading-tight text-[var(--hw-navy)]">
+              Tap through the V2 screens
+            </h3>
+            <p className="mt-2 max-w-md text-[14px] leading-relaxed text-[var(--hw-slate)]">
+              {finalDesign.prototype.caption} The clickable version runs in
+              Figma: start at onboarding, open Chat from the partner card and
+              switch tabs.
+            </p>
+            <a
+              href={finalDesign.prototype.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white transition hover:brightness-105"
+            >
+              Open the prototype in Figma ↗
+            </a>
+          </div>
+        </div>
+      )}
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {finalDesign.images.map((image) => (
           <figure key={image.caption} className="min-w-0">

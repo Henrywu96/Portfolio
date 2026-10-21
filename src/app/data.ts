@@ -47,7 +47,12 @@ type IconCard = {
   }[];
 };
 
+export type Level = "full" | "partly" | "none";
+
 export type CaseStudy = {
+  /** full-width hi-fi cover shown at the top of the case study */
+  coverImage?: string;
+  resources?: { label: string; value: string; href?: string; request?: boolean }[];
   subtitle: string;
   chips: string[];
   intro: string;
@@ -61,6 +66,7 @@ export type CaseStudy = {
     intro: string;
     images: { src: string; caption: string }[];
     interactionDetails?: { src: string; caption: string }[];
+    prototype?: { url: string; video: string; poster: string; caption: string };
     styleGuide?: {
       colors: { name: string; hex: string; role: string }[];
       type: string;
@@ -78,6 +84,7 @@ export type CaseStudy = {
     phoneMockup?: string;
     /** three real screens shown in phone frames next to the overview */
     phoneScreens?: [string, string, string];
+    problemVisual?: { src: string; alt: string };
     solutionsTitle?: string;
     solutions?: { title: string; body: string; image: string }[];
   };
@@ -89,6 +96,13 @@ export type CaseStudy = {
     methods: IconCard[];
     insights: { icon: string; body: string; means?: string; built?: string }[];
     hmw?: { question: string; items: string[] };
+    competitors?: {
+      title: string;
+      body: string;
+      apps: { name: string; desc: string; me?: boolean }[];
+      rows: { need: string; cells: { level: Level; text?: string }[] }[];
+      gap: string;
+    };
   };
   process: {
     title: string;
@@ -99,6 +113,16 @@ export type CaseStudy = {
     imageContain?: boolean;
     imageCaption?: string;
     changes?: { area: string; before: string; after: string; why: string }[];
+    ideation?: {
+      title: string;
+      body: string;
+      groups: { hmw: string; question: string; ideas: string[]; area: string }[];
+      structureTitle: string;
+      structureBody: string;
+      onboarding: string;
+      tabs: { name: string; items: string[] }[];
+      wireframes: { src: string; caption: string };
+    };
   };
   results: {
     title: string;
@@ -137,6 +161,12 @@ export type Project = {
 };
 
 const bridglyCase: CaseStudy = {
+  coverImage: ART.bridglyCover,
+  resources: [
+    { label: "Prototype", value: "Available on request", request: true },
+    { label: "Slide deck", value: "Available on request", request: true },
+    { label: "Figma file", value: "Available on request", request: true },
+  ],
   subtitle:
     "Designing for emotional presence across distance: a mobile app that helps long-distance couples feel part of each other's day.",
   chips: ["Mobile App", "Relationship", "UX / UI"],
@@ -257,6 +287,10 @@ const bridglyCase: CaseStudy = {
     problemImage: IMAGES.desk,
     phoneImage: IMAGES.phone,
     phoneScreens: [ART.bridglyOnboarding1, ART.bridglyHome, ART.bridglyMoments],
+    problemVisual: {
+      src: ART.bridglyProblemTime,
+      alt: "Taipei and London day bars, 7 hours apart: both partners are awake for only 9 hours, and a 09:00 message from Taipei lands at 02:00 in London.",
+    },
     solutionsTitle: "Four product areas, each tied to a user need",
     solutions: [
       {
@@ -335,6 +369,24 @@ const bridglyCase: CaseStudy = {
         "How might we turn the next reunion into a shared source of anticipation?",
       ],
     },
+    competitors: {
+      title: "Couple apps cover chat and calendars, not presence",
+      body: "Three of the six apps I reviewed, compared on the needs couples described in research.",
+      apps: [
+        { name: "Between", desc: "Private chat for two" },
+        { name: "Cupla", desc: "Shared couples calendar" },
+        { name: "Paired", desc: "Daily questions and quizzes" },
+        { name: "Bridgly", desc: "Ambient presence", me: true },
+      ],
+      rows: [
+        { need: "Partner's time and weather", cells: [{ level: "none" }, { level: "none" }, { level: "none" }, { level: "full", text: "Both cities on Home" }] },
+        { need: "Free time across time zones", cells: [{ level: "partly", text: "Shared calendar" }, { level: "full", text: "Finds shared free time" }, { level: "none" }, { level: "full", text: "Free-time overlay" }] },
+        { need: "Warm gestures", cells: [{ level: "partly", text: "Chat, stickers, calls" }, { level: "none" }, { level: "partly", text: "Daily questions" }, { level: "full", text: "Hugs, mood tags, voice" }] },
+        { need: "Countdown to the next visit", cells: [{ level: "partly", text: "Anniversary tracking" }, { level: "full", text: "Countdowns, date planner" }, { level: "partly", text: "Important dates" }, { level: "full", text: "Reunion countdown" }] },
+        { need: "Shared memories", cells: [{ level: "full", text: "Photo albums" }, { level: "partly", text: "Photos on past dates" }, { level: "none" }, { level: "full", text: "Moments, memory vault" }] },
+      ],
+      gap: "None of them show your partner's world at a glance. Bridgly starts there, then adds warmth and anticipation.",
+    },
   },
   process: {
     title: "V1 felt like project management. V2 felt like being close.",
@@ -342,6 +394,40 @@ const bridglyCase: CaseStudy = {
     image: ART.bridglyHomeProcess,
     imageContain: true,
     imageCaption: "Home: wireframe → mid-fi → V2 final",
+    ideation: {
+      title: "From questions to features",
+      body: "Each How Might We became a small set of ideas, and each set became one product area.",
+      groups: [
+        {
+          hmw: "HMW 01",
+          question: "Explain availability without making someone feel monitored",
+          ideas: ["Both cities' time and weather on Home", "A simple status, like “Commuting”", "Free-time overlay on a shared calendar", "Me-Time mode to pause sharing"],
+          area: "Partner awareness",
+        },
+        {
+          hmw: "HMW 02",
+          question: "Make a brief gesture of affection feel meaningful between calls",
+          ideas: ["One-tap hug", "Mood tags on messages", "Voice capsules"],
+          area: "Warm contact",
+        },
+        {
+          hmw: "HMW 03",
+          question: "Turn the next reunion into a shared source of anticipation",
+          ideas: ["Reunion countdown", "Future canvas of shared plans", "Journey timeline, Moments and milestones"],
+          area: "Shared anticipation and memories",
+        },
+      ],
+      structureTitle: "Structure first, then wireframes",
+      structureBody: "Four tabs give each need its own place. The first wireframes laid it out screen by screen.",
+      onboarding: "4 steps: real-time context, warm chat, shared plans",
+      tabs: [
+        { name: "Home", items: ["Both cities, time and weather", "Shared calendar, free time", "Hug button · opens Chat"] },
+        { name: "Moments", items: ["Shared timeline", "Milestones like 100 days"] },
+        { name: "Blueprint", items: ["Reunion countdown", "Future canvas of plans", "Journey timeline"] },
+        { name: "Profile", items: ["Memory vault and badges", "Me-Time mode, privacy"] },
+      ],
+      wireframes: { src: ART.bridglyWireframesV1, caption: "First wireframes: onboarding and the four main screens" },
+    },
     changes: [
       {
         area: "Entry screen",
