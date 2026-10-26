@@ -22,6 +22,7 @@ import {
   Coffee,
   BriefcaseBusiness,
   ExternalLink,
+  TrainFront,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
@@ -695,6 +696,15 @@ const SIDE_QUESTS: SideQuest[] = [
     tags: ["Web App", "Transit", "Live Data"],
     icon: LayoutGrid,
     accent: "var(--hw-rarity-rare)",
+  },
+  {
+    name: "Toronto Transit Live",
+    description:
+      "A live 3D map of every scheduled train across Toronto, from the TTC subway and streetcars to GO Transit, UP Express and VIA Rail.",
+    url: "https://toronto-transit-live.vercel.app/",
+    tags: ["Web App", "Transit", "3D Map"],
+    icon: TrainFront,
+    accent: "var(--hw-rarity-legendary)",
   },
   {
     name: "Arcline Automotive",
