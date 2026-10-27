@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { MotionConfig } from "motion/react";
 import { HomePage } from "./components/HomePage";
 import { CaseStudyPage } from "./components/CaseStudyPage";
-import { MMORPGIntro } from "./components/MMORPGIntro";
 import { VISIBLE_PROJECTS, type Project, type CaseTab } from "./data";
+import { finishPageLoad } from "./pageLoader";
 
 type Route = "home" | "case-study";
 
@@ -11,26 +11,10 @@ export default function App() {
   const [route, setRoute] = useState<Route>("home");
   const [caseTab, setCaseTab] = useState<CaseTab>("Overview");
   const [selected, setSelected] = useState<Project>(VISIBLE_PROJECTS[0]);
-  const [introPlayed, setIntroPlayed] = useState(() => {
-    let prefersReducedMotion = false;
-    let playedThisSession = false;
-
-    try {
-      prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-    } catch {
-      prefersReducedMotion = false;
-    }
-
-    try {
-      playedThisSession = sessionStorage.getItem("hw-intro-played") === "1";
-    } catch {
-      playedThisSession = false;
-    }
-
-    return prefersReducedMotion || playedThisSession;
-  });
+  // the loading screen in index.html opens once the first screen's pictures are in
+  useEffect(() => {
+    finishPageLoad();
+  }, []);
 
   useEffect(() => {
     document.title = "Henry Wu — UI/UX Designer Portfolio";
@@ -105,15 +89,6 @@ export default function App() {
     }
   };
 
-  const handleIntroDone = () => {
-    try {
-      sessionStorage.setItem("hw-intro-played", "1");
-    } catch {
-      // Session storage can fail in sandboxed iframes.
-    }
-    setIntroPlayed(true);
-  };
-
   const handleCaseStudyBack = () => {
     try {
       if (window.history.state?.hwRoute === "case-study") {
@@ -129,7 +104,6 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="size-full">
-        {!introPlayed && <MMORPGIntro onDone={handleIntroDone} />}
         {route === "home" && (
           <HomePage
             onOpenProject={openProject}

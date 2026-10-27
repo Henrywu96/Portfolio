@@ -21,6 +21,7 @@ import {
   BriefcaseBusiness,
   ExternalLink,
   TrainFront,
+  SwatchBook,
 } from "lucide-react";
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
@@ -624,6 +625,16 @@ const SIDE_QUESTS: SideQuest[] = [
     icon: Boxes,
     accent: "var(--hw-accent-greenpath)",
     fx: "island",
+  },
+  {
+    name: "Quest UI",
+    description:
+      "The design system behind this portfolio and Mini Island: shared tokens, CSS components and a contrast check on every build.",
+    url: "https://quest-ui-ebon.vercel.app/",
+    tags: ["Design System", "Design Tokens", "Accessibility"],
+    icon: SwatchBook,
+    accent: "var(--hw-navy)",
+    fx: "tokens",
   },
   {
     name: "Edmonton LRT Live",

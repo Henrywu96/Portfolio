@@ -5,7 +5,7 @@ import { motion, type Transition, type Variants } from "motion/react";
  * element with initial="rest" and whileHover="hover", so everything here just declares those two states.
  */
 
-export type QuestFxKind = "island" | "lrt" | "subway" | "car" | "warehouse" | "coffee" | "jobs";
+export type QuestFxKind = "island" | "tokens" | "lrt" | "subway" | "car" | "warehouse" | "coffee" | "jobs";
 
 const spring: Transition = { type: "spring", stiffness: 260, damping: 22 };
 const loop = (duration: number, delay = 0): Transition => ({ duration, delay, repeat: Infinity, ease: "linear" });
@@ -57,6 +57,49 @@ function Island({ c }: { c: string }) {
           />
         </g>
       ))}
+    </Art>
+  );
+}
+
+/** Quest UI: scattered colour chips snap into a tidy palette, then a measuring line draws under it */
+const CHIPS = [
+  // the coral scale on top, then sky, gold and navy; dx/dy/r is where each chip starts, scattered
+  { x: 86, y: 26, fill: "#f6a68f", dx: -34, dy: 18, r: -38 },
+  { x: 110, y: 26, fill: "#ec6a4e", dx: 6, dy: -22, r: 24 },
+  { x: 134, y: 26, fill: "#ba472d", dx: 30, dy: 14, r: -18 },
+  { x: 86, y: 50, fill: "#cfe9fb", dx: -24, dy: 30, r: 30 },
+  { x: 110, y: 50, fill: "#e6a400", dx: 14, dy: 34, r: -42 },
+  { x: 134, y: 50, fill: "#202b45", dx: 34, dy: -6, r: 16 },
+];
+function Tokens({ c }: { c: string }) {
+  return (
+    <Art c={c} className="bottom-2 right-3 h-[72px] w-[115px]">
+      {CHIPS.map((s, i) => (
+        <motion.rect
+          key={s.fill}
+          x={s.x}
+          y={s.y}
+          width="20"
+          height="20"
+          rx="5"
+          fill={s.fill}
+          stroke={s.fill === "#cfe9fb" ? "#9cc7e6" : "none"}
+          strokeWidth="1.5"
+          variants={{
+            rest: { x: s.dx, y: s.dy, rotate: s.r, scale: 0.7 },
+            hover: { x: 0, y: 0, rotate: 0, scale: 1, transition: { ...spring, delay: 0.05 + i * 0.06 } },
+          }}
+        />
+      ))}
+      {/* a dimension line under the palette, like a spec in a design file */}
+      <motion.path
+        d="M86 84 H154 M86 80 V88 M154 80 V88"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        fill="none"
+        variants={{ rest: { pathLength: 0, opacity: 0 }, hover: { pathLength: 1, opacity: 0.7, transition: { duration: 0.5, delay: 0.55, ease: "easeOut" } } }}
+      />
     </Art>
   );
 }
@@ -249,6 +292,8 @@ export function QuestFx({ kind, accent }: { kind: QuestFxKind; accent: string })
   switch (kind) {
     case "island":
       return <Island c={accent} />;
+    case "tokens":
+      return <Tokens c={accent} />;
     case "lrt":
       return <Lrt c={accent} />;
     case "subway":
