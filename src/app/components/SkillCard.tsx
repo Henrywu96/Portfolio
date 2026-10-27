@@ -23,7 +23,7 @@ const ICON: Record<Kind, Variants> = {
   research: { rest: { x: 0, rotate: 0 }, hover: { x: [0, 5, -5, 0], rotate: [0, -12, 12, 0], transition: repeat(1.4) } },
   ui: { rest: { rotate: 0, y: 0 }, hover: { rotate: [0, -22, 0], y: [0, -2, 0], transition: repeat(0.9) } },
   proto: { rest: { rotate: 0, scale: 1 }, hover: { rotate: [0, -12, 12, 0], scale: [1, 1.18, 1], transition: repeat(1.1) } },
-  system: { rest: { rotate: 0, color: "var(--hw-coral)" }, hover: { rotate: 90, color: "#ffffff", transition: spring } },
+  system: { rest: { rotate: 0, color: "var(--qu-text-accent)" }, hover: { rotate: 90, color: "#ffffff", transition: spring } },
   interaction: { rest: { scale: 1 }, hover: { scale: [1, 0.78, 1], transition: repeat(0.9) } },
   testing: { rest: { rotate: 0 }, hover: { rotate: [0, -10, 8, 0], transition: { duration: 0.6 } } },
 };
@@ -48,7 +48,7 @@ function Extra({ kind }: { kind: Kind }) {
           <motion.path
             d="M2 6 Q10 0 18 5 T38 4"
             fill="none"
-            stroke="var(--hw-coral)"
+            stroke="var(--qu-coral-500)"
             strokeWidth="2.5"
             strokeLinecap="round"
             variants={{ rest: { pathLength: 0 }, hover: { pathLength: 1, transition: { duration: 0.6, ease: "easeOut" } } }}
@@ -66,7 +66,7 @@ function Extra({ kind }: { kind: Kind }) {
           {[0, 120, 240].map((a) => (
             <span
               key={a}
-              className="absolute left-1/2 top-1/2 size-1.5 rounded-full bg-[var(--hw-coral)]"
+              className="absolute left-1/2 top-1/2 size-1.5 rounded-full bg-[var(--qu-coral-500)]"
               style={{ transform: `rotate(${a}deg) translateY(-28px)` }}
             />
           ))}
@@ -77,7 +77,7 @@ function Extra({ kind }: { kind: Kind }) {
       return (
         <motion.span
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 rounded-xl bg-[var(--hw-coral)]"
+          className="pointer-events-none absolute inset-0 -z-10 rounded-xl bg-[var(--qu-coral-500)]"
           variants={{ rest: { scale: 0.3, opacity: 0 }, hover: { scale: 1, opacity: 1, transition: spring } }}
         />
       );
@@ -86,7 +86,7 @@ function Extra({ kind }: { kind: Kind }) {
       return (
         <motion.span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-xl border-2 border-[var(--hw-coral)]"
+          className="pointer-events-none absolute inset-0 rounded-xl border-2 border-[var(--qu-coral-500)]"
           variants={{ rest: { scale: 1, opacity: 0 }, hover: { scale: [1, 1.7], opacity: [0.7, 0], transition: { duration: 0.9, repeat: Infinity, ease: "easeOut" } } }}
         />
       );
@@ -114,13 +114,13 @@ export function SkillCard({ label, icon: Icon }: { label: string; icon: Componen
       variants={{ rest: { y: 0 }, hover: { y: -4, transition: { type: "spring", stiffness: 400, damping: 26 } } }}
       className="flex h-full flex-col items-center gap-2 rounded-2xl border border-white/70 bg-white/70 px-3 py-5 text-center backdrop-blur-md transition-shadow hover:shadow-[0_16px_32px_-24px_rgba(32,43,69,0.6)]"
     >
-      <span className="relative isolate grid size-10 place-items-center rounded-xl bg-[var(--hw-peach)] text-[var(--hw-coral)]">
+      <span className="relative isolate grid size-10 place-items-center rounded-xl bg-[var(--qu-peach-100)] text-[var(--qu-text-accent)]">
         <Extra kind={kind} />
         <motion.span variants={ICON[kind]} className="relative grid place-items-center">
           <Icon className="size-5" />
         </motion.span>
       </span>
-      <span className="text-[12px] font-medium text-[var(--hw-navy)]">{label}</span>
+      <span className="text-[12px] font-medium text-[var(--qu-text-heading)]">{label}</span>
     </motion.div>
   );
 }

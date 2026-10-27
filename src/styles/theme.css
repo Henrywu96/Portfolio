@@ -120,49 +120,19 @@
 }
 
 :root {
-  /* ── Henry Wu palette ── */
-  --hw-cream: #fdf6f1;
-  --hw-cream-2: #fbeee7;
-  --hw-peach: #fbe3d8;
-  --hw-coral: #ec6a4e;
-  --hw-coral-soft: #f6a68f;
-  --hw-navy: #202b45;
-  --hw-slate: #5b6478;
-
-  /* ── Borders ── */
-  --hw-border: #f0ddd2;       /* card / chip ring */
-  --hw-border-btn: #e7cfc3;   /* secondary button border */
-
-  /* ── Gradient stops ── */
-  --hw-rose-from: #fde3d6;    /* card hero gradient from */
-  --hw-rose-to: #f6c9d8;      /* card hero gradient to */
-
-  /* ── Sky / scene ── */
-  --hw-sky-top: #cfe9fb;
+  /* ── Portfolio-only colours ──
+     The shared palette (navy, slate, coral, cream, borders, rarity badges) now comes from Quest UI:
+     quest-ui.css next to this file, the --qu-* variables. What's left here is only used on this site:
+     the sky and card gradients, two project accents and the glows behind the hero stat bars. */
   --hw-sky-mid: #e6f4fc;
   --hw-sky-bottom: #fdf3ec;
-  --hw-sun-light: #ffd166;
   --hw-sun-dark: #ffb84d;
-
-  /* ── Night (Journey page) ── */
-  --hw-night-from: #2a2350;
-  --hw-night-via: #3a2c55;
-  --hw-night-to: #1c2036;
-
-  /* ── Project accent colors ── */
-  --hw-accent-bridgly: #ec6a4e;    /* same as --hw-coral */
+  --hw-rose-from: #fde3d6;
+  --hw-rose-to: #f6c9d8;
   --hw-accent-greenpath: #4c9a63;
   --hw-accent-studyflow: #c07a3a;
-
-  /* ── Rarity (MMORPG game labels) ── */
-  --hw-rarity-legendary: #e6a400;
-  --hw-rarity-epic: #8b5cf6;
-  --hw-rarity-rare: #3b82f6;
-  --hw-rarity-common: #94a3b8;
-
-  /* ── Glow shadows (derived from palette) ── */
   --hw-coral-glow: rgba(236, 106, 78, 0.7);
-  --hw-rare-glow: rgba(59, 130, 246, 0.7);
+  --hw-rare-glow: rgba(37, 99, 235, 0.7);
   --hw-legendary-glow: rgba(230, 164, 0, 0.7);
 
   /* ── Typography ── */

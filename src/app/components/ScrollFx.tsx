@@ -36,7 +36,7 @@ export function ScrollXpBar() {
         zIndex: 60,
         transformOrigin: "0 50%",
         scaleX,
-        background: "linear-gradient(90deg, var(--hw-coral), var(--hw-rarity-legendary))",
+        background: "linear-gradient(90deg, var(--qu-coral-500), var(--qu-gold-500))",
         boxShadow: "0 0 10px var(--hw-legendary-glow)",
       }}
     />

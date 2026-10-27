@@ -39,7 +39,7 @@ export function CharacterSheet({ image }: { image: string }) {
       <Portrait image={image} />
 
       <div>
-        <h3 className="text-[22px] text-[var(--hw-navy)]" aria-label={TITLES.join(" ")}>
+        <h3 className="text-[22px] text-[var(--qu-text-heading)]" aria-label={TITLES.join(" ")}>
           {TITLES.map((t, i) => (
             <Fragment key={t}>
             <span aria-hidden className="relative inline-block">
@@ -54,7 +54,7 @@ export function CharacterSheet({ image }: { image: string }) {
               {i === 1 && (
                 <motion.svg
                   viewBox="0 0 24 24"
-                  className="absolute -right-3.5 -top-2.5 size-3.5 text-[var(--hw-coral)]"
+                  className="absolute -right-3.5 -top-2.5 size-3.5 text-[var(--qu-text-accent)]"
                   initial={reduce ? false : { scale: 0, rotate: -20 }}
                   animate={show ? { scale: [0, 1.35, 1], rotate: 12 } : undefined}
                   transition={{ duration: 0.5, delay: 1.0 }}
@@ -70,7 +70,7 @@ export function CharacterSheet({ image }: { image: string }) {
             </Fragment>
           ))}
         </h3>
-        <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-[var(--hw-slate)]">
+        <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-[var(--qu-text-body)]">
           I'm Henry Wu, a UI/UX designer who crafts meaningful digital experiences with empathy and curiosity. When I'm not designing, you'll find me hanging out with my hamster, gaming, or working out.
         </p>
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -84,9 +84,9 @@ export function CharacterSheet({ image }: { image: string }) {
 
 /** the picture: on hover Henry leans in a touch and his laptop gives off code sparks */
 const SPARKS = [
-  { t: "</>", x: "26%", c: "var(--hw-coral)", d: 0 },
-  { t: "{ }", x: "40%", c: "var(--hw-rarity-rare)", d: 0.45 },
-  { t: "✦", x: "33%", c: "var(--hw-rarity-legendary)", d: 0.9 },
+  { t: "</>", x: "26%", c: "var(--qu-coral-500)", d: 0 },
+  { t: "{ }", x: "40%", c: "var(--qu-rare-600)", d: 0.45 },
+  { t: "✦", x: "33%", c: "var(--qu-gold-500)", d: 0.9 },
 ];
 function Portrait({ image }: { image: string }) {
   return (
@@ -94,7 +94,7 @@ function Portrait({ image }: { image: string }) {
       initial="rest"
       animate="rest"
       whileHover="hover"
-      className="relative flex items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--hw-cream-2)] to-[var(--hw-peach)] p-2"
+      className="relative flex items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--qu-cream-100)] to-[var(--qu-peach-100)] p-2"
     >
       <motion.img
         src={image}
@@ -137,15 +137,15 @@ function Fact({
       animate="rest"
       whileHover="hover"
       variants={{ rest: { y: 0 }, hover: { y: -3, transition: { type: "spring", stiffness: 400, damping: 26 } } }}
-      className="rounded-xl bg-[var(--hw-cream-2)] p-3 transition-shadow hover:shadow-[0_12px_26px_-20px_rgba(236,106,78,0.8)]"
+      className="rounded-xl bg-[var(--qu-surface-inset)] p-3 transition-shadow hover:shadow-[0_12px_26px_-20px_rgba(236,106,78,0.8)]"
     >
-      <p className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-[var(--hw-slate)]">
+      <p className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-[var(--qu-text-body)]">
         <span className="relative inline-grid place-items-center">
           {kind === "target" && (
             // a hit on the bullseye sends out a ring
             <motion.span
               aria-hidden
-              className="absolute inset-0 rounded-full border border-[var(--hw-coral)]"
+              className="absolute inset-0 rounded-full border border-[var(--qu-coral-500)]"
               variants={{ rest: { scale: 1, opacity: 0 }, hover: { scale: [1, 2.4], opacity: [0.8, 0], transition: { duration: 0.8, repeat: Infinity, ease: "easeOut" } } }}
             />
           )}
@@ -157,12 +157,12 @@ function Fact({
                 : { rest: { rotate: 0 }, hover: { rotate: [0, -35, 20, 0], transition: { duration: 0.9, repeat: Infinity, ease: "easeInOut" } } }
             }
           >
-            <Icon className="size-3.5 text-[var(--hw-coral)]" />
+            <Icon className="size-3.5 text-[var(--qu-text-accent)]" />
           </motion.span>
         </span>
         {label}
       </p>
-      <p className="mt-1 text-[13px] font-medium text-[var(--hw-navy)]">{value}</p>
+      <p className="mt-1 text-[13px] font-medium text-[var(--qu-text-heading)]">{value}</p>
     </motion.div>
   );
 }

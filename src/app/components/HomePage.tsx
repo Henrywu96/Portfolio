@@ -49,7 +49,7 @@ const ICONS: Record<string, any> = {
 
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-md bg-white px-2 py-0.5 text-[11px] text-[var(--hw-slate)] ring-1 ring-[var(--hw-border)]">
+    <span className="rounded-md bg-white px-2 py-0.5 text-[11px] text-[var(--qu-text-body)] ring-1 ring-[var(--qu-border-default)]">
       {children}
     </span>
   );
@@ -63,7 +63,7 @@ function ProjectRow({
   onOpen: (p: Project) => void;
 }) {
   const Icon = ICONS[project.icon] ?? Heart;
-  const rarity = RARITY[project.id] ?? { label: "COMMON", color: "var(--hw-rarity-common)" };
+  const rarity = RARITY[project.id] ?? { label: "COMMON", color: "var(--qu-rarity-common-bg)", badge: "qu-badge" };
   const [hovered, setHovered] = useState(false);
   return (
     <button
@@ -101,17 +101,12 @@ function ProjectRow({
       )}
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-2">
-          <span className="text-[15px] font-semibold text-[var(--hw-navy)]">
+          <span className="text-[15px] font-semibold text-[var(--qu-text-heading)]">
             {project.name}
           </span>
-          <span
-            className="rounded-md px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white"
-            style={{ backgroundColor: rarity.color }}
-          >
-            {rarity.label}
-          </span>
+          <span className={rarity.badge}>{rarity.label}</span>
         </span>
-        <span className="mt-0.5 block truncate text-[12px] text-[var(--hw-slate)]">
+        <span className="mt-0.5 block truncate text-[12px] text-[var(--qu-text-body)]">
           {project.tagline}
         </span>
         <span className="mt-2 flex flex-wrap gap-1.5">
@@ -119,7 +114,7 @@ function ProjectRow({
             <Tag key={t}>{t}</Tag>
           ))}
         </span>
-        <span className="mt-2 flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-[var(--hw-coral)] opacity-0 transition group-hover:opacity-100">
+        <span className="mt-2 flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-[var(--qu-text-accent)] opacity-0 transition group-hover:opacity-100">
           <Sword className="size-3" /> ACCEPT QUEST
         </span>
       </span>
@@ -132,7 +127,7 @@ function ProjectRow({
             : "object-cover"
           }`}
       />
-      <ArrowRight className="size-5 shrink-0 text-[var(--hw-coral)] sm:hidden" />
+      <ArrowRight className="size-5 shrink-0 text-[var(--qu-text-accent)] sm:hidden" />
     </button>
   );
 }
@@ -176,15 +171,15 @@ function SideQuestCard({ quest }: { quest: SideQuest }) {
         >
           <Icon className="size-5" />
         </span>
-        <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-[0.16em] text-[var(--hw-slate)]">
+        <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-[0.16em] text-[var(--qu-text-body)]">
           LIVE SITE
           <ExternalLink className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </span>
       </span>
-      <span className="mt-4 text-[18px] font-semibold text-[var(--hw-navy)]">
+      <span className="mt-4 text-[18px] font-semibold text-[var(--qu-text-heading)]">
         {quest.name}
       </span>
-      <span className="mt-1.5 text-[13px] leading-relaxed text-[var(--hw-slate)]">
+      <span className="mt-1.5 text-[13px] leading-relaxed text-[var(--qu-text-body)]">
         {quest.description}
       </span>
       <span className="mt-auto flex flex-wrap gap-1.5 pt-4">
@@ -221,7 +216,7 @@ export function HomePage({
   const zoom = useZoomIn(featuredRef);
 
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-gradient-to-b from-[var(--hw-sky-top)] via-[var(--hw-sky-mid)] to-[var(--hw-sky-bottom)] text-[var(--hw-navy)]">
+    <div className="relative min-h-screen overflow-x-clip bg-gradient-to-b from-[var(--qu-sky-200)] via-[var(--hw-sky-mid)] to-[var(--hw-sky-bottom)] text-[var(--qu-text-heading)]">
       {/* Lively sky backdrop */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         {/* Glowing sun halo */}
@@ -232,7 +227,7 @@ export function HomePage({
         />
         {/* Solid sun disc */}
         <motion.div
-          className="absolute right-10 top-32 size-24 rounded-full bg-[radial-gradient(circle_at_35%_35%,#fff2cf,var(--hw-sun-light)_55%,var(--hw-sun-dark))] shadow-[0_0_40px_rgba(255,193,87,0.75)] ring-2 ring-white/40"
+          className="absolute right-10 top-32 size-24 rounded-full bg-[radial-gradient(circle_at_35%_35%,#fff2cf,var(--qu-sun-300)_55%,var(--hw-sun-dark))] shadow-[0_0_40px_rgba(255,193,87,0.75)] ring-2 ring-white/40"
           animate={{ scale: [1, 1.04, 1] }}
           transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
         />
@@ -338,14 +333,14 @@ export function HomePage({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/60 px-3 py-1 text-[11px] font-bold tracking-[0.2em] text-[var(--hw-coral)] backdrop-blur-md">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/60 px-3 py-1 text-[11px] font-bold tracking-[0.2em] text-[var(--qu-text-accent)] backdrop-blur-md">
               <Sparkles className="size-3.5" /> PLAYER SELECT
             </p>
-            <h1 className="mt-3 text-[52px] leading-[0.95] text-[var(--hw-navy)] md:text-[64px]">
+            <h1 className="mt-3 text-[52px] leading-[0.95] text-[var(--qu-text-heading)] md:text-[64px]">
               HENRY WU
             </h1>
-            <h2 className="mt-1 flex flex-wrap items-center gap-2 text-[28px] text-[var(--hw-coral-soft)] md:text-[34px]">UI/UX DESIGNER<span className="inline-flex items-center gap-1 rounded-md bg-[var(--hw-navy)] px-2 py-1 text-[12px] font-bold tracking-wider text-white"> LV. 4<Sword className="size-3.5" /></span></h2>
-            <p className="mt-5 max-w-md text-[16px] leading-relaxed text-[var(--hw-slate)]">
+            <h2 className="mt-1 flex flex-wrap items-center gap-2 text-[28px] text-[var(--qu-text-accent)] md:text-[34px]">UI/UX DESIGNER<span className="inline-flex items-center gap-1 rounded-md bg-[var(--qu-surface-dark)] px-2 py-1 text-[12px] font-bold tracking-wider text-white"> LV. 4<Sword className="size-3.5" /></span></h2>
+            <p className="mt-5 max-w-md text-[16px] leading-relaxed text-[var(--qu-text-body)]">
               UI/UX Design · Web Design · Web Development
               <br />
               Crafting simple, engaging, and code-ready digital experiences.
@@ -354,13 +349,13 @@ export function HomePage({
             {/* Character stat HUD — de-emphasised easter egg */}
             <div className="mt-5 max-w-md rounded-xl border border-white/50 bg-white/40 px-3 py-2.5 backdrop-blur-md">
               <div className="mb-2 flex items-center gap-1.5">
-                <Shield className="size-3 text-[var(--hw-coral)] opacity-70" />
-                <span className="text-[10px] font-bold tracking-[0.2em] text-[var(--hw-slate)] opacity-80">CHARACTER STATS</span>
+                <Shield className="size-3 text-[var(--qu-text-accent)] opacity-70" />
+                <span className="text-[10px] font-bold tracking-[0.2em] text-[var(--qu-text-body)] opacity-80">CHARACTER STATS</span>
               </div>
               <div className="space-y-1.5">
-                <StatBar label="HP" value={95} color="var(--hw-coral)" glow="var(--hw-coral-glow)" compact />
-                <StatBar label="MP" value={88} color="var(--hw-rarity-rare)" glow="var(--hw-rare-glow)" compact />
-                <StatBar label="XP" value={72} color="var(--hw-rarity-legendary)" glow="var(--hw-legendary-glow)" compact />
+                <StatBar label="HP" value={95} color="var(--qu-coral-500)" glow="var(--hw-coral-glow)" compact />
+                <StatBar label="MP" value={88} color="var(--qu-rare-600)" glow="var(--hw-rare-glow)" compact />
+                <StatBar label="XP" value={72} color="var(--qu-gold-500)" glow="var(--hw-legendary-glow)" compact />
               </div>
             </div>
             <div className="mt-7 flex flex-wrap gap-3">
@@ -370,13 +365,13 @@ export function HomePage({
                     .getElementById("work")
                     ?.scrollIntoView({ behavior: "smooth", block: "start" })
                 }
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105 sm:flex-none"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[var(--qu-action-primary)] px-5 py-3 text-[14px] font-semibold text-[var(--qu-text-on-accent)] shadow-[var(--qu-shadow-glow-coral)] transition hover:brightness-105 sm:flex-none"
               >
                 View My Work <ArrowRight className="size-4" />
               </button>
               <button
                 onClick={() => openContact("Hello Henry")}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-[var(--hw-border-btn)] bg-white px-5 py-3 text-[14px] font-semibold text-[var(--hw-navy)] transition hover:bg-[var(--hw-cream-2)] sm:flex-none"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-[var(--qu-border-default)] bg-white px-5 py-3 text-[14px] font-semibold text-[var(--qu-text-heading)] transition hover:bg-[var(--qu-surface-inset)] sm:flex-none"
               >
                 Get in Touch <Mail className="size-4" />
               </button>
@@ -463,11 +458,11 @@ export function HomePage({
         </div>
 
         {/* Scroll-down indicator */}
-        <div className="mt-8 flex flex-col items-center gap-2 text-[var(--hw-slate)]">
+        <div className="mt-8 flex flex-col items-center gap-2 text-[var(--qu-text-body)]">
           <motion.span
             animate={{ y: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-            className="grid place-items-center rounded-full border border-white/70 bg-white/60 p-2 text-[var(--hw-coral)] shadow-[0_8px_20px_-12px_rgba(32,43,69,0.6)] backdrop-blur-md"
+            className="grid place-items-center rounded-full border border-white/70 bg-white/60 p-2 text-[var(--qu-text-accent)] shadow-[0_8px_20px_-12px_rgba(32,43,69,0.6)] backdrop-blur-md"
           >
             <Mouse className="size-5" />
           </motion.span>
@@ -483,8 +478,8 @@ export function HomePage({
           style={zoom.card}
           className="mt-10 rounded-3xl border border-white/70 bg-white/70 backdrop-blur-md p-5 shadow-[0_20px_50px_-40px_rgba(32,43,69,0.6)] md:p-6"
         >
-          <p className="flex items-center gap-2 text-[12px] font-semibold tracking-[0.18em] text-[var(--hw-coral)]">
-            <Star className="size-3.5 fill-[var(--hw-coral)]" /> FEATURED QUEST · BOSS BATTLE
+          <p className="flex items-center gap-2 text-[12px] font-semibold tracking-[0.18em] text-[var(--qu-text-accent)]">
+            <Star className="size-3.5 fill-[var(--qu-coral-500)]" /> FEATURED QUEST · BOSS BATTLE
           </p>
           <div className="mt-4 grid gap-6 md:grid-cols-2">
             <div>
@@ -494,9 +489,9 @@ export function HomePage({
                   alt="Bridgly icon"
                   className="size-12 rounded-xl object-contain"
                 />
-                <h3 className="text-[26px] text-[var(--hw-navy)]">Bridgly</h3>
+                <h3 className="text-[26px] text-[var(--qu-text-heading)]">Bridgly</h3>
               </div>
-              <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-[var(--hw-slate)]">
+              <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-[var(--qu-text-body)]">
                 A long-distance relationship app that helps couples stay
                 connected and feel closer.
               </p>
@@ -507,7 +502,7 @@ export function HomePage({
               </div>
               <button
                 onClick={() => onOpenProject(bridgly)}
-                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[var(--hw-coral)] px-4 py-2.5 text-[13px] font-semibold text-white transition hover:brightness-105"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[var(--qu-action-primary)] px-4 py-2.5 text-[13px] font-semibold text-[var(--qu-text-on-accent)] transition hover:brightness-105"
               >
                 View Case Study <ArrowRight className="size-4" />
               </button>
@@ -545,12 +540,12 @@ export function HomePage({
         </div>
 
         <div className="mt-8 flex items-center gap-3">
-          <span className="h-px flex-1 bg-[var(--hw-border)]" />
-          <p className="flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] text-[var(--hw-slate)]">
-            <Sparkles className="size-3.5 text-[var(--hw-coral)]" />
+          <span className="h-px flex-1 bg-[var(--qu-border-default)]" />
+          <p className="flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] text-[var(--qu-text-body)]">
+            <Sparkles className="size-3.5 text-[var(--qu-text-accent)]" />
             SIDE QUESTS · BONUS BUILDS
           </p>
-          <span className="h-px flex-1 bg-[var(--hw-border)]" />
+          <span className="h-px flex-1 bg-[var(--qu-border-default)]" />
         </div>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           {SIDE_QUESTS.map((quest, i) => (
@@ -595,7 +590,7 @@ export function HomePage({
 
       {/* Trademark footer */}
       <footer className="pb-8 pt-4 text-center">
-        <p className="text-[11px] tracking-[0.15em] text-[var(--hw-slate)] opacity-60">
+        <p className="text-[11px] tracking-[0.15em] text-[var(--qu-text-body)] opacity-60">
           © {new Date().getFullYear()} Henry Wu. All rights reserved.
         </p>
       </footer>
@@ -633,7 +628,7 @@ const SIDE_QUESTS: SideQuest[] = [
     url: "https://quest-ui-ebon.vercel.app/",
     tags: ["Design System", "Design Tokens", "Accessibility"],
     icon: SwatchBook,
-    accent: "var(--hw-navy)",
+    accent: "var(--qu-navy-900)",
     fx: "tokens",
   },
   {
@@ -643,7 +638,7 @@ const SIDE_QUESTS: SideQuest[] = [
     url: "https://edmonton-lrt-live.vercel.app/",
     tags: ["Web App", "Transit", "Live Data"],
     icon: LayoutGrid,
-    accent: "var(--hw-rarity-rare)",
+    accent: "var(--qu-rare-600)",
     fx: "lrt",
   },
   {
@@ -653,7 +648,7 @@ const SIDE_QUESTS: SideQuest[] = [
     url: "https://toronto-transit-live.vercel.app/",
     tags: ["Web App", "Transit", "3D Map"],
     icon: TrainFront,
-    accent: "var(--hw-rarity-legendary)",
+    accent: "var(--qu-gold-500)",
     fx: "subway",
   },
   {
@@ -663,7 +658,7 @@ const SIDE_QUESTS: SideQuest[] = [
     url: "https://arcline-landing-kappa.vercel.app/",
     tags: ["Web Design", "UI Design", "Landing Page"],
     icon: Zap,
-    accent: "var(--hw-coral)",
+    accent: "var(--qu-coral-500)",
     fx: "car",
   },
   {
@@ -673,7 +668,7 @@ const SIDE_QUESTS: SideQuest[] = [
     url: "https://stackyard-warehouse-ops.vercel.app/",
     tags: ["Web App", "Dashboard", "UX UI"],
     icon: BriefcaseBusiness,
-    accent: "var(--hw-rarity-epic)",
+    accent: "var(--qu-epic-600)",
     fx: "warehouse",
   },
   {
@@ -693,21 +688,21 @@ const SIDE_QUESTS: SideQuest[] = [
     url: "https://mern-project-job.onrender.com/landing",
     tags: ["Web App", "UX UI", "Development"],
     icon: BriefcaseBusiness,
-    accent: "var(--hw-rarity-rare)",
+    accent: "var(--qu-rare-600)",
     fx: "jobs",
   },
 ];
 
 /* Brush sparks burst from Henry's left-hand paintbrush (≈ 14% x, 44–56% y) */
 const BRUSH_SPARKS = [
-  { id: 1, x: "14%", y: "36%", size: "7px", color: "var(--hw-rarity-legendary)", duration: 1.2, delay: 0   },
-  { id: 2, x: "18%", y: "32%", size: "5px", color: "var(--hw-coral-soft)",        duration: 1.5, delay: 0.3 },
-  { id: 3, x: "10%", y: "40%", size: "6px", color: "var(--hw-rarity-epic)",       duration: 1.3, delay: 0.6 },
-  { id: 4, x: "20%", y: "42%", size: "4px", color: "var(--hw-sun-light)",         duration: 1.6, delay: 0.9 },
-  { id: 5, x: "16%", y: "29%", size: "5px", color: "var(--hw-rarity-rare)",       duration: 1.4, delay: 0.2 },
-  { id: 6, x: "12%", y: "45%", size: "6px", color: "var(--hw-coral)",             duration: 1.7, delay: 0.5 },
-  { id: 7, x: "19%", y: "26%", size: "4px", color: "var(--hw-sun-light)",         duration: 1.3, delay: 0.7 },
-  { id: 8, x: "8%",  y: "34%", size: "5px", color: "var(--hw-rarity-legendary)", duration: 1.5, delay: 1.0 },
+  { id: 1, x: "14%", y: "36%", size: "7px", color: "var(--qu-gold-500)", duration: 1.2, delay: 0   },
+  { id: 2, x: "18%", y: "32%", size: "5px", color: "var(--qu-coral-300)",        duration: 1.5, delay: 0.3 },
+  { id: 3, x: "10%", y: "40%", size: "6px", color: "var(--qu-epic-600)",       duration: 1.3, delay: 0.6 },
+  { id: 4, x: "20%", y: "42%", size: "4px", color: "var(--qu-sun-300)",         duration: 1.6, delay: 0.9 },
+  { id: 5, x: "16%", y: "29%", size: "5px", color: "var(--qu-rare-600)",       duration: 1.4, delay: 0.2 },
+  { id: 6, x: "12%", y: "45%", size: "6px", color: "var(--qu-coral-500)",             duration: 1.7, delay: 0.5 },
+  { id: 7, x: "19%", y: "26%", size: "4px", color: "var(--qu-sun-300)",         duration: 1.3, delay: 0.7 },
+  { id: 8, x: "8%",  y: "34%", size: "5px", color: "var(--qu-gold-500)", duration: 1.5, delay: 1.0 },
 ];
 
 const SPARKLES = [
@@ -758,7 +753,7 @@ function Bird({
         <path
           d="M2 12 Q10 2 20 11 Q30 2 38 12"
           fill="none"
-          stroke="var(--hw-slate)"
+          stroke="var(--qu-slate-600)"
           strokeWidth="2.4"
           strokeLinecap="round"
         />
@@ -809,7 +804,7 @@ function StatBar({
 }) {
   return (
     <div className="flex items-center gap-2">
-      <span className={`w-6 font-bold tracking-wider text-[var(--hw-slate)] ${compact ? "text-[10px] opacity-80" : "w-8 text-[10px]"}`}>
+      <span className={`w-6 font-bold tracking-wider text-[var(--qu-text-body)] ${compact ? "text-[10px] opacity-80" : "w-8 text-[10px]"}`}>
         {label}
       </span>
       <div className={`relative flex-1 overflow-hidden rounded-full bg-black/10 ${compact ? "h-1.5" : "h-3 ring-1 ring-white/60"}`}>
@@ -821,7 +816,7 @@ function StatBar({
           style={{ background: color, boxShadow: compact ? "none" : `0 0 10px ${glow}` }}
         />
       </div>
-      <span className={`text-right tabular-nums text-[var(--hw-navy)] ${compact ? "w-6 text-[10px] opacity-80" : "w-9 text-[10px] font-semibold"}`}>
+      <span className={`text-right tabular-nums text-[var(--qu-text-heading)] ${compact ? "w-6 text-[10px] opacity-80" : "w-9 text-[10px] font-semibold"}`}>
         {value}
       </span>
     </div>
@@ -839,21 +834,21 @@ function GameHeading({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="grid size-10 place-items-center rounded-xl border border-white/70 bg-white/70 text-[var(--hw-coral)] shadow-[0_0_16px_-4px_rgba(236,106,78,0.6)] backdrop-blur-md">
+      <span className="grid size-10 place-items-center rounded-xl border border-white/70 bg-white/70 text-[var(--qu-text-accent)] shadow-[0_0_16px_-4px_rgba(236,106,78,0.6)] backdrop-blur-md">
         {icon}
       </span>
       <div>
-        <p className="text-[10px] font-bold tracking-[0.28em] text-[var(--hw-coral)]">
+        <p className="text-[10px] font-bold tracking-[0.28em] text-[var(--qu-text-accent)]">
           {eyebrow}
         </p>
-        <h3 className="text-[20px] leading-none text-[var(--hw-navy)]">{title}</h3>
+        <h3 className="text-[20px] leading-none text-[var(--qu-text-heading)]">{title}</h3>
       </div>
     </div>
   );
 }
 
-const RARITY: Record<string, { label: string; color: string }> = {
-  bridgly: { label: "LEGENDARY", color: "var(--hw-rarity-legendary)" },
-  greenpath: { label: "EPIC", color: "var(--hw-rarity-epic)" },
-  studyflow: { label: "RARE", color: "var(--hw-rarity-rare)" },
+const RARITY: Record<string, { label: string; color: string; badge: string }> = {
+  bridgly: { label: "LEGENDARY", color: "var(--qu-rarity-legendary-bg)", badge: "qu-badge qu-badge--legendary" },
+  greenpath: { label: "EPIC", color: "var(--qu-rarity-epic-bg)", badge: "qu-badge qu-badge--epic" },
+  studyflow: { label: "RARE", color: "var(--qu-rarity-rare-bg)", badge: "qu-badge qu-badge--rare" },
 };

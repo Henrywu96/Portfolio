@@ -156,10 +156,10 @@ export function LegendaryCard({
             gap: 4,
             borderRadius: 6,
             padding: "3px 7px",
-            fontSize: 9,
+            fontSize: 11,
             fontWeight: 700,
-            letterSpacing: "0.14em",
-            color: "#fff",
+            letterSpacing: "0.1em",
+            color: "var(--qu-rarity-legendary-text)",
             background: "linear-gradient(135deg, #f2b705, #e6a400 55%, #c98a00)",
             boxShadow: "0 6px 14px -8px rgba(201,138,0,0.9)",
           }}

@@ -48,10 +48,10 @@ export function Navbar({
             className="size-10 object-contain drop-shadow-sm"
           />
           <span className="leading-tight">
-            <span className="block text-[15px] font-semibold tracking-wide text-[var(--hw-navy)]">
+            <span className="block text-[15px] font-semibold tracking-wide text-[var(--qu-text-heading)]">
               HENRY WU
             </span>
-            <span className="block text-[11px] tracking-[0.18em] text-[var(--hw-slate)]">
+            <span className="block text-[11px] tracking-[0.18em] text-[var(--qu-text-body)]">
               UI/UX DESIGNER
             </span>
           </span>
@@ -62,10 +62,10 @@ export function Navbar({
             <button
               key={item.label}
               onClick={() => handleNav(item)}
-              className="group relative text-[14px] text-[var(--hw-slate)] transition-colors hover:text-[var(--hw-coral)]"
+              className="group relative text-[14px] text-[var(--qu-text-body)] transition-colors hover:text-[var(--qu-text-accent)]"
             >
               {item.label}
-              <span className="absolute -bottom-1.5 left-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-[var(--hw-coral)] transition-transform duration-200 group-hover:scale-x-100" />
+              <span className="absolute -bottom-1.5 left-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-[var(--qu-coral-500)] transition-transform duration-200 group-hover:scale-x-100" />
             </button>
           ))}
         </nav>
@@ -89,7 +89,7 @@ export function Navbar({
             onClick={() => setMenuOpen((open) => !open)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="grid size-9 place-items-center rounded-lg text-[var(--hw-navy)] transition hover:text-[var(--hw-coral)] md:hidden"
+            className="grid size-9 place-items-center rounded-lg text-[var(--qu-text-heading)] transition hover:text-[var(--qu-text-accent)] md:hidden"
           >
             {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -105,7 +105,7 @@ export function Navbar({
                 setMenuOpen(false);
                 handleNav(item);
               }}
-              className="block w-full py-3 text-left text-[15px] text-[var(--hw-navy)] transition-colors hover:text-[var(--hw-coral)]"
+              className="block w-full py-3 text-left text-[15px] text-[var(--qu-text-heading)] transition-colors hover:text-[var(--qu-text-accent)]"
             >
               {item.label}
             </button>

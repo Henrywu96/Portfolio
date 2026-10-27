@@ -999,7 +999,7 @@ export const PROJECTS: Project[] = [
     image: ART.bridglyScene2,
     icon: "Heart",
     iconImage: ART.bridglyIcon2,
-    accent: "var(--hw-accent-bridgly)",
+    accent: "var(--qu-coral-500)",
     hasCaseStudy: true,
     caseStudy: bridglyCase,
   },

@@ -24,28 +24,28 @@ import {
 
 const RARITY: Record<
   string,
-  { label: string; color: string; level: number }
+  { label: string; badge: string; level: number }
 > = {
   bridgly: {
     label: "LEGENDARY",
-    color: "var(--hw-rarity-legendary)",
+    badge: "qu-badge qu-badge--legendary",
     level: 50,
   },
   greenpath: {
     label: "EPIC",
-    color: "var(--hw-rarity-epic)",
+    badge: "qu-badge qu-badge--epic",
     level: 38,
   },
   studyflow: {
     label: "RARE",
-    color: "var(--hw-rarity-rare)",
+    badge: "qu-badge qu-badge--rare",
     level: 27,
   },
 };
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-md bg-white px-2.5 py-1 text-[12px] text-[var(--hw-slate)] ring-1 ring-[var(--hw-border)]">
+    <span className="rounded-md bg-white px-2.5 py-1 text-[12px] text-[var(--qu-text-body)] ring-1 ring-[var(--qu-border-default)]">
       {children}
     </span>
   );
@@ -78,18 +78,18 @@ export function CaseStudyPage({
       : CASE_TABS;
   const rarity = RARITY[project.id] ?? {
     label: "COMMON",
-    color: "var(--hw-rarity-common)",
+    badge: "qu-badge",
     level: 10,
   };
   const chapter = tabs.indexOf(tab) + 1;
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[var(--hw-cream)] text-[var(--hw-navy)]">
-      <div className="border-b border-[var(--hw-border)] bg-[var(--hw-cream)]/85 backdrop-blur">
+    <div className="min-h-screen overflow-x-hidden bg-[var(--qu-surface-page)] text-[var(--qu-text-heading)]">
+      <div className="border-b border-[var(--qu-border-default)] bg-[var(--qu-surface-page)]/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-[14px] text-[var(--hw-slate)] transition hover:text-[var(--hw-navy)]"
+            className="inline-flex items-center gap-2 text-[14px] text-[var(--qu-text-body)] transition hover:text-[var(--qu-text-heading)]"
           >
             <ArrowLeft className="size-4" /> Back to Quest Log
           </button>
@@ -102,23 +102,18 @@ export function CaseStudyPage({
         const heading = (
           <>
             <div className="flex flex-wrap items-center gap-2">
-              <p className="flex items-center gap-1.5 text-[12px] font-semibold tracking-[0.2em] text-[var(--hw-coral)]">
+              <p className="flex items-center gap-1.5 text-[12px] font-semibold tracking-[0.2em] text-[var(--qu-text-accent)]">
                 <Scroll className="size-3.5" /> QUEST LOG
               </p>
-              <span
-                className="rounded-md px-2 py-0.5 text-[10px] font-bold tracking-wider text-white"
-                style={{ backgroundColor: rarity.color }}
-              >
-                {rarity.label}
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-md bg-[var(--hw-navy)] px-2 py-0.5 text-[10px] font-bold tracking-wider text-white">
+              <span className={rarity.badge}>{rarity.label}</span>
+              <span className="inline-flex items-center gap-1 rounded-md bg-[var(--qu-surface-dark)] px-2 py-0.5 text-[10px] font-bold tracking-wider text-white">
                 <Sword className="size-3" /> LV.{rarity.level}
               </span>
             </div>
-            <h1 className="mt-2 text-[36px] leading-none text-[var(--hw-navy)] sm:text-[48px] md:text-[52px]">
+            <h1 className="mt-2 text-[36px] leading-none text-[var(--qu-text-heading)] sm:text-[48px] md:text-[52px]">
               {project.name}
             </h1>
-            <p className="mt-3 max-w-md text-[17px] leading-relaxed text-[var(--hw-slate)]">
+            <p className="mt-3 max-w-md text-[17px] leading-relaxed text-[var(--qu-text-body)]">
               {cs.subtitle}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -130,7 +125,7 @@ export function CaseStudyPage({
         );
         const intro = (
           <>
-            <p className="max-w-md text-[14px] leading-relaxed text-[var(--hw-slate)]">
+            <p className="max-w-md text-[14px] leading-relaxed text-[var(--qu-text-body)]">
               {cs.intro}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -140,13 +135,13 @@ export function CaseStudyPage({
                     href={proto.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105"
+                    className="inline-flex items-center gap-2 rounded-xl bg-[var(--qu-action-primary)] px-5 py-3 text-[14px] font-semibold text-[var(--qu-text-on-accent)] shadow-[var(--qu-shadow-glow-coral)] transition hover:brightness-105"
                   >
                     View Prototype <ArrowRight className="size-4" />
                   </a>
                   <button
                     onClick={() => setShowProtoModal(true)}
-                    className="inline-flex items-center gap-2 rounded-xl border border-[var(--hw-border-btn)] bg-white px-5 py-3 text-[14px] font-semibold text-[var(--hw-navy)] transition hover:bg-[var(--hw-cream-2)]"
+                    className="inline-flex items-center gap-2 rounded-xl border border-[var(--qu-border-default)] bg-white px-5 py-3 text-[14px] font-semibold text-[var(--qu-text-heading)] transition hover:bg-[var(--qu-surface-inset)]"
                   >
                     Request a walkthrough
                   </button>
@@ -154,7 +149,7 @@ export function CaseStudyPage({
               ) : (
                 <button
                   onClick={() => setShowProtoModal(true)}
-                  className="inline-flex items-center gap-2 rounded-xl bg-[var(--hw-coral)] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(236,106,78,0.9)] transition hover:brightness-105"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[var(--qu-action-primary)] px-5 py-3 text-[14px] font-semibold text-[var(--qu-text-on-accent)] shadow-[var(--qu-shadow-glow-coral)] transition hover:brightness-105"
                 >
                   Request Prototype <ArrowRight className="size-4" />
                 </button>
@@ -169,7 +164,7 @@ export function CaseStudyPage({
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
-                className="overflow-hidden rounded-3xl border border-[var(--hw-border)] bg-[var(--hw-cream-2)]"
+                className="overflow-hidden rounded-3xl border border-[var(--qu-border-default)] bg-[var(--qu-surface-inset)]"
               >
                 <img
                   src={cs.coverImage}
@@ -223,7 +218,7 @@ export function CaseStudyPage({
                   }`}
                 />
                 {project.id === "bridgly" && (
-                  <Heart className="absolute right-6 top-6 z-10 size-8 fill-[var(--hw-coral)] text-[var(--hw-coral)] drop-shadow" />
+                  <Heart className="absolute right-6 top-6 z-10 size-8 fill-[var(--qu-coral-500)] text-[var(--qu-text-accent)] drop-shadow" />
                 )}
               </motion.div>
             </div>
@@ -233,11 +228,11 @@ export function CaseStudyPage({
 
       {/* TL;DR */}
       <section className="mx-auto mt-8 max-w-6xl px-5">
-        <div className="rounded-2xl border border-[var(--hw-border)] bg-white/70 p-5">
-          <p className="text-[11px] font-bold tracking-[0.2em] text-[var(--hw-coral)]">
+        <div className="rounded-2xl border border-[var(--qu-border-default)] bg-white/70 p-5">
+          <p className="text-[11px] font-bold tracking-[0.2em] text-[var(--qu-text-accent)]">
             TL;DR
           </p>
-          <div className="mt-3 divide-y divide-[var(--hw-border)]">
+          <div className="mt-3 divide-y divide-[var(--qu-border-default)]">
             {[
               ["Problem", cs.tldr.problem],
               ["What I did", cs.tldr.whatIDid],
@@ -247,10 +242,10 @@ export function CaseStudyPage({
                 key={label}
                 className="grid gap-1 py-3 first:pt-0 last:pb-0 sm:grid-cols-[110px_1fr] sm:gap-4"
               >
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--hw-slate)]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--qu-text-body)]">
                   {label}
                 </p>
-                <p className="text-[16px] leading-relaxed text-[var(--hw-navy)]">
+                <p className="text-[16px] leading-relaxed text-[var(--qu-text-heading)]">
                   {body}
                 </p>
               </div>
@@ -260,7 +255,7 @@ export function CaseStudyPage({
       </section>
 
       {/* Tabs */}
-      <div className="sticky top-0 z-30 mt-10 border-b border-[var(--hw-border)] bg-[var(--hw-cream)]/90 backdrop-blur">
+      <div className="sticky top-0 z-30 mt-10 border-b border-[var(--qu-border-default)] bg-[var(--qu-surface-page)]/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5">
           <div className="flex gap-6 overflow-x-auto">
             {tabs.map((t) => (
@@ -269,18 +264,18 @@ export function CaseStudyPage({
                 onClick={() => setTab(t)}
                 className={`relative whitespace-nowrap py-4 text-[14px] transition-colors ${
                   tab === t
-                    ? "text-[var(--hw-coral)]"
-                    : "text-[var(--hw-slate)] hover:text-[var(--hw-navy)]"
+                    ? "text-[var(--qu-text-accent)]"
+                    : "text-[var(--qu-text-body)] hover:text-[var(--qu-text-heading)]"
                 }`}
               >
                 {t}
                 {tab === t && (
-                  <span className="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-[var(--hw-coral)]" />
+                  <span className="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-[var(--qu-coral-500)]" />
                 )}
               </button>
             ))}
           </div>
-          <span className="hidden shrink-0 items-center gap-1.5 text-[11px] font-bold tracking-wider text-[var(--hw-slate)] sm:flex">
+          <span className="hidden shrink-0 items-center gap-1.5 text-[11px] font-bold tracking-wider text-[var(--qu-text-body)] sm:flex">
             CHAPTER {chapter}/{tabs.length}
           </span>
         </div>
@@ -315,13 +310,13 @@ export function CaseStudyPage({
             const idx = PROJECTS.findIndex((p) => p.id === project.id);
             const next = PROJECTS[(idx + 1) % PROJECTS.length];
             return (
-              <div className="mx-auto mt-16 max-w-6xl border-t border-[var(--hw-border)] pt-8">
-                <p className="text-[11px] font-bold tracking-[0.2em] text-[var(--hw-slate)]">
+              <div className="mx-auto mt-16 max-w-6xl border-t border-[var(--qu-border-default)] pt-8">
+                <p className="text-[11px] font-bold tracking-[0.2em] text-[var(--qu-text-body)]">
                   NEXT QUEST
                 </p>
                 <button
                   onClick={() => onNextProject(next)}
-                  className="group mt-3 flex w-full items-center justify-between gap-4 rounded-2xl border border-[var(--hw-border)] bg-white p-4 text-left transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-28px_rgba(32,43,69,0.65)]"
+                  className="group mt-3 flex w-full items-center justify-between gap-4 rounded-2xl border border-[var(--qu-border-default)] bg-white p-4 text-left transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-28px_rgba(32,43,69,0.65)]"
                 >
                   <span className="flex items-center gap-4">
                     {next.iconImage && (
@@ -332,15 +327,15 @@ export function CaseStudyPage({
                       />
                     )}
                     <span>
-                      <span className="block text-[16px] font-semibold text-[var(--hw-navy)]">
+                      <span className="block text-[16px] font-semibold text-[var(--qu-text-heading)]">
                         {next.name}
                       </span>
-                      <span className="block text-[13px] text-[var(--hw-slate)]">
+                      <span className="block text-[13px] text-[var(--qu-text-body)]">
                         {next.tagline}
                       </span>
                     </span>
                   </span>
-                  <ArrowRight className="size-5 shrink-0 text-[var(--hw-coral)] transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="size-5 shrink-0 text-[var(--qu-text-accent)] transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
             );
@@ -362,22 +357,22 @@ export function CaseStudyPage({
             }}
             onClick={(e) => e.stopPropagation()}
             className="relative mx-4 w-full max-w-sm rounded-2xl bg-white p-8 shadow-2xl"
-            style={{ border: "1.5px solid var(--hw-border)" }}
+            style={{ border: "1.5px solid var(--qu-border-default)" }}
           >
             {/* Icon */}
             <div
               className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
-              style={{ background: "var(--hw-peach)" }}
+              style={{ background: "var(--qu-peach-100)" }}
             >
               <Heart
                 className="size-7"
-                style={{ color: "var(--hw-coral)" }}
+                style={{ color: "var(--qu-coral-500)" }}
               />
             </div>
             <h3
               className="text-center text-[20px] font-bold leading-snug"
               style={{
-                color: "var(--hw-navy)",
+                color: "var(--qu-text-heading)",
                 fontFamily: "var(--font-display)",
               }}
             >
@@ -386,7 +381,7 @@ export function CaseStudyPage({
             <p
               className="mt-3 text-center text-[14px] leading-relaxed"
               style={{
-                color: "var(--hw-slate)",
+                color: "var(--qu-text-body)",
                 fontFamily: "var(--font-body)",
               }}
             >
@@ -401,7 +396,7 @@ export function CaseStudyPage({
               }}
               className="mt-6 w-full rounded-xl py-3 text-[14px] font-semibold text-white transition hover:brightness-105"
               style={{
-                background: "var(--hw-coral)",
+                background: "var(--qu-action-primary)",
                 fontFamily: "var(--font-body)",
               }}
             >
@@ -409,7 +404,7 @@ export function CaseStudyPage({
             </button>
             <button
               onClick={() => setShowProtoModal(false)}
-              className="w-full rounded-xl py-3 text-[14px] font-semibold text-[var(--hw-slate)] transition hover:bg-black/5"
+              className="w-full rounded-xl py-3 text-[14px] font-semibold text-[var(--qu-text-body)] transition hover:bg-black/5"
             >
               Close
             </button>
@@ -422,7 +417,7 @@ export function CaseStudyPage({
 
 function Kicker({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[12px] font-semibold tracking-[0.2em] text-[var(--hw-coral)]">
+    <p className="text-[12px] font-semibold tracking-[0.2em] text-[var(--qu-text-accent)]">
       {children}
     </p>
   );
@@ -442,7 +437,7 @@ function PhoneFrame({
   const pillH = tall ? 12 : 10;
   return (
     <div
-      className={`relative flex flex-col overflow-hidden rounded-[24px] border-[3px] border-[var(--hw-navy)] bg-white shadow-xl ${tall ? "h-72 w-40" : "h-60 w-[136px] opacity-90"}`}
+      className={`relative flex flex-col overflow-hidden rounded-[24px] border-[3px] border-[var(--qu-navy-900)] bg-white shadow-xl ${tall ? "h-72 w-40" : "h-60 w-[136px] opacity-90"}`}
     >
       {/* Status bar */}
       <div
@@ -597,7 +592,7 @@ function ScreenTriple({ screens }: { screens: [string, string, string] }) {
         {screens.map((src, i) => (
           <div
             key={src}
-            className={`overflow-hidden rounded-[22px] border-[3px] border-[var(--hw-navy)] bg-white shadow-xl ${
+            className={`overflow-hidden rounded-[22px] border-[3px] border-[var(--qu-navy-900)] bg-white shadow-xl ${
               i === 1 ? "w-[124px] sm:w-40" : "w-[104px] opacity-90 sm:w-[136px]"
             }`}
           >
@@ -850,10 +845,10 @@ function Overview({
       <div className="grid items-center gap-6 md:grid-cols-2">
         <div className="min-w-0">
           <Kicker>OVERVIEW</Kicker>
-          <h2 className="mt-2 break-words text-[26px] leading-tight text-[var(--hw-navy)] sm:text-[34px]">
+          <h2 className="mt-2 break-words text-[26px] leading-tight text-[var(--qu-text-heading)] sm:text-[34px]">
             {o.title}
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
+          <p className="mt-4 text-[15px] leading-relaxed text-[var(--qu-text-body)]">
             {o.body}
           </p>
         </div>
@@ -883,7 +878,7 @@ function Overview({
               {[0, 1, 2].map((i) => (
                 <div
                   key={i}
-                  className={`overflow-hidden rounded-[26px] border-4 border-[var(--hw-navy)] bg-black shadow-xl ${i === 1 ? "h-72 w-40" : "h-60 w-36 opacity-90"}`}
+                  className={`overflow-hidden rounded-[26px] border-4 border-[var(--qu-navy-900)] bg-black shadow-xl ${i === 1 ? "h-72 w-40" : "h-60 w-36 opacity-90"}`}
                 >
                   <ImageWithFallback
                     src={o.phoneImage}
@@ -903,12 +898,12 @@ function Overview({
           return (
             <div
               key={m.label}
-              className="rounded-2xl border border-[var(--hw-border)] bg-white p-4"
+              className="rounded-2xl border border-[var(--qu-border-default)] bg-white p-4"
             >
-              <p className="flex items-center gap-2 text-[12px] font-semibold tracking-wide text-[var(--hw-coral)]">
+              <p className="flex items-center gap-2 text-[12px] font-semibold tracking-wide text-[var(--qu-text-accent)]">
                 <Icon className="size-4" /> {m.label}
               </p>
-              <p className="mt-1 text-[14px] font-medium text-[var(--hw-navy)]">
+              <p className="mt-1 text-[14px] font-medium text-[var(--qu-text-heading)]">
                 {m.value}
               </p>
             </div>
@@ -917,15 +912,15 @@ function Overview({
       </div>
 
       <div
-        className={`grid items-center gap-8 rounded-3xl border border-[var(--hw-border)] bg-white p-6 ${
+        className={`grid items-center gap-8 rounded-3xl border border-[var(--qu-border-default)] bg-white p-6 ${
           o.problemVisual ? "" : "md:grid-cols-[1fr_200px]"
         }`}
       >
         <div>
-          <h3 className="text-[22px] text-[var(--hw-navy)]">
+          <h3 className="text-[22px] text-[var(--qu-text-heading)]">
             The Problem
           </h3>
-          <p className="mt-1 text-[14px] text-[var(--hw-slate)]">
+          <p className="mt-1 text-[14px] text-[var(--qu-text-body)]">
             {o.problemSub}
           </p>
           <div
@@ -946,21 +941,21 @@ function Overview({
                       className="mx-auto size-16 object-contain"
                     />
                   ) : (
-                    <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-[var(--hw-peach)] text-[var(--hw-coral)]">
+                    <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-[var(--qu-peach-100)] text-[var(--qu-text-accent)]">
                       <Icon className="size-5" />
                     </span>
                   )}
                   {p.description ? (
                     <>
-                      <p className="mt-2 text-[13px] font-semibold leading-snug text-[var(--hw-navy)]">
+                      <p className="mt-2 text-[13px] font-semibold leading-snug text-[var(--qu-text-heading)]">
                         {p.label}
                       </p>
-                      <p className="mt-1 text-[12px] leading-relaxed text-[var(--hw-slate)]">
+                      <p className="mt-1 text-[12px] leading-relaxed text-[var(--qu-text-body)]">
                         {p.description}
                       </p>
                     </>
                   ) : (
-                    <p className="mt-2 text-[12px] leading-snug text-[var(--hw-slate)]">
+                    <p className="mt-2 text-[12px] leading-snug text-[var(--qu-text-body)]">
                       {p.label}
                     </p>
                   )}
@@ -988,7 +983,7 @@ function Overview({
         <div>
           <Kicker>BREAKDOWN OF THE SOLUTION</Kicker>
           {o.solutionsTitle && (
-            <h3 className="mt-2 text-[22px] leading-tight text-[var(--hw-navy)]">
+            <h3 className="mt-2 text-[22px] leading-tight text-[var(--qu-text-heading)]">
               {o.solutionsTitle}
             </h3>
           )}
@@ -996,19 +991,19 @@ function Overview({
             {o.solutions.map((sol) => (
               <div
                 key={sol.title}
-                className="flex flex-col rounded-2xl border border-[var(--hw-border)] bg-white p-4"
+                className="flex flex-col rounded-2xl border border-[var(--qu-border-default)] bg-white p-4"
               >
-                <div className="rounded-xl bg-[var(--hw-cream)] px-6 pt-5">
+                <div className="rounded-xl bg-[var(--qu-surface-page)] px-6 pt-5">
                   <img
                     src={sol.image}
                     alt={sol.title}
-                    className="mx-auto block aspect-[390/600] w-full max-w-[180px] rounded-t-[18px] border-[3px] border-b-0 border-[var(--hw-navy)] object-cover object-top"
+                    className="mx-auto block aspect-[390/600] w-full max-w-[180px] rounded-t-[18px] border-[3px] border-b-0 border-[var(--qu-navy-900)] object-cover object-top"
                   />
                 </div>
-                <h4 className="mt-4 text-[16px] font-semibold text-[var(--hw-navy)]">
+                <h4 className="mt-4 text-[16px] font-semibold text-[var(--qu-text-heading)]">
                   {sol.title}
                 </h4>
-                <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
+                <p className="mt-1 text-[13px] leading-relaxed text-[var(--qu-text-body)]">
                   {sol.body}
                 </p>
               </div>
@@ -1028,10 +1023,10 @@ function Research({ cs }: { cs: CaseStudy }) {
       <div className="grid items-center gap-6 md:grid-cols-2">
         <div className="min-w-0">
           <Kicker>RESEARCH</Kicker>
-          <h2 className="mt-2 break-words text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
+          <h2 className="mt-2 break-words text-[24px] leading-tight text-[var(--qu-text-heading)] sm:text-[32px]">
             {r.title}
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
+          <p className="mt-4 text-[15px] leading-relaxed text-[var(--qu-text-body)]">
             {r.body}
           </p>
         </div>
@@ -1061,7 +1056,7 @@ function Research({ cs }: { cs: CaseStudy }) {
           return (
             <div
               key={m.title}
-              className="rounded-2xl border border-[var(--hw-border)] bg-white p-5"
+              className="rounded-2xl border border-[var(--qu-border-default)] bg-white p-5"
             >
               {m.image ? (
                 <img
@@ -1070,14 +1065,14 @@ function Research({ cs }: { cs: CaseStudy }) {
                   className="size-14 object-contain"
                 />
               ) : (
-                <span className="grid size-10 place-items-center rounded-xl bg-[var(--hw-peach)] text-[var(--hw-coral)]">
+                <span className="grid size-10 place-items-center rounded-xl bg-[var(--qu-peach-100)] text-[var(--qu-text-accent)]">
                   <Icon className="size-5" />
                 </span>
               )}
-              <h3 className="mt-3 text-[16px] text-[var(--hw-navy)]">
+              <h3 className="mt-3 text-[16px] text-[var(--qu-text-heading)]">
                 {m.title}
               </h3>
-              <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
+              <p className="mt-1 text-[13px] leading-relaxed text-[var(--qu-text-body)]">
                 {m.body}
               </p>
             </div>
@@ -1088,7 +1083,7 @@ function Research({ cs }: { cs: CaseStudy }) {
       {r.competitors && <Competitors c={r.competitors} />}
 
       <div className="mx-auto max-w-6xl">
-        <h3 className="text-[20px] text-[var(--hw-navy)]">
+        <h3 className="text-[20px] text-[var(--qu-text-heading)]">
           Key Insights
         </h3>
         <div className="mt-4 grid gap-4 sm:grid-cols-3">
@@ -1097,30 +1092,30 @@ function Research({ cs }: { cs: CaseStudy }) {
             return (
               <div
                 key={i}
-                className="rounded-2xl border border-[var(--hw-border)] bg-white p-6 text-center"
+                className="rounded-2xl border border-[var(--qu-border-default)] bg-white p-6 text-center"
               >
-                <span className="mx-auto grid size-14 place-items-center rounded-full bg-[var(--hw-peach)] text-[var(--hw-coral)]">
+                <span className="mx-auto grid size-14 place-items-center rounded-full bg-[var(--qu-peach-100)] text-[var(--qu-text-accent)]">
                   <Icon className="size-6" />
                 </span>
-                <p className="mt-3 text-[14px] leading-relaxed text-[var(--hw-navy)]">
+                <p className="mt-3 text-[14px] leading-relaxed text-[var(--qu-text-heading)]">
                   {ins.body}
                 </p>
                 {ins.means && (
-                  <div className="mt-4 space-y-3 border-t border-[var(--hw-border)] pt-4 text-left">
+                  <div className="mt-4 space-y-3 border-t border-[var(--qu-border-default)] pt-4 text-left">
                     <div>
-                      <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-slate)]">
+                      <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--qu-text-body)]">
                         WHAT IT MEANS
                       </p>
-                      <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
+                      <p className="mt-1 text-[13px] leading-relaxed text-[var(--qu-text-body)]">
                         {ins.means}
                       </p>
                     </div>
                     {ins.built && (
                       <div>
-                        <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral)]">
+                        <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--qu-text-accent)]">
                           WHAT I BUILT
                         </p>
-                        <p className="mt-1 text-[13px] font-medium leading-relaxed text-[var(--hw-navy)]">
+                        <p className="mt-1 text-[13px] font-medium leading-relaxed text-[var(--qu-text-heading)]">
                           {ins.built}
                         </p>
                       </div>
@@ -1134,8 +1129,8 @@ function Research({ cs }: { cs: CaseStudy }) {
       </div>
 
       {r.hmw && (
-        <div className="rounded-3xl bg-[var(--hw-navy)] p-6 text-white sm:p-8">
-          <p className="text-[12px] font-semibold tracking-[0.2em] text-[var(--hw-coral-soft)]">
+        <div className="rounded-3xl bg-[var(--qu-surface-dark)] p-6 text-white sm:p-8">
+          <p className="text-[12px] font-semibold tracking-[0.2em] text-[var(--qu-text-accent-on-dark)]">
             HOW MIGHT WE
           </p>
           <p className="mt-3 max-w-3xl text-[20px] font-semibold leading-snug sm:text-[24px]">
@@ -1144,7 +1139,7 @@ function Research({ cs }: { cs: CaseStudy }) {
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             {r.hmw.items.map((item, i) => (
               <div key={item} className="rounded-2xl bg-white/10 p-4">
-                <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral-soft)]">
+                <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--qu-text-accent-on-dark)]">
                   HMW 0{i + 1}
                 </p>
                 <p className="mt-2 text-[14px] leading-relaxed text-white/90">
@@ -1168,7 +1163,7 @@ function DirectionMockup({
   direction: "A" | "B" | "C";
 }) {
   const shell =
-    "mx-auto flex aspect-[9/16] w-full max-w-[76px] flex-col overflow-hidden rounded-[12px] border-2 border-[var(--hw-navy)]";
+    "mx-auto flex aspect-[9/16] w-full max-w-[76px] flex-col overflow-hidden rounded-[12px] border-2 border-[var(--qu-navy-900)]";
 
   if (projectId === "bridgly" && direction === "A") {
     return (
@@ -1348,16 +1343,16 @@ function DesignProcess({
       <div className="grid items-center gap-6 md:grid-cols-2">
         <div className="min-w-0">
           <Kicker>DESIGN PROCESS</Kicker>
-          <h2 className="mt-2 break-words text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
+          <h2 className="mt-2 break-words text-[24px] leading-tight text-[var(--qu-text-heading)] sm:text-[32px]">
             {p.title}
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
+          <p className="mt-4 text-[15px] leading-relaxed text-[var(--qu-text-body)]">
             {p.body}
           </p>
         </div>
         {p.imageContain ? (
           <figure className="min-w-0">
-            <div className="overflow-hidden rounded-3xl border border-[var(--hw-border)] bg-white p-3">
+            <div className="overflow-hidden rounded-3xl border border-[var(--qu-border-default)] bg-white p-3">
               <img
                 src={p.image}
                 alt={p.imageCaption ?? "Design process"}
@@ -1365,7 +1360,7 @@ function DesignProcess({
               />
             </div>
             {p.imageCaption && (
-              <figcaption className="mt-2 text-[13px] text-[var(--hw-slate)]">
+              <figcaption className="mt-2 text-[13px] text-[var(--qu-text-body)]">
                 {p.imageCaption}
               </figcaption>
             )}
@@ -1390,11 +1385,11 @@ function DesignProcess({
       {p.changes && (
         <div>
           <Kicker>ITERATIONS</Kicker>
-          <h3 className="mt-2 text-[20px] text-[var(--hw-navy)]">
+          <h3 className="mt-2 text-[20px] text-[var(--qu-text-heading)]">
             What changed between versions, and why
           </h3>
           <div className="mt-4 space-y-3">
-            <div className="hidden grid-cols-[1fr_1.3fr_1.3fr_1.3fr] gap-4 px-5 text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral)] md:grid">
+            <div className="hidden grid-cols-[1fr_1.3fr_1.3fr_1.3fr] gap-4 px-5 text-[10px] font-bold tracking-[0.16em] text-[var(--qu-text-accent)] md:grid">
               <span>AREA</span>
               <span>BEFORE (V1)</span>
               <span>AFTER (V2)</span>
@@ -1403,20 +1398,20 @@ function DesignProcess({
             {p.changes.map((c) => (
               <div
                 key={c.area}
-                className="grid gap-2 rounded-2xl border border-[var(--hw-border)] bg-white p-5 md:grid-cols-[1fr_1.3fr_1.3fr_1.3fr] md:items-center md:gap-4"
+                className="grid gap-2 rounded-2xl border border-[var(--qu-border-default)] bg-white p-5 md:grid-cols-[1fr_1.3fr_1.3fr_1.3fr] md:items-center md:gap-4"
               >
-                <p className="text-[15px] font-semibold text-[var(--hw-navy)]">
+                <p className="text-[15px] font-semibold text-[var(--qu-text-heading)]">
                   {c.area}
                 </p>
-                <p className="text-[13px] leading-relaxed text-[var(--hw-slate)]">
-                  <span className="mr-1 font-bold text-[var(--hw-slate)] md:hidden">Before:</span>
+                <p className="text-[13px] leading-relaxed text-[var(--qu-text-body)]">
+                  <span className="mr-1 font-bold text-[var(--qu-text-body)] md:hidden">Before:</span>
                   {c.before}
                 </p>
-                <p className="text-[13px] font-semibold leading-relaxed text-[var(--hw-navy)]">
-                  <span className="mr-1 font-bold text-[var(--hw-coral)] md:hidden">After:</span>
+                <p className="text-[13px] font-semibold leading-relaxed text-[var(--qu-text-heading)]">
+                  <span className="mr-1 font-bold text-[var(--qu-text-accent)] md:hidden">After:</span>
                   {c.after}
                 </p>
-                <p className="text-[13px] leading-relaxed text-[var(--hw-slate)]">
+                <p className="text-[13px] leading-relaxed text-[var(--qu-text-body)]">
                   <span className="mr-1 font-bold md:hidden">Why:</span>
                   {c.why}
                 </p>
@@ -1432,24 +1427,24 @@ function DesignProcess({
           return (
             <div
               key={s.title}
-              className="rounded-2xl border border-[var(--hw-border)] bg-white p-5"
+              className="rounded-2xl border border-[var(--qu-border-default)] bg-white p-5"
             >
               <div className="flex items-center gap-3">
-                <span className="grid size-10 place-items-center rounded-xl bg-[var(--hw-peach)] text-[var(--hw-coral)]">
+                <span className="grid size-10 place-items-center rounded-xl bg-[var(--qu-peach-100)] text-[var(--qu-text-accent)]">
                   <Icon className="size-5" />
                 </span>
-                <span className="text-[13px] font-semibold text-[var(--hw-coral)]">
+                <span className="text-[13px] font-semibold text-[var(--qu-text-accent)]">
                   Step {i + 1}
                 </span>
               </div>
-              <h3 className="mt-3 text-[16px] text-[var(--hw-navy)]">
+              <h3 className="mt-3 text-[16px] text-[var(--qu-text-heading)]">
                 {s.title}
               </h3>
-              <p className="mt-1 text-[13px] leading-relaxed text-[var(--hw-slate)]">
+              <p className="mt-1 text-[13px] leading-relaxed text-[var(--qu-text-body)]">
                 {s.body}
               </p>
               {s.image && (
-                <div className="mt-5 overflow-hidden rounded-xl border border-[var(--hw-border)] bg-[var(--hw-cream)]">
+                <div className="mt-5 overflow-hidden rounded-xl border border-[var(--qu-border-default)] bg-[var(--qu-surface-page)]">
                   <img
                     src={s.image}
                     alt={`${s.title}: directions A, B and C`}
@@ -1462,7 +1457,7 @@ function DesignProcess({
                   {s.directions.map((direction) => (
                     <div key={direction.label} className="min-w-0">
                       <div className="mb-2 flex min-h-5 items-center justify-between gap-1">
-                        <span className="text-[10px] font-bold tracking-[0.18em] text-[var(--hw-slate)]">
+                        <span className="text-[10px] font-bold tracking-[0.18em] text-[var(--qu-text-body)]">
                           {direction.label}
                         </span>
                         {direction.chosen && (
@@ -1474,7 +1469,7 @@ function DesignProcess({
                           </span>
                         )}
                         {direction.explored && (
-                          <span className="rounded bg-[var(--hw-navy)] px-1.5 py-0.5 text-[8px] font-bold tracking-wider text-white">
+                          <span className="rounded bg-[var(--qu-surface-dark)] px-1.5 py-0.5 text-[8px] font-bold tracking-wider text-white">
                             EXPLORED
                           </span>
                         )}
@@ -1485,10 +1480,10 @@ function DesignProcess({
                           direction={direction.label}
                         />
                       )}
-                      <p className="mt-2 text-[11px] font-semibold leading-tight text-[var(--hw-navy)]">
+                      <p className="mt-2 text-[11px] font-semibold leading-tight text-[var(--qu-text-heading)]">
                         {direction.title}
                       </p>
-                      <p className="mt-1 text-[10px] leading-relaxed text-[var(--hw-slate)]">
+                      <p className="mt-1 text-[10px] leading-relaxed text-[var(--qu-text-body)]">
                         {direction.verdict}
                       </p>
                     </div>
@@ -1510,21 +1505,21 @@ function Results({ cs }: { cs: CaseStudy }) {
     <div className="mx-auto max-w-6xl space-y-12">
       <div className="max-w-2xl">
         <Kicker>RESULTS</Kicker>
-        <h2 className="mt-2 text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
+        <h2 className="mt-2 text-[24px] leading-tight text-[var(--qu-text-heading)] sm:text-[32px]">
           {r.title}
         </h2>
-        <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
+        <p className="mt-4 text-[15px] leading-relaxed text-[var(--qu-text-body)]">
           {r.body}
         </p>
         {r.note && (
-          <p className="mt-3 text-[15px] leading-relaxed text-[var(--hw-slate)]">
+          <p className="mt-3 text-[15px] leading-relaxed text-[var(--qu-text-body)]">
             {r.note}
           </p>
         )}
       </div>
 
       <div className="mx-auto max-w-6xl">
-        <p className="mb-3 flex items-center gap-1.5 text-[12px] font-bold tracking-[0.2em] text-[var(--hw-coral)]">
+        <p className="mb-3 flex items-center gap-1.5 text-[12px] font-bold tracking-[0.2em] text-[var(--qu-text-accent)]">
           <Trophy className="size-4" /> TESTING FINDINGS
         </p>
         <div className="grid gap-4 sm:grid-cols-3">
@@ -1535,15 +1530,15 @@ function Results({ cs }: { cs: CaseStudy }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="rounded-2xl border border-[var(--hw-border)] bg-white p-5"
+              className="rounded-2xl border border-[var(--qu-border-default)] bg-white p-5"
             >
-              <span className="mb-3 grid size-9 place-items-center rounded-xl bg-[var(--hw-peach)] text-[var(--hw-coral)]">
+              <span className="mb-3 grid size-9 place-items-center rounded-xl bg-[var(--qu-peach-100)] text-[var(--qu-text-accent)]">
                 <Trophy className="size-4" />
               </span>
-              <p className="text-[15px] font-semibold leading-snug text-[var(--hw-navy)]">
+              <p className="text-[15px] font-semibold leading-snug text-[var(--qu-text-heading)]">
                 {s.value}
               </p>
-              <p className="mt-2 text-[13px] leading-relaxed text-[var(--hw-slate)]">
+              <p className="mt-2 text-[13px] leading-relaxed text-[var(--qu-text-body)]">
                 {s.label}
               </p>
             </motion.div>
@@ -1553,7 +1548,7 @@ function Results({ cs }: { cs: CaseStudy }) {
 
       {r.quote ? (
         <div className="grid overflow-hidden rounded-3xl md:grid-cols-[1fr_1.4fr]">
-          <div className="flex flex-col justify-between gap-6 bg-[var(--hw-navy)] p-6 text-white sm:p-8">
+          <div className="flex flex-col justify-between gap-6 bg-[var(--qu-surface-dark)] p-6 text-white sm:p-8">
             <p className="text-[26px] font-semibold leading-tight sm:text-[30px]">
               “{r.quote.text}”
             </p>
@@ -1576,12 +1571,12 @@ function Results({ cs }: { cs: CaseStudy }) {
       )}
 
       {r.next && (
-        <div className="rounded-3xl border border-[var(--hw-border)] bg-white p-6 sm:p-8">
+        <div className="rounded-3xl border border-[var(--qu-border-default)] bg-white p-6 sm:p-8">
           <Kicker>NEXT VALIDATION</Kicker>
-          <h3 className="mt-2 text-[22px] leading-tight text-[var(--hw-navy)]">
+          <h3 className="mt-2 text-[22px] leading-tight text-[var(--qu-text-heading)]">
             {r.next.title}
           </h3>
-          <p className="mt-2 text-[14px] leading-relaxed text-[var(--hw-slate)]">
+          <p className="mt-2 text-[14px] leading-relaxed text-[var(--qu-text-body)]">
             {r.next.body}
           </p>
           <div className="mt-6 grid gap-8 md:grid-cols-2">
@@ -1591,14 +1586,14 @@ function Results({ cs }: { cs: CaseStudy }) {
                   <span className="shrink-0 text-[15px] font-bold text-[var(--hw-accent-greenpath)]">
                     H{i + 1}
                   </span>
-                  <p className="text-[14px] leading-relaxed text-[var(--hw-navy)]">
+                  <p className="text-[14px] leading-relaxed text-[var(--qu-text-heading)]">
                     {h}
                   </p>
                 </div>
               ))}
             </div>
-            <div className="overflow-hidden rounded-2xl border border-[var(--hw-border)]">
-              <div className="grid grid-cols-[1.6fr_1fr_auto] gap-3 bg-[var(--hw-navy)] px-4 py-3 text-[12px] font-semibold text-white">
+            <div className="overflow-hidden rounded-2xl border border-[var(--qu-border-default)]">
+              <div className="grid grid-cols-[1.6fr_1fr_auto] gap-3 bg-[var(--qu-surface-dark)] px-4 py-3 text-[12px] font-semibold text-white">
                 <span>Task</span>
                 <span>Measure</span>
                 <span>Target</span>
@@ -1606,16 +1601,16 @@ function Results({ cs }: { cs: CaseStudy }) {
               {r.next.tasks.map((t) => (
                 <div
                   key={t.task}
-                  className="grid grid-cols-[1.6fr_1fr_auto] gap-3 border-t border-[var(--hw-border)] px-4 py-3 text-[13px] text-[var(--hw-navy)]"
+                  className="grid grid-cols-[1.6fr_1fr_auto] gap-3 border-t border-[var(--qu-border-default)] px-4 py-3 text-[13px] text-[var(--qu-text-heading)]"
                 >
                   <span>{t.task}</span>
-                  <span className="text-[var(--hw-slate)]">{t.measure}</span>
-                  <span className="font-bold text-[var(--hw-coral)]">{t.target}</span>
+                  <span className="text-[var(--qu-text-body)]">{t.measure}</span>
+                  <span className="font-bold text-[var(--qu-text-accent)]">{t.target}</span>
                 </div>
               ))}
             </div>
           </div>
-          <p className="mt-5 text-[12px] leading-relaxed text-[var(--hw-slate)]">
+          <p className="mt-5 text-[12px] leading-relaxed text-[var(--qu-text-body)]">
             <span className="font-bold tracking-[0.12em]">METHOD</span> · {r.next.method}
           </p>
         </div>
@@ -1631,10 +1626,10 @@ function Reflection({ cs, projectName }: { cs: CaseStudy; projectName: string })
     <div className="mx-auto max-w-6xl space-y-6">
       <div>
         <Kicker>REFLECTION</Kicker>
-        <h2 className="mt-2 text-[24px] leading-tight text-[var(--hw-navy)] sm:text-[32px]">
+        <h2 className="mt-2 text-[24px] leading-tight text-[var(--qu-text-heading)] sm:text-[32px]">
           {r.title}
         </h2>
-        <p className="mt-4 text-[15px] leading-relaxed text-[var(--hw-slate)]">
+        <p className="mt-4 text-[15px] leading-relaxed text-[var(--qu-text-body)]">
           {r.body}
         </p>
       </div>
@@ -1642,12 +1637,12 @@ function Reflection({ cs, projectName }: { cs: CaseStudy; projectName: string })
         {r.points.map((pt, i) => (
           <div
             key={i}
-            className="flex items-start gap-3 rounded-2xl border border-[var(--hw-border)] bg-white p-4"
+            className="flex items-start gap-3 rounded-2xl border border-[var(--qu-border-default)] bg-white p-4"
           >
-            <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-[var(--hw-peach)] text-[12px] font-semibold text-[var(--hw-coral)]">
+            <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-[var(--qu-peach-100)] text-[12px] font-semibold text-[var(--qu-text-accent)]">
               {i + 1}
             </span>
-            <p className="text-[14px] leading-relaxed text-[var(--hw-navy)]">
+            <p className="text-[14px] leading-relaxed text-[var(--qu-text-heading)]">
               {pt}
             </p>
           </div>
@@ -1659,24 +1654,24 @@ function Reflection({ cs, projectName }: { cs: CaseStudy; projectName: string })
           <div className="mt-3 grid gap-3 sm:grid-cols-3">
             {cs.resources.map((res) => {
               const cls =
-                "block rounded-2xl border border-[var(--hw-border)] bg-white p-4 text-left transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-28px_rgba(32,43,69,0.65)]";
+                "block rounded-2xl border border-[var(--qu-border-default)] bg-white p-4 text-left transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-28px_rgba(32,43,69,0.65)]";
               const inner = (
                 <>
-                  <span className="block text-[15px] font-semibold text-[var(--hw-navy)]">
+                  <span className="block text-[15px] font-semibold text-[var(--qu-text-heading)]">
                     {res.label}
                   </span>
                   <span
                     className={`mt-0.5 inline-flex items-center gap-1 text-[13px] ${
                       res.href
-                        ? "font-medium text-[var(--hw-coral)]"
-                        : "text-[var(--hw-slate)]"
+                        ? "font-medium text-[var(--qu-text-accent)]"
+                        : "text-[var(--qu-text-body)]"
                     }`}
                   >
                     {res.value}
                     {res.href && <ArrowRight className="size-3.5" />}
                   </span>
                   {res.request && (
-                    <span className="mt-1 block text-[11px] text-[var(--hw-slate)]">
+                    <span className="mt-1 block text-[11px] text-[var(--qu-text-body)]">
                       Email me to request it
                     </span>
                   )}
@@ -1743,46 +1738,46 @@ function Competitors({
   return (
     <div className="mx-auto max-w-6xl">
       <Kicker>COMPETITIVE ANALYSIS</Kicker>
-      <h3 className="mt-2 text-[22px] leading-tight text-[var(--hw-navy)]">
+      <h3 className="mt-2 text-[22px] leading-tight text-[var(--qu-text-heading)]">
         {c.title}
       </h3>
-      <p className="mt-1 text-[14px] text-[var(--hw-slate)]">{c.body}</p>
-      <div className="relative mt-5 overflow-x-auto rounded-2xl border border-[var(--hw-border)] bg-white">
+      <p className="mt-1 text-[14px] text-[var(--qu-text-body)]">{c.body}</p>
+      <div className="relative mt-5 overflow-x-auto rounded-2xl border border-[var(--qu-border-default)] bg-white">
         <div className="min-w-[760px]">
           <div className="grid" style={{ gridTemplateColumns: cols }}>
-            <div className="self-end px-4 py-4 text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral)]">
+            <div className="self-end px-4 py-4 text-[10px] font-bold tracking-[0.16em] text-[var(--qu-text-accent)]">
               WHAT COUPLES NEED
             </div>
             {c.apps.map((a) => (
               <div
                 key={a.name}
-                className={`px-4 py-4 ${a.me ? "bg-[var(--hw-peach)]/60" : ""}`}
+                className={`px-4 py-4 ${a.me ? "bg-[var(--qu-peach-100)]/60" : ""}`}
               >
                 <p
                   className={`text-[16px] font-semibold ${
-                    a.me ? "text-[var(--hw-coral)]" : "text-[var(--hw-navy)]"
+                    a.me ? "text-[var(--qu-text-accent)]" : "text-[var(--qu-text-heading)]"
                   }`}
                 >
                   {a.name}
                 </p>
-                <p className="text-[12px] text-[var(--hw-slate)]">{a.desc}</p>
+                <p className="text-[12px] text-[var(--qu-text-body)]">{a.desc}</p>
               </div>
             ))}
           </div>
           {c.rows.map((row) => (
             <div
               key={row.need}
-              className="grid border-t border-[var(--hw-border)]"
+              className="grid border-t border-[var(--qu-border-default)]"
               style={{ gridTemplateColumns: cols }}
             >
-              <div className="px-4 py-3 text-[13px] font-semibold text-[var(--hw-navy)]">
+              <div className="px-4 py-3 text-[13px] font-semibold text-[var(--qu-text-heading)]">
                 {row.need}
               </div>
               {row.cells.map((cell, i) => (
                 <div
                   key={i}
-                  className={`flex items-center gap-2 px-4 py-3 text-[13px] text-[var(--hw-navy)] ${
-                    c.apps[i]?.me ? "bg-[var(--hw-peach)]/60 font-medium" : ""
+                  className={`flex items-center gap-2 px-4 py-3 text-[13px] text-[var(--qu-text-heading)] ${
+                    c.apps[i]?.me ? "bg-[var(--qu-peach-100)]/60 font-medium" : ""
                   }`}
                 >
                   <LevelMark level={cell.level} />
@@ -1794,15 +1789,15 @@ function Competitors({
           ))}
         </div>
       </div>
-      <div className="mt-3 flex flex-wrap gap-4 text-[12px] text-[var(--hw-slate)]">
+      <div className="mt-3 flex flex-wrap gap-4 text-[12px] text-[var(--qu-text-body)]">
         {(["full", "partly", "none"] as Level[]).map((l) => (
           <span key={l} className="inline-flex items-center gap-1.5">
             <LevelMark level={l} /> {LEVEL_LABEL[l]}
           </span>
         ))}
       </div>
-      <div className="mt-4 flex flex-col gap-2 rounded-2xl bg-[var(--hw-navy)] p-5 text-white sm:flex-row sm:items-center sm:gap-5">
-        <span className="shrink-0 text-[11px] font-bold tracking-[0.18em] text-[var(--hw-coral-soft)]">
+      <div className="mt-4 flex flex-col gap-2 rounded-2xl bg-[var(--qu-surface-dark)] p-5 text-white sm:flex-row sm:items-center sm:gap-5">
+        <span className="shrink-0 text-[11px] font-bold tracking-[0.18em] text-[var(--qu-text-accent-on-dark)]">
           THE GAP
         </span>
         <p className="text-[15px] font-medium leading-relaxed">{c.gap}</p>
@@ -1821,38 +1816,38 @@ function Ideation({
     <div className="space-y-10">
       <div>
         <Kicker>IDEATING</Kicker>
-        <h3 className="mt-2 text-[22px] leading-tight text-[var(--hw-navy)]">
+        <h3 className="mt-2 text-[22px] leading-tight text-[var(--qu-text-heading)]">
           {d.title}
         </h3>
-        <p className="mt-1 text-[14px] text-[var(--hw-slate)]">{d.body}</p>
+        <p className="mt-1 text-[14px] text-[var(--qu-text-body)]">{d.body}</p>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {d.groups.map((g) => (
             <div
               key={g.hmw}
-              className="flex flex-col rounded-2xl border border-[var(--hw-border)] bg-white p-5"
+              className="flex flex-col rounded-2xl border border-[var(--qu-border-default)] bg-white p-5"
             >
-              <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral)]">
+              <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--qu-text-accent)]">
                 {g.hmw}
               </p>
-              <p className="mt-2 text-[15px] font-semibold leading-snug text-[var(--hw-navy)]">
+              <p className="mt-2 text-[15px] font-semibold leading-snug text-[var(--qu-text-heading)]">
                 {g.question}
               </p>
-              <p className="mt-4 border-t border-[var(--hw-border)] pt-4 text-[10px] font-bold tracking-[0.16em] text-[var(--hw-slate)]">
+              <p className="mt-4 border-t border-[var(--qu-border-default)] pt-4 text-[10px] font-bold tracking-[0.16em] text-[var(--qu-text-body)]">
                 IDEAS
               </p>
               <ul className="mt-2 mb-5 space-y-2">
                 {g.ideas.map((idea) => (
                   <li
                     key={idea}
-                    className="flex items-start gap-2 text-[13px] leading-relaxed text-[var(--hw-navy)]"
+                    className="flex items-start gap-2 text-[13px] leading-relaxed text-[var(--qu-text-heading)]"
                   >
                     <span className="mt-[7px] size-2 shrink-0 rounded-full bg-[#81B29A]" />
                     {idea}
                   </li>
                 ))}
               </ul>
-              <span className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--hw-peach)] px-3 py-1.5 text-[12px] font-semibold text-[var(--hw-navy)]">
-                <ArrowRight className="size-3.5 text-[var(--hw-coral)]" /> {g.area}
+              <span className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--qu-peach-100)] px-3 py-1.5 text-[12px] font-semibold text-[var(--qu-text-heading)]">
+                <ArrowRight className="size-3.5 text-[var(--qu-text-accent)]" /> {g.area}
               </span>
             </div>
           ))}
@@ -1860,13 +1855,13 @@ function Ideation({
       </div>
 
       <div>
-        <h3 className="text-[20px] text-[var(--hw-navy)]">{d.structureTitle}</h3>
-        <p className="mt-1 text-[14px] text-[var(--hw-slate)]">
+        <h3 className="text-[20px] text-[var(--qu-text-heading)]">{d.structureTitle}</h3>
+        <p className="mt-1 text-[14px] text-[var(--qu-text-body)]">
           {d.structureBody}
         </p>
         <div className="mt-5 grid gap-3 md:grid-cols-[180px_1fr]">
-          <div className="rounded-2xl bg-[var(--hw-navy)] p-4 text-white">
-            <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--hw-coral-soft)]">
+          <div className="rounded-2xl bg-[var(--qu-surface-dark)] p-4 text-white">
+            <p className="text-[10px] font-bold tracking-[0.16em] text-[var(--qu-text-accent-on-dark)]">
               START
             </p>
             <p className="mt-1 text-[16px] font-semibold">Onboarding</p>
@@ -1878,13 +1873,13 @@ function Ideation({
             {d.tabs.map((t, i) => (
               <div
                 key={t.name}
-                className={`rounded-2xl border border-[var(--hw-border)] p-4 ${
-                  i === 0 ? "bg-[var(--hw-peach)]/60" : "bg-white"
+                className={`rounded-2xl border border-[var(--qu-border-default)] p-4 ${
+                  i === 0 ? "bg-[var(--qu-peach-100)]/60" : "bg-white"
                 }`}
               >
                 <p
                   className={`text-[15px] font-semibold ${
-                    i === 0 ? "text-[var(--hw-coral)]" : "text-[var(--hw-navy)]"
+                    i === 0 ? "text-[var(--qu-text-accent)]" : "text-[var(--qu-text-heading)]"
                   }`}
                 >
                   {t.name}
@@ -1893,7 +1888,7 @@ function Ideation({
                   {t.items.map((it) => (
                     <li
                       key={it}
-                      className="flex items-start gap-2 text-[12px] leading-relaxed text-[var(--hw-navy)]"
+                      className="flex items-start gap-2 text-[12px] leading-relaxed text-[var(--qu-text-heading)]"
                     >
                       <span className="mt-[6px] size-1.5 shrink-0 rounded-full bg-[#81B29A]" />
                       {it}
@@ -1905,14 +1900,14 @@ function Ideation({
           </div>
         </div>
         <figure className="mt-5">
-          <div className="overflow-x-auto rounded-2xl border border-[var(--hw-border)] bg-[#F8F9FA]">
+          <div className="overflow-x-auto rounded-2xl border border-[var(--qu-border-default)] bg-[#F8F9FA]">
             <img
               src={d.wireframes.src}
               alt={d.wireframes.caption}
               className="block h-auto w-full min-w-[720px]"
             />
           </div>
-          <figcaption className="mt-2 text-[13px] text-[var(--hw-slate)]">
+          <figcaption className="mt-2 text-[13px] text-[var(--qu-text-body)]">
             {d.wireframes.caption}
           </figcaption>
         </figure>
