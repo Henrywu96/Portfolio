@@ -11,8 +11,6 @@ import {
   LayoutGrid,
   MousePointerClick,
   ClipboardCheck,
-  Target,
-  Wrench,
   Sparkles,
   Sword,
   Shield,
@@ -24,10 +22,15 @@ import {
   ExternalLink,
   TrainFront,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
-import { motion } from "motion/react";
+import { useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Navbar } from "./Navbar";
+import { LegendaryCard } from "./LegendaryCard";
+import { ScrollAway, ScrollReveal, ScrollXpBar, useZoomIn } from "./ScrollFx";
+import { CharacterSheet } from "./CharacterSheet";
+import { QuestFx, type QuestFxKind } from "./SideQuestFx";
+import { SkillCard } from "./SkillCard";
 import { ART, openContact } from "../assets";
 import { IMAGES, VISIBLE_PROJECTS, SKILLS, type Project } from "../data";
 
@@ -140,17 +143,23 @@ type SideQuest = {
   tags: string[];
   icon: typeof Coffee;
   accent: string;
+  /** the hover effect drawn behind the card */
+  fx: QuestFxKind;
 };
 
 function SideQuestCard({ quest }: { quest: SideQuest }) {
   const Icon = quest.icon;
 
   return (
-    <a
+    <motion.a
       href={quest.url}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Visit ${quest.name} live site`}
+      initial="rest"
+      animate="rest"
+      whileHover="hover"
+      whileFocus="hover"
       className="group relative flex min-h-44 w-full flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-5 text-left backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/80 hover:shadow-[0_18px_40px_-28px_rgba(32,43,69,0.65)]"
     >
       <span
@@ -158,6 +167,7 @@ function SideQuestCard({ quest }: { quest: SideQuest }) {
         className="absolute inset-x-0 top-0 h-1"
         style={{ backgroundColor: quest.accent }}
       />
+      <QuestFx kind={quest.fx} accent={quest.accent} />
       <span className="flex items-start justify-between gap-4">
         <span
           className="grid size-11 shrink-0 place-items-center rounded-xl"
@@ -181,24 +191,8 @@ function SideQuestCard({ quest }: { quest: SideQuest }) {
           <Tag key={tag}>{tag}</Tag>
         ))}
       </span>
-    </a>
+    </motion.a>
   );
-}
-
-function useInView(threshold = 0.12) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return [ref, inView] as const;
 }
 
 export function HomePage({
@@ -210,54 +204,33 @@ export function HomePage({
 }) {
   const bridgly = VISIBLE_PROJECTS[0];
 
-  // Parallax scroll — manual listener avoids framer-motion peer dependency
-  const [scrollY, setScrollY] = useState(0);
-  useEffect(() => {
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        setScrollY(window.scrollY);
-        ticking = false;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  // Parallax: Motion values follow the scroll directly, so scrolling never re-renders the page
+  const { scrollY } = useScroll();
+  const farCloudsY = useTransform(scrollY, [0, 600], [0, -50]);
+  const midCloudsY = useTransform(scrollY, [0, 600], [0, -110]);
+  const sparkY = useTransform(scrollY, [0, 800], [0, 220]);
+  const birdsY = useTransform(scrollY, [0, 600], [0, 90]);
+  const heroTextY = useTransform(scrollY, [0, 600], [0, -40]);
+  const foreCloudLeftY = useTransform(scrollY, [0, 600], [0, -170]);
+  const foreCloudRightY = useTransform(scrollY, [0, 600], [0, -210]);
+  const particlesY = useTransform(scrollY, [0, 900], [0, -260]);
 
-  const lerp = (sy: number, inMax: number, outMax: number) =>
-    Math.min(sy / inMax, 1) * outMax;
-
-  const sunY = lerp(scrollY, 600, 140);
-  const farCloudsY = lerp(scrollY, 600, -50);
-  const midCloudsY = lerp(scrollY, 600, -110);
-  const sparkY = lerp(scrollY, 800, 220);
-  const birdsY = lerp(scrollY, 600, 90);
-  const heroFiguresY = lerp(scrollY, 600, 90);
-  const heroTextY = lerp(scrollY, 600, -40);
-  const foreCloudLeftY = lerp(scrollY, 600, -170);
-  const foreCloudRightY = lerp(scrollY, 600, -210);
-  const particlesY = lerp(scrollY, 900, -260);
-
-  const [questRef, questInView] = useInView();
-  const [skillRef, skillInView] = useInView();
-  const [profileRef, profileInView] = useInView();
+  // the featured quest grows into place as it comes up the screen
+  const featuredRef = useRef<HTMLDivElement>(null);
+  const zoom = useZoomIn(featuredRef);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[var(--hw-sky-top)] via-[var(--hw-sky-mid)] to-[var(--hw-sky-bottom)] text-[var(--hw-navy)]">
+    <div className="relative min-h-screen overflow-x-clip bg-gradient-to-b from-[var(--hw-sky-top)] via-[var(--hw-sky-mid)] to-[var(--hw-sky-bottom)] text-[var(--hw-navy)]">
       {/* Lively sky backdrop */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         {/* Glowing sun halo */}
         <motion.div
-          style={{ y: sunY }}
           className="absolute -right-10 top-16 size-72 rounded-full bg-[radial-gradient(circle,rgba(255,214,150,0.85),rgba(255,214,150,0)_70%)]"
           animate={{ scale: [1, 1.08, 1], opacity: [0.8, 1, 0.8] }}
           transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
         />
         {/* Solid sun disc */}
         <motion.div
-          style={{ y: sunY }}
           className="absolute right-10 top-32 size-24 rounded-full bg-[radial-gradient(circle_at_35%_35%,#fff2cf,var(--hw-sun-light)_55%,var(--hw-sun-dark))] shadow-[0_0_40px_rgba(255,193,87,0.75)] ring-2 ring-white/40"
           animate={{ scale: [1, 1.04, 1] }}
           transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
@@ -265,7 +238,6 @@ export function HomePage({
 
         {/* Sun godrays */}
         <motion.div
-          style={{ y: sunY }}
           className="absolute -right-24 top-4 size-[420px] opacity-40 mix-blend-screen"
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 90, ease: "linear" }}
@@ -351,11 +323,13 @@ export function HomePage({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(120,150,190,0.14)_100%)]" />
       </div>
 
+      <ScrollXpBar />
       <div className="relative z-10">
         <Navbar onLogoClick={onLogo} active="Home" />
 
       {/* Hero */}
       <section id="home" className="mx-auto max-w-6xl px-5 pt-14 md:pt-20">
+        <ScrollAway>
         <div className="grid items-center gap-8 md:grid-cols-2">
           <motion.div style={{ y: heroTextY }}>
           <motion.div
@@ -410,7 +384,6 @@ export function HomePage({
           </motion.div>
 
           <motion.div
-            style={{ y: heroFiguresY }}
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
@@ -501,9 +474,14 @@ export function HomePage({
             SCROLL TO EXPLORE
           </span>
         </div>
+        </ScrollAway>
 
         {/* Featured project */}
-        <div className="mt-10 rounded-3xl border border-white/70 bg-white/70 backdrop-blur-md p-5 shadow-[0_20px_50px_-40px_rgba(32,43,69,0.6)] md:p-6">
+        <motion.div
+          ref={featuredRef}
+          style={zoom.card}
+          className="mt-10 rounded-3xl border border-white/70 bg-white/70 backdrop-blur-md p-5 shadow-[0_20px_50px_-40px_rgba(32,43,69,0.6)] md:p-6"
+        >
           <p className="flex items-center gap-2 text-[12px] font-semibold tracking-[0.18em] text-[var(--hw-coral)]">
             <Star className="size-3.5 fill-[var(--hw-coral)]" /> FEATURED QUEST · BOSS BATTLE
           </p>
@@ -533,34 +511,35 @@ export function HomePage({
                 View Case Study <ArrowRight className="size-4" />
               </button>
             </div>
-            <div className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--hw-rose-from)] to-[var(--hw-rose-to)] p-3">
-              <img
+            <LegendaryCard
+              className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--hw-rose-from)] to-[var(--hw-rose-to)] p-3"
+              style={{ height: "100%" }}
+            >
+              <motion.img
                 src={ART.bridglyScene2}
                 alt="Bridgly – couple connected across floating islands"
                 className="h-48 w-full object-contain"
+                style={{ z: 24, ...zoom.image }}
               />
-            </div>
+            </LegendaryCard>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Projects */}
       <section id="work" className="mx-auto mt-14 max-w-6xl px-5 scroll-mt-20">
-        <GameHeading
-          eyebrow="CASE STUDY"
-          title="Quest Log"
-          icon={<ScrollText className="size-5" />}
-        />
-        <div ref={questRef} className="mt-4 space-y-3">
+        <ScrollReveal>
+          <GameHeading
+            eyebrow="CASE STUDY"
+            title="Quest Log"
+            icon={<ScrollText className="size-5" />}
+          />
+        </ScrollReveal>
+        <div className="mt-4 space-y-3">
           {VISIBLE_PROJECTS.map((p, i) => (
-            <motion.div
-              key={p.id}
-              initial={{ opacity: 0, x: -40 }}
-              animate={questInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.9, delay: i * 0.18, ease: "easeOut" }}
-            >
+            <ScrollReveal key={p.id} lag={Math.min(i * 0.06, 0.2)}>
               <ProjectRow project={p} onOpen={onOpenProject} />
-            </motion.div>
+            </ScrollReveal>
           ))}
         </div>
 
@@ -574,86 +553,43 @@ export function HomePage({
         </div>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           {SIDE_QUESTS.map((quest, i) => (
-            <motion.div
-              key={quest.name}
-              initial={{ opacity: 0, y: 24 }}
-              animate={questInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 + i * 0.14, ease: "easeOut" }}
-            >
+            <ScrollReveal key={quest.name} lag={(i % 2) * 0.05}>
               <SideQuestCard quest={quest} />
-            </motion.div>
+            </ScrollReveal>
           ))}
         </div>
       </section>
 
       {/* Skills */}
       <section className="mx-auto mt-14 max-w-6xl px-5">
-        <GameHeading
-          eyebrow="ABILITIES UNLOCKED"
-          title="Skill Tree"
-          icon={<Zap className="size-5" />}
-        />
-        <div ref={skillRef} className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
-          {SKILLS.map((s, i) => {
-            const Icon = ICONS[s.icon] ?? Star;
-            return (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, x: -30 }}
-                animate={skillInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.12, ease: "easeOut" }}
-                className="flex flex-col items-center gap-2 rounded-2xl border border-white/70 bg-white/70 backdrop-blur-md px-3 py-5 text-center"
-              >
-                <span className="grid size-10 place-items-center rounded-xl bg-[var(--hw-peach)] text-[var(--hw-coral)]">
-                  <Icon className="size-5" />
-                </span>
-                <span className="text-[12px] font-medium text-[var(--hw-navy)]">
-                  {s.label}
-                </span>
-              </motion.div>
-            );
-          })}
+        <ScrollReveal>
+          <GameHeading
+            eyebrow="ABILITIES UNLOCKED"
+            title="Skill Tree"
+            icon={<Zap className="size-5" />}
+          />
+        </ScrollReveal>
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
+          {SKILLS.map((s, i) => (
+            <ScrollReveal key={s.label} lag={(i % 6) * 0.035} distance={40}>
+              <SkillCard label={s.label} icon={ICONS[s.icon] ?? Star} />
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
       {/* About */}
       <section id="about" className="mx-auto mt-14 max-w-6xl px-5 pb-32 scroll-mt-20">
-        <GameHeading
-          eyebrow="PLAYER PROFILE"
-          title="Character Sheet"
-          icon={<Shield className="size-5" />}
-        />
-        <motion.div
-          ref={profileRef}
-          initial={{ opacity: 0, y: 24 }}
-          animate={profileInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.0, ease: "easeOut" }}
-          className="mt-4 grid gap-6 rounded-3xl border border-white/70 bg-white/70 backdrop-blur-md p-6 md:grid-cols-[220px_1fr]"
-        >
-          <div className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--hw-cream-2)] to-[var(--hw-peach)] p-2">
-            <img
-              src={ART.aboutHenry}
-              alt="Henry Wu working at his desk"
-              className="h-44 w-full object-contain"
-            />
-          </div>
-          <div>
-            <h3 className="text-[22px] text-[var(--hw-navy)]">
-              UI/UX Designer. Hamster Lover. Problem Solver.
-            </h3>
-            <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-[var(--hw-slate)]">
-              I'm Henry Wu, a UI/UX designer who crafts meaningful digital experiences with empathy and curiosity. When I'm not designing, you'll find me hanging out with my hamster, gaming, or working out.
-            </p>
-            <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Fact icon={Target} label="Focus" value="UI/UX Design, Web Design" />
-              <Fact
-                icon={Wrench}
-                label="Tools"
-                value="Figma, Framer, FigJam, Maze, Notion, Spline, Lottie"
-              />
-            </div>
-          </div>
-        </motion.div>
+        <ScrollReveal>
+          <GameHeading
+            eyebrow="PLAYER PROFILE"
+            title="Character Sheet"
+            icon={<Shield className="size-5" />}
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <CharacterSheet image={ART.aboutHenry} />
+        </ScrollReveal>
       </section>
 
       {/* Trademark footer */}
@@ -687,6 +623,7 @@ const SIDE_QUESTS: SideQuest[] = [
     tags: ["3D Design", "Interaction", "Web Experience"],
     icon: Boxes,
     accent: "var(--hw-accent-greenpath)",
+    fx: "island",
   },
   {
     name: "Edmonton LRT Live",
@@ -696,6 +633,7 @@ const SIDE_QUESTS: SideQuest[] = [
     tags: ["Web App", "Transit", "Live Data"],
     icon: LayoutGrid,
     accent: "var(--hw-rarity-rare)",
+    fx: "lrt",
   },
   {
     name: "Toronto Transit Live",
@@ -705,6 +643,7 @@ const SIDE_QUESTS: SideQuest[] = [
     tags: ["Web App", "Transit", "3D Map"],
     icon: TrainFront,
     accent: "var(--hw-rarity-legendary)",
+    fx: "subway",
   },
   {
     name: "Arcline Automotive",
@@ -714,6 +653,7 @@ const SIDE_QUESTS: SideQuest[] = [
     tags: ["Web Design", "UI Design", "Landing Page"],
     icon: Zap,
     accent: "var(--hw-coral)",
+    fx: "car",
   },
   {
     name: "Stackyard Warehouse Ops",
@@ -723,6 +663,7 @@ const SIDE_QUESTS: SideQuest[] = [
     tags: ["Web App", "Dashboard", "UX UI"],
     icon: BriefcaseBusiness,
     accent: "var(--hw-rarity-epic)",
+    fx: "warehouse",
   },
   {
     name: "Emberline Coffee",
@@ -732,6 +673,7 @@ const SIDE_QUESTS: SideQuest[] = [
     tags: ["Web Design", "UI Design", "Branding"],
     icon: Coffee,
     accent: "var(--hw-accent-studyflow)",
+    fx: "coffee",
   },
   {
     name: "Job Tracking Web App",
@@ -741,6 +683,7 @@ const SIDE_QUESTS: SideQuest[] = [
     tags: ["Web App", "UX UI", "Development"],
     icon: BriefcaseBusiness,
     accent: "var(--hw-rarity-rare)",
+    fx: "jobs",
   },
 ];
 
@@ -835,25 +778,6 @@ function Cloud({
         </g>
       </svg>
     </motion.div>
-  );
-}
-
-function Fact({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: any;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-xl bg-[var(--hw-cream-2)] p-3">
-      <p className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-[var(--hw-slate)]">
-        <Icon className="size-3.5 text-[var(--hw-coral)]" /> {label}
-      </p>
-      <p className="mt-1 text-[13px] font-medium text-[var(--hw-navy)]">{value}</p>
-    </div>
   );
 }
 
